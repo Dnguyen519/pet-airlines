@@ -1,0 +1,14 @@
+{
+  "name": "pet-airlines",
+  "version": "1.0.0",
+  "description": "Pet Airlines - Global pet transportation services website",
+  "private": true,
+  "scripts": {
+    "dev": "live-server .",
+    "build": "echo 'Static site - no build needed'",
+    "start": "live-server ."
+  },
+  "keywords": ["pet", "airlines", "transportation", "travel"],
+  "author": "DVSN Studio",
+  "license": "MIT"
+}
