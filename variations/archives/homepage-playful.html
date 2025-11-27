@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Where Tails Wag at 30,000 Feet! 🐾✈️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes slideIn { 0% { transform: translateX(-100%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.5s ease-out; }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-pet-light to-white">
+    <!-- Playful Navigation -->
+    <nav class="bg-gradient-to-r from-pet-light to-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 animate-float">
+                    <svg class="h-12" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                        <path d="M58 31 Q60 32 62 31" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">PET</div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">AIRLINES</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Book Flight
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">✈️</span>
+                    </a>
+                    <a href="#" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Pet Travel
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">🐾</span>
+                    </a>
+                    <a href="#" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Safety
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">🛡️</span>
+                    </a>
+                    <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transition-all transform hover:scale-105 hover:shadow-lg">
+                        <span class="flex items-center gap-2">
+                            <span>Get Started</span>
+                            <span class="text-xl">🐕</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Playful Hero -->
+    <section class="relative overflow-hidden py-20">
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-pet-orange opacity-10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-pet-blue opacity-10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 text-center">
+            <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full mb-8 animate-bounce-slow">
+                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-medium text-pet-navy">Now boarding: All pets welcome!</span>
+            </div>
+            
+            <h1 class="text-6xl lg:text-7xl font-bold text-pet-navy mb-6">
+                Fly with Your
+                <div class="relative inline-block ml-4">
+                    <span class="text-pet-orange">Best Friend</span>
+                    <div class="absolute -top-8 -right-8 text-4xl animate-wiggle">🐕</div>
+                </div>
+            </h1>
+            
+            <p class="text-2xl text-gray-600 max-w-2xl mx-auto mb-8">
+                Where tails wag at 30,000 feet! Safe, fun, and pawsitively perfect travel.
+            </p>
+            
+            <div class="flex justify-center gap-6 mb-12">
+                <div class="text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" style="animation-delay: 0s">🐕</div>
+                <div class="text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" style="animation-delay: 0.2s">🐈</div>
+                <div class="text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" style="animation-delay: 0.4s">🦜</div>
+                <div class="text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" style="animation-delay: 0.6s">🐰</div>
+                <div class="text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" style="animation-delay: 0.8s">🐹</div>
+            </div>
+            
+            <div class="flex justify-center gap-4">
+                <button class="bg-pet-orange hover:bg-orange-500 text-white px-8 py-3 text-lg rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all group">
+                    <span class="flex items-center gap-2">
+                        Start Your Journey
+                        <span class="group-hover:translate-x-1 transition-transform">→</span>
+                    </span>
+                </button>
+                <button class="text-pet-navy hover:bg-pet-light px-8 py-3 text-lg rounded-pet font-medium transition-all">
+                    Watch Happy Pets
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun Services -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-pet-navy mb-4">
+                    Why Pets Love Us
+                    <span class="inline-block ml-2 text-3xl animate-wiggle">❤️</span>
+                </h2>
+                <p class="text-xl text-gray-600">Every flight is a tail-wagging adventure!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pet-orange opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-5xl animate-float mb-4">🏖️</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-3">Vacation Mode</h3>
+                        <p class="text-gray-600 mb-4">Comfy beds, tasty treats, and endless belly rubs during the flight!</p>
+                        <span class="inline-flex items-center gap-2 bg-pet-orange text-white px-4 py-2 rounded-full font-bold transform hover:scale-105 transition-all">
+                            <span class="animate-bounce">✨</span>
+                            Learn More
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-pet-blue opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-5xl animate-float mb-4" style="animation-delay: 0.3s">🎮</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-3">Pet Entertainment</h3>
+                        <p class="text-gray-600 mb-4">Interactive toys, pet TV shows, and calming music playlists!</p>
+                        <span class="inline-flex items-center gap-2 bg-pet-orange text-white px-4 py-2 rounded-full font-bold transform hover:scale-105 transition-all">
+                            <span class="animate-bounce">🎵</span>
+                            Explore
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 p-6 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-400 opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-5xl animate-float mb-4" style="animation-delay: 0.6s">🏥</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-3">Paw-some Care</h3>
+                        <p class="text-gray-600 mb-4">Vets, groomers, and cuddle experts on every single flight!</p>
+                        <span class="inline-flex items-center gap-2 bg-pet-orange text-white px-4 py-2 rounded-full font-bold transform hover:scale-105 transition-all">
+                            <span class="animate-bounce">💖</span>
+                            Discover
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Quick Book -->
+    <section class="py-20 bg-gradient-to-r from-pet-sky via-pet-light to-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white rounded-pet shadow-2xl p-8">
+                <h2 class="text-4xl font-bold text-pet-navy mb-8 text-center">
+                    Quick Paw Booking
+                    <span class="inline-block ml-2 text-3xl animate-wiggle">🐾</span>
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div class="group">
+                        <label class="text-pet-navy font-medium mb-2 block">Your Pet's Name</label>
+                        <input type="text" placeholder="e.g., Buddy, Luna, Max..." 
+                               class="w-full px-4 py-3 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all hover:border-pet-blue">
+                    </div>
+                    
+                    <div class="group">
+                        <label class="text-pet-navy font-medium mb-2 block">Pet Type</label>
+                        <select class="w-full px-4 py-3 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all hover:border-pet-blue">
+                            <option>🐕 Doggo</option>
+                            <option>🐈 Kitty Cat</option>
+                            <option>🦜 Birdie</option>
+                            <option>🐰 Bunny</option>
+                            <option>🐹 Hamster</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <p class="text-pet-navy font-medium mb-3">Choose Your Adventure:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue rounded-pet p-4 transition-all hover:shadow-lg">
+                            <span class="text-3xl group-hover:animate-wiggle block mb-1">🌴</span>
+                            <span class="text-sm text-pet-navy">Beach Trip</span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue rounded-pet p-4 transition-all hover:shadow-lg">
+                            <span class="text-3xl group-hover:animate-wiggle block mb-1">🏔️</span>
+                            <span class="text-sm text-pet-navy">Mountain</span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue rounded-pet p-4 transition-all hover:shadow-lg">
+                            <span class="text-3xl group-hover:animate-wiggle block mb-1">🏙️</span>
+                            <span class="text-sm text-pet-navy">City Visit</span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue rounded-pet p-4 transition-all hover:shadow-lg">
+                            <span class="text-3xl group-hover:animate-wiggle block mb-1">🏕️</span>
+                            <span class="text-sm text-pet-navy">Camping</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <button class="w-full bg-gradient-to-r from-pet-orange to-orange-500 hover:from-orange-500 hover:to-pet-orange text-white py-4 rounded-pet font-bold text-lg transform hover:scale-[1.02] hover:shadow-lg transition-all">
+                    <span class="flex items-center justify-center gap-2">
+                        Let's Fly!
+                        <span class="text-2xl animate-bounce">✈️</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Happy Customer Stories -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-pet-navy mb-4">
+                    Happy Tails
+                    <span class="inline-block ml-2 text-3xl animate-wiggle">🎉</span>
+                </h2>
+                <p class="text-xl text-gray-600">Stories from our furry frequent flyers!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-amber-50 to-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float">🐕</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Woof! Best flight ever! Got treats, made friends, and the humans were so nice! 10/10 would fly again!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center text-2xl">🐕</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Max</p>
+                            <p class="text-sm text-gray-500">Golden Retriever, Age 5</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float" style="animation-delay: 0.3s">🐈</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Purr-fection! The cabin was cozy, and they played bird videos. Even got a window seat!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-2xl">🐈</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Luna</p>
+                            <p class="text-sm text-gray-500">Persian Cat, Age 3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float" style="animation-delay: 0.6s">🦜</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Squawk! They let me sing the whole way! Other passengers loved my travel playlist!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-2xl">🦜</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Rio</p>
+                            <p class="text-sm text-gray-500">Parrot, Age 7</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fun CTA -->
+    <section class="py-20 bg-gradient-to-r from-pet-orange to-orange-500 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 text-8xl animate-float">✈️</div>
+            <div class="absolute top-20 right-20 text-6xl animate-float" style="animation-delay: 0.5s">🐾</div>
+            <div class="absolute bottom-10 left-1/4 text-7xl animate-float" style="animation-delay: 1s">🎉</div>
+            <div class="absolute bottom-20 right-1/4 text-6xl animate-float" style="animation-delay: 1.5s">❤️</div>
+        </div>
+        
+        <div class="relative max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-5xl font-bold mb-6">Ready for Takeoff?</h2>
+            <p class="text-2xl mb-8 opacity-90">Join the pack! Your pet's adventure is just one click away!</p>
+            <div class="flex flex-wrap gap-4 justify-center">
+                <button class="bg-white text-pet-orange hover:bg-gray-100 px-10 py-4 rounded-pet font-bold text-lg transform hover:scale-105 transition-all shadow-lg">
+                    <span class="flex items-center gap-2">
+                        Book Now
+                        <span class="text-2xl">🚀</span>
+                    </span>
+                </button>
+                <button class="border-2 border-white text-white hover:bg-white hover:text-pet-orange px-10 py-4 rounded-pet font-bold text-lg transform hover:scale-105 transition-all">
+                    <span class="flex items-center gap-2">
+                        Call Us
+                        <span class="text-2xl">📞</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Playful Footer -->
+    <footer class="bg-pet-navy text-white py-12 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-pet-blue opacity-10 rounded-full transform translate-x-32 -translate-y-32"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4">
+            <div class="text-center mb-8">
+                <div class="flex justify-center items-center gap-3 mb-4">
+                    <span class="text-4xl animate-wiggle">🐾</span>
+                    <h3 class="text-2xl font-bold">Pet Airlines</h3>
+                    <span class="text-4xl animate-wiggle" style="animation-delay: 0.5s">✈️</span>
+                </div>
+                <p class="opacity-80">Where every journey is a tail-wagging adventure!</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-6 mb-8 text-sm">
+                <a href="#" class="hover:text-pet-orange transition-colors">About</a>
+                <a href="#" class="hover:text-pet-orange transition-colors">Safety</a>
+                <a href="#" class="hover:text-pet-orange transition-colors">Careers</a>
+                <a href="#" class="hover:text-pet-orange transition-colors">Blog</a>
+                <a href="#" class="hover:text-pet-orange transition-colors">Contact</a>
+            </div>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <span class="text-3xl cursor-pointer hover:scale-125 transition-transform">📧</span>
+                <span class="text-3xl cursor-pointer hover:scale-125 transition-transform">📘</span>
+                <span class="text-3xl cursor-pointer hover:scale-125 transition-transform">📷</span>
+                <span class="text-3xl cursor-pointer hover:scale-125 transition-transform">🐦</span>
+            </div>
+            
+            <div class="text-center text-sm opacity-60">
+                © 2024 Pet Airlines. Made with ❤️ for pets everywhere.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

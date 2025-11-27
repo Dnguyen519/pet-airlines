@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Homepage Design Variations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { 0% { transform: translateX(-30px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out; }
+        .animate-slide-in { animation: slideIn 0.5s ease-out; }
+        
+        .variation-card {
+            transition: all 0.3s ease;
+        }
+        
+        .variation-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .preview-iframe {
+            transition: transform 0.3s ease;
+        }
+        
+        .preview-iframe:hover {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-pet-light to-white min-h-screen">
+    <!-- Header -->
+    <header class="bg-white/90 backdrop-blur shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3 animate-float">
+                    <svg class="h-12" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                        <path d="M58 31 Q60 32 62 31" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-2xl font-bold text-pet-navy">Pet Airlines</h1>
+                        <p class="text-sm text-gray-600">Homepage Design Variations</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <a href="../showcase-complete.html" class="text-pet-navy hover:text-pet-blue transition-colors font-medium">
+                        Component Library
+                    </a>
+                    <div class="flex items-center gap-2 bg-pet-light px-4 py-2 rounded-full">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        <span class="text-sm text-pet-navy font-medium">4 Variations Ready</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="py-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="animate-fade-in">
+                <h2 class="text-5xl font-bold text-pet-navy mb-6">
+                    Choose Your Perfect Design
+                    <span class="inline-block ml-2 text-3xl animate-float">✨</span>
+                </h2>
+                <p class="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+                    Explore four distinct homepage variations for Pet Airlines, each crafted with a unique approach to showcase the brand's fun, playful, and friendly personality.
+                </p>
+                
+                <div class="flex justify-center gap-8 mb-12">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2 animate-float">🎨</div>
+                        <p class="font-medium text-pet-navy">4 Unique Styles</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-2 animate-float" style="animation-delay: 0.3s">📱</div>
+                        <p class="font-medium text-pet-navy">Fully Responsive</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-4xl mb-2 animate-float" style="animation-delay: 0.6s">⚡</div>
+                        <p class="font-medium text-pet-navy">Interactive Elements</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Variations Grid -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Classic Professional -->
+                <div class="variation-card bg-white rounded-pet shadow-xl overflow-hidden animate-fade-in">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-pet-navy">Classic Professional</h3>
+                            <span class="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
+                                <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                Trustworthy
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Clean, professional layout focusing on trust and reliability. Perfect for establishing credibility with pet parents.
+                        </p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🏢</div>
+                                <p class="text-sm font-medium text-gray-700">Corporate</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🛡️</div>
+                                <p class="text-sm font-medium text-gray-700">Secure</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">📊</div>
+                                <p class="text-sm font-medium text-gray-700">Data-Driven</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <a href="homepage-classic.html" target="_blank" class="flex-1 bg-pet-blue hover:bg-blue-600 text-white py-3 px-4 rounded-full font-medium text-center transition-all transform hover:scale-105">
+                                View Live Demo
+                            </a>
+                            <button onclick="showPreview('homepage-classic.html')" class="border-2 border-pet-blue text-pet-blue hover:bg-pet-blue hover:text-white py-3 px-4 rounded-full font-medium transition-all">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="aspect-video bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center overflow-hidden">
+                        <iframe src="homepage-classic.html" class="w-full h-full scale-50 origin-top-left preview-iframe" style="width: 200%; height: 200%;"></iframe>
+                    </div>
+                </div>
+
+                <!-- Playful & Fun -->
+                <div class="variation-card bg-white rounded-pet shadow-xl overflow-hidden animate-fade-in" style="animation-delay: 0.2s">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-pet-navy">Playful & Fun</h3>
+                            <span class="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-medium">
+                                <span class="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
+                                Energetic
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Vibrant and animated design with pet emojis, playful interactions, and a joyful tone throughout the experience.
+                        </p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🎉</div>
+                                <p class="text-sm font-medium text-gray-700">Animated</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🌈</div>
+                                <p class="text-sm font-medium text-gray-700">Colorful</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">😊</div>
+                                <p class="text-sm font-medium text-gray-700">Friendly</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <a href="homepage-playful.html" target="_blank" class="flex-1 bg-pet-orange hover:bg-orange-500 text-white py-3 px-4 rounded-full font-medium text-center transition-all transform hover:scale-105">
+                                View Live Demo
+                            </a>
+                            <button onclick="showPreview('homepage-playful.html')" class="border-2 border-pet-orange text-pet-orange hover:bg-pet-orange hover:text-white py-3 px-4 rounded-full font-medium transition-all">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="aspect-video bg-gradient-to-br from-pet-light to-orange-50 flex items-center justify-center overflow-hidden">
+                        <iframe src="homepage-playful.html" class="w-full h-full scale-50 origin-top-left preview-iframe" style="width: 200%; height: 200%;"></iframe>
+                    </div>
+                </div>
+
+                <!-- Minimal Modern -->
+                <div class="variation-card bg-white rounded-pet shadow-xl overflow-hidden animate-fade-in" style="animation-delay: 0.4s">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-pet-navy">Minimal Modern</h3>
+                            <span class="inline-flex items-center gap-2 bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
+                                <span class="w-2 h-2 bg-gray-500 rounded-full"></span>
+                                Clean
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Sophisticated minimalist approach with generous white space, clean typography, and subtle interactions.
+                        </p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">✨</div>
+                                <p class="text-sm font-medium text-gray-700">Elegant</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🎯</div>
+                                <p class="text-sm font-medium text-gray-700">Focused</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">⚡</div>
+                                <p class="text-sm font-medium text-gray-700">Fast</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <a href="homepage-minimal.html" target="_blank" class="flex-1 bg-gray-800 hover:bg-gray-700 text-white py-3 px-4 rounded-full font-medium text-center transition-all transform hover:scale-105">
+                                View Live Demo
+                            </a>
+                            <button onclick="showPreview('homepage-minimal.html')" class="border-2 border-gray-800 text-gray-800 hover:bg-gray-800 hover:text-white py-3 px-4 rounded-full font-medium transition-all">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="aspect-video bg-gradient-to-br from-gray-50 to-white flex items-center justify-center overflow-hidden">
+                        <iframe src="homepage-minimal.html" class="w-full h-full scale-50 origin-top-left preview-iframe" style="width: 200%; height: 200%;"></iframe>
+                    </div>
+                </div>
+
+                <!-- Interactive Experience -->
+                <div class="variation-card bg-white rounded-pet shadow-xl overflow-hidden animate-fade-in" style="animation-delay: 0.6s">
+                    <div class="p-6 border-b border-gray-100">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-2xl font-bold text-pet-navy">Interactive Experience</h3>
+                            <span class="inline-flex items-center gap-2 bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-medium">
+                                <span class="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></span>
+                                Dynamic
+                            </span>
+                        </div>
+                        <p class="text-gray-600 mb-6">
+                            Advanced interactive elements including booking wizards, live counters, and dynamic content that responds to user actions.
+                        </p>
+                        
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🎮</div>
+                                <p class="text-sm font-medium text-gray-700">Interactive</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">🔄</div>
+                                <p class="text-sm font-medium text-gray-700">Dynamic</p>
+                            </div>
+                            <div class="text-center p-3 bg-gray-50 rounded-lg">
+                                <div class="text-2xl mb-1">💫</div>
+                                <p class="text-sm font-medium text-gray-700">Engaging</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex gap-3">
+                            <a href="homepage-interactive.html" target="_blank" class="flex-1 bg-gradient-to-r from-pet-blue to-purple-600 hover:from-purple-600 hover:to-pet-blue text-white py-3 px-4 rounded-full font-medium text-center transition-all transform hover:scale-105">
+                                View Live Demo
+                            </a>
+                            <button onclick="showPreview('homepage-interactive.html')" class="border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white py-3 px-4 rounded-full font-medium transition-all">
+                                Preview
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="aspect-video bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center overflow-hidden">
+                        <iframe src="homepage-interactive.html" class="w-full h-full scale-50 origin-top-left preview-iframe" style="width: 200%; height: 200%;"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="py-20 bg-white/50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-bold text-pet-navy mb-4">Design Comparison</h3>
+                <p class="text-xl text-gray-600">See how each variation addresses different user needs</p>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full bg-white rounded-pet shadow-lg overflow-hidden">
+                    <thead class="bg-pet-navy text-white">
+                        <tr>
+                            <th class="px-6 py-4 text-left">Feature</th>
+                            <th class="px-6 py-4 text-center">Classic</th>
+                            <th class="px-6 py-4 text-center">Playful</th>
+                            <th class="px-6 py-4 text-center">Minimal</th>
+                            <th class="px-6 py-4 text-center">Interactive</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-6 py-4 font-medium text-pet-navy">Trust & Credibility</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-pet-navy">Fun & Engagement</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                            <td class="px-6 py-4 text-center text-gray-400">★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-medium text-pet-navy">Load Speed</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">★★★</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-6 py-4 font-medium text-pet-navy">Mobile Experience</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                        </tr>
+                        <tr>
+                            <td class="px-6 py-4 font-medium text-pet-navy">Conversion Focus</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                            <td class="px-6 py-4 text-center text-yellow-500">★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★</td>
+                            <td class="px-6 py-4 text-center text-green-500">★★★★★</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-pet p-4 max-w-6xl max-h-screen w-full mx-4 overflow-hidden">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="preview-title" class="text-2xl font-bold text-pet-navy">Preview</h3>
+                <button onclick="closePreview()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden">
+                <iframe id="preview-iframe" class="w-full h-full" src=""></iframe>
+            </div>
+            <div class="mt-4 text-center">
+                <a id="preview-link" href="#" target="_blank" class="inline-flex items-center gap-2 bg-pet-blue hover:bg-blue-600 text-white px-6 py-3 rounded-full font-medium transition-all">
+                    Open in New Tab
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPreview(filename) {
+            const modal = document.getElementById('preview-modal');
+            const iframe = document.getElementById('preview-iframe');
+            const title = document.getElementById('preview-title');
+            const link = document.getElementById('preview-link');
+            
+            const titles = {
+                'homepage-classic.html': 'Classic Professional Design',
+                'homepage-playful.html': 'Playful & Fun Design',
+                'homepage-minimal.html': 'Minimal Modern Design',
+                'homepage-interactive.html': 'Interactive Experience Design'
+            };
+            
+            title.textContent = titles[filename] || 'Preview';
+            iframe.src = filename;
+            link.href = filename;
+            modal.classList.remove('hidden');
+        }
+        
+        function closePreview() {
+            const modal = document.getElementById('preview-modal');
+            const iframe = document.getElementById('preview-iframe');
+            modal.classList.add('hidden');
+            iframe.src = '';
+        }
+        
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closePreview();
+            }
+        });
+        
+        // Close modal on backdrop click
+        document.getElementById('preview-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) {
+                closePreview();
+            }
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-pet-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-3 mb-6">
+                <svg class="h-8" viewBox="0 0 100 60" fill="none">
+                    <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                          fill="#3B9AE1" stroke="white" stroke-width="2"/>
+                    <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                          fill="#FFA366" stroke="white" stroke-width="2"/>
+                    <circle cx="55" cy="28" r="8" fill="white" stroke="white" stroke-width="2"/>
+                    <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                </svg>
+                <div>
+                    <h4 class="text-xl font-bold">Pet Airlines</h4>
+                    <p class="text-sm opacity-80">Design Variations Showcase</p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-6 mb-8">
+                <div>
+                    <h5 class="font-bold mb-2">Variations</h5>
+                    <ul class="space-y-1 text-sm opacity-80">
+                        <li><a href="homepage-classic.html" class="hover:opacity-100">Classic Professional</a></li>
+                        <li><a href="homepage-playful.html" class="hover:opacity-100">Playful & Fun</a></li>
+                        <li><a href="homepage-minimal.html" class="hover:opacity-100">Minimal Modern</a></li>
+                        <li><a href="homepage-interactive.html" class="hover:opacity-100">Interactive Experience</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-2">Components</h5>
+                    <ul class="space-y-1 text-sm opacity-80">
+                        <li><a href="../showcase-complete.html" class="hover:opacity-100">Component Library</a></li>
+                        <li><a href="../components/" class="hover:opacity-100">Source Files</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-2">Features</h5>
+                    <ul class="space-y-1 text-sm opacity-80">
+                        <li>Responsive Design</li>
+                        <li>Interactive Elements</li>
+                        <li>Brand Consistency</li>
+                        <li>Performance Optimized</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold mb-2">Tech Stack</h5>
+                    <ul class="space-y-1 text-sm opacity-80">
+                        <li>HTML5 & CSS3</li>
+                        <li>Tailwind CSS</li>
+                        <li>Vanilla JavaScript</li>
+                        <li>Responsive Design</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/20 pt-8 text-sm opacity-60">
+                © 2024 Pet Airlines Design System. Created with ❤️ for pets everywhere.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

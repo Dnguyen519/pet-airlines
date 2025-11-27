@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Component Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        
+        .component-preview {
+            transition: all 0.3s ease;
+        }
+        
+        .component-preview:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .code-block {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .nav-active {
+            background: linear-gradient(to right, #E8F4FB, white);
+            border-left: 4px solid #3B9AE1;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sticky Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <svg class="h-10" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                    </svg>
+                    <div>
+                        <h1 class="text-xl font-bold text-pet-navy">Pet Airlines</h1>
+                        <p class="text-sm text-gray-600">Component Documentation</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center gap-4">
+                    <a href="homepage-final.html" class="text-pet-navy hover:text-pet-blue font-medium">Final Design</a>
+                    <a href="index.html" class="text-pet-navy hover:text-pet-blue font-medium">All Variations</a>
+                    <span class="bg-pet-orange text-white px-3 py-1 rounded-full text-sm font-medium">v1.0</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white h-screen sticky top-16 shadow-lg overflow-y-auto">
+            <div class="p-6">
+                <h3 class="font-bold text-pet-navy mb-4">Components</h3>
+                <nav class="space-y-1">
+                    <a href="#overview" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Overview</a>
+                    <a href="#design-system" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Design System</a>
+                    <a href="#buttons" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Buttons</a>
+                    <a href="#forms" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Form Components</a>
+                    <a href="#booking-form" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Interactive Booking</a>
+                    <a href="#cards" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Cards</a>
+                    <a href="#navigation" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Navigation</a>
+                    <a href="#animations" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Animations</a>
+                    <a href="#usage" class="nav-link block px-3 py-2 rounded text-sm text-gray-600 hover:bg-pet-light">Usage Guidelines</a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 max-w-5xl">
+            <!-- Overview -->
+            <section id="overview" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8 mb-8">
+                    <h2 class="text-4xl font-bold text-pet-navy mb-4 flex items-center gap-3">
+                        Pet Airlines Design System
+                        <span class="text-4xl animate-float">🐾</span>
+                    </h2>
+                    <p class="text-xl text-gray-600 mb-6">
+                        A playful, friendly, and interactive component library designed specifically for Pet Airlines. 
+                        Built with React, TypeScript, and Tailwind CSS.
+                    </p>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="text-center p-4 bg-pet-light/30 rounded-pet">
+                            <div class="text-3xl mb-2 animate-wiggle">🎨</div>
+                            <h3 class="font-bold text-pet-navy">Playful Design</h3>
+                            <p class="text-sm text-gray-600">Fun animations and pet-themed elements</p>
+                        </div>
+                        <div class="text-center p-4 bg-pet-light/30 rounded-pet">
+                            <div class="text-3xl mb-2 animate-float">⚡</div>
+                            <h3 class="font-bold text-pet-navy">Interactive</h3>
+                            <p class="text-sm text-gray-600">Engaging user interactions and feedback</p>
+                        </div>
+                        <div class="text-center p-4 bg-pet-light/30 rounded-pet">
+                            <div class="text-3xl mb-2">🔧</div>
+                            <h3 class="font-bold text-pet-navy">Modular</h3>
+                            <p class="text-sm text-gray-600">Reusable and customizable components</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design System -->
+            <section id="design-system" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Design System</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Colors -->
+                        <div>
+                            <h3 class="text-xl font-bold text-pet-navy mb-4">Color Palette</h3>
+                            <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                                <div class="text-center">
+                                    <div class="w-full h-20 bg-pet-blue rounded-pet mb-2 shadow-md"></div>
+                                    <p class="text-sm font-medium">Pet Blue</p>
+                                    <p class="text-xs text-gray-500">#3B9AE1</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-full h-20 bg-pet-navy rounded-pet mb-2 shadow-md"></div>
+                                    <p class="text-sm font-medium">Pet Navy</p>
+                                    <p class="text-xs text-gray-500">#1B3A5F</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-full h-20 bg-pet-orange rounded-pet mb-2 shadow-md"></div>
+                                    <p class="text-sm font-medium">Pet Orange</p>
+                                    <p class="text-xs text-gray-500">#FFA366</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-full h-20 bg-pet-light rounded-pet mb-2 shadow-md"></div>
+                                    <p class="text-sm font-medium">Pet Light</p>
+                                    <p class="text-xs text-gray-500">#E8F4FB</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-full h-20 bg-pet-sky rounded-pet mb-2 shadow-md"></div>
+                                    <p class="text-sm font-medium">Pet Sky</p>
+                                    <p class="text-xs text-gray-500">#87CEEB</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Typography -->
+                        <div>
+                            <h3 class="text-xl font-bold text-pet-navy mb-4">Typography</h3>
+                            <div class="space-y-4">
+                                <div class="p-4 border-2 border-pet-light rounded-pet">
+                                    <h1 class="text-4xl font-bold text-pet-navy">Heading 1 - Pet Airlines</h1>
+                                    <p class="text-sm text-gray-500 mt-1">4xl, font-bold, text-pet-navy</p>
+                                </div>
+                                <div class="p-4 border-2 border-pet-light rounded-pet">
+                                    <h2 class="text-2xl font-bold text-pet-navy">Heading 2 - Services</h2>
+                                    <p class="text-sm text-gray-500 mt-1">2xl, font-bold, text-pet-navy</p>
+                                </div>
+                                <div class="p-4 border-2 border-pet-light rounded-pet">
+                                    <p class="text-lg text-gray-600">Body Large - Welcome to Pet Airlines where every journey is special.</p>
+                                    <p class="text-sm text-gray-500 mt-1">lg, text-gray-600</p>
+                                </div>
+                                <div class="p-4 border-2 border-pet-light rounded-pet">
+                                    <p class="text-base text-gray-600">Body Regular - Our professional team ensures your pet's comfort.</p>
+                                    <p class="text-sm text-gray-500 mt-1">base, text-gray-600</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Border Radius -->
+                        <div>
+                            <h3 class="text-xl font-bold text-pet-navy mb-4">Border Radius</h3>
+                            <div class="flex gap-4">
+                                <div class="text-center">
+                                    <div class="w-20 h-20 bg-pet-light border-2 border-pet-blue rounded-pet mb-2"></div>
+                                    <p class="text-sm font-medium">Pet Radius</p>
+                                    <p class="text-xs text-gray-500">1.5rem</p>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-20 h-20 bg-pet-light border-2 border-pet-blue rounded-full mb-2"></div>
+                                    <p class="text-sm font-medium">Full</p>
+                                    <p class="text-xs text-gray-500">rounded-full</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buttons -->
+            <section id="buttons" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Buttons</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Button Variants -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Button Variants</h3>
+                            <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                                <div class="flex flex-wrap gap-4 mb-6">
+                                    <button class="bg-pet-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                                        Primary
+                                    </button>
+                                    <button class="bg-pet-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                                        Secondary
+                                    </button>
+                                    <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                                        Playful ✈️
+                                    </button>
+                                    <button class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                                        Outline
+                                    </button>
+                                    <button class="text-pet-navy hover:bg-pet-light hover:text-pet-blue px-6 py-2.5 rounded-full font-medium transition-all">
+                                        Ghost
+                                    </button>
+                                </div>
+                                
+                                <!-- Pet-themed buttons -->
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                                        <span class="flex items-center gap-3">
+                                            <span class="text-2xl group-hover:animate-wiggle">🐕</span>
+                                            Dog Travel
+                                        </span>
+                                    </button>
+                                    <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                                        <span class="flex items-center gap-3">
+                                            <span class="text-2xl group-hover:animate-wiggle">🐈</span>
+                                            Cat Travel
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Code Example -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-pet-navy mb-2">Usage Example</h4>
+                            <div class="code-block">
+                                <pre class="language-tsx"><code>import { Button } from './components/Buttons';
+
+// Primary button
+&lt;Button variant="primary"&gt;Book Now&lt;/Button&gt;
+
+// Playful button with emoji
+&lt;Button variant="playful"&gt;
+  Start Journey ✈️
+&lt;/Button&gt;
+
+// Pet-themed button
+&lt;IconButton emoji="🐕"&gt;
+  Dog Travel
+&lt;/IconButton&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Form Components -->
+            <section id="forms" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Playful Form Components</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- Input Example -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Playful Input</h3>
+                            <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                                <div class="space-y-4 max-w-md">
+                                    <div class="space-y-2">
+                                        <label class="text-pet-navy font-medium text-sm flex items-center gap-2">
+                                            <span class="text-lg animate-float">🐕</span>
+                                            What's your pet's name?
+                                            <span class="text-lg">✨</span>
+                                        </label>
+                                        <input 
+                                            type="text" 
+                                            placeholder="e.g., Buddy, Luna, Max..." 
+                                            class="w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue text-lg focus:scale-[1.02] focus:shadow-lg"
+                                        />
+                                        <p class="text-sm text-gray-500 flex items-center gap-2">
+                                            <span class="text-base">💡</span>
+                                            We'll use this to personalize their journey!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select Example -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Playful Select</h3>
+                            <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                                <div class="space-y-2 max-w-md">
+                                    <label class="text-pet-navy font-medium text-sm flex items-center gap-2">
+                                        <span class="text-lg animate-float">🎯</span>
+                                        Pet Type
+                                    </label>
+                                    <div class="relative">
+                                        <select class="w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all text-lg appearance-none">
+                                            <option>🐕 Doggo (Best friend!)</option>
+                                            <option>🐈 Kitty Cat (Purr-fect!)</option>
+                                            <option>🦜 Birdie (Tweet tweet!)</option>
+                                            <option>🐰 Bunny (Hop hop!)</option>
+                                        </select>
+                                        <div class="absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                            <svg class="w-5 h-5 text-pet-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkbox Example -->
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Playful Checkbox</h3>
+                            <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                                <div class="space-y-3 max-w-md">
+                                    <label class="flex items-start gap-3 p-3 cursor-pointer hover:bg-pet-light/30 rounded-pet transition-all">
+                                        <div class="relative mt-1">
+                                            <input type="checkbox" class="peer sr-only">
+                                            <div class="w-6 h-6 border-2 border-pet-light rounded-lg peer-checked:bg-pet-blue peer-checked:border-pet-blue transition-all">
+                                                <svg class="w-4 h-4 text-white absolute top-0.5 left-0.5 opacity-0 peer-checked:opacity-100 transition-opacity" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex items-center gap-2">
+                                                <span class="text-xl">🏥</span>
+                                                <span class="font-medium text-pet-navy">Special dietary requirements</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 mt-1">Let us know about any special food needs</p>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Code Example -->
+                        <div>
+                            <h4 class="text-lg font-semibold text-pet-navy mb-2">Usage Example</h4>
+                            <div class="code-block">
+                                <pre class="language-tsx"><code>import { PlayfulInput, PlayfulSelect, PlayfulCheckbox } from './components/PlayfulFormComponents';
+
+// Input with emoji and hint
+&lt;PlayfulInput
+  label="Pet Name"
+  emoji="🐕"
+  placeholder="e.g., Buddy, Luna, Max..."
+  hint="We'll use this to personalize their journey!"
+/&gt;
+
+// Select with emoji options
+&lt;PlayfulSelect
+  label="Pet Type"
+  emoji="🎯"
+  options={[
+    { value: 'dog', label: 'Doggo (Best friend!)', emoji: '🐕' },
+    { value: 'cat', label: 'Kitty Cat (Purr-fect!)', emoji: '🐈' }
+  ]}
+/&gt;
+
+// Checkbox with description
+&lt;PlayfulCheckbox
+  label="Special dietary requirements"
+  description="Let us know about any special food needs"
+  emoji="🏥"
+/&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interactive Booking Form -->
+            <section id="booking-form" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Interactive Booking Form</h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-gray-600">
+                            The complete interactive booking form component with multi-step wizard, 
+                            progress tracking, and playful animations throughout the user journey.
+                        </p>
+                        
+                        <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                            <!-- Progress Indicator Demo -->
+                            <div class="mb-8">
+                                <h4 class="text-lg font-semibold text-pet-navy mb-4">Multi-Step Progress</h4>
+                                <div class="flex items-center gap-4">
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg bg-green-500 text-white">
+                                        <span class="animate-bounce">✓</span>
+                                    </div>
+                                    <div class="w-16 h-1 bg-gray-200 rounded-full">
+                                        <div class="h-full bg-gradient-to-r from-pet-blue to-pet-sky w-full"></div>
+                                    </div>
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg bg-pet-blue text-white shadow-lg transform scale-110 relative">
+                                        2
+                                        <div class="absolute inset-0 bg-pet-blue rounded-full animate-ping opacity-30"></div>
+                                    </div>
+                                    <div class="w-16 h-1 bg-gray-200 rounded-full">
+                                        <div class="h-full bg-gradient-to-r from-pet-blue to-pet-sky w-0"></div>
+                                    </div>
+                                    <div class="flex items-center justify-center w-12 h-12 rounded-full font-bold text-lg bg-gray-200 text-gray-500">
+                                        3
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Form Section Demo -->
+                            <div class="p-6 bg-gradient-to-r from-pet-light/30 to-white rounded-pet border border-pet-light/50">
+                                <h3 class="text-2xl font-bold text-pet-navy mb-2 flex items-center gap-3">
+                                    <span class="text-3xl animate-float">🐕</span>
+                                    Tell us about your furry friend!
+                                </h3>
+                                <p class="text-gray-600 mb-4">We'll use this to prepare the perfect journey</p>
+                                
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <input 
+                                        type="text" 
+                                        placeholder="e.g., Buddy, Luna, Max..." 
+                                        class="px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all"
+                                    />
+                                    <select class="px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                                        <option>🐕 Doggo (Best friend!)</option>
+                                        <option>🐈 Kitty Cat (Purr-fect!)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-pet-navy mb-2">Usage Example</h4>
+                            <div class="code-block">
+                                <pre class="language-tsx"><code>import { InteractiveBookingForm } from './components/InteractiveBookingForm';
+
+const handleBookingComplete = (bookingData) => {
+  console.log('Booking completed:', bookingData);
+  // Handle booking submission
+};
+
+&lt;InteractiveBookingForm
+  onComplete={handleBookingComplete}
+  className="max-w-4xl mx-auto"
+/&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Animations -->
+            <section id="animations" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Animations</h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-gray-600">
+                            Pet Airlines uses playful animations to create delightful user interactions.
+                        </p>
+                        
+                        <div class="component-preview p-6 bg-gray-50 rounded-pet">
+                            <div class="grid md:grid-cols-3 gap-6 text-center">
+                                <div>
+                                    <div class="text-6xl animate-float mb-2">✈️</div>
+                                    <h4 class="font-bold text-pet-navy">Float Animation</h4>
+                                    <p class="text-sm text-gray-600">Gentle up and down movement</p>
+                                </div>
+                                <div>
+                                    <div class="text-6xl animate-wiggle mb-2">🐕</div>
+                                    <h4 class="font-bold text-pet-navy">Wiggle Animation</h4>
+                                    <p class="text-sm text-gray-600">Playful side-to-side movement</p>
+                                </div>
+                                <div>
+                                    <div class="text-6xl animate-bounce mb-2">🎉</div>
+                                    <h4 class="font-bold text-pet-navy">Bounce Animation</h4>
+                                    <p class="text-sm text-gray-600">Celebratory bounce effect</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h4 class="text-lg font-semibold text-pet-navy mb-2">Animation Classes</h4>
+                            <div class="code-block">
+                                <pre class="language-css"><code>/* Float animation */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Wiggle animation */
+.animate-wiggle {
+  animation: wiggle 1s ease-in-out infinite;
+}
+
+/* Bounce animation (slow) */
+.animate-bounce-slow {
+  animation: bounce 2s ease-in-out infinite;
+}
+
+/* Scale on hover */
+.hover\\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+/* Focus scale */
+.focus\\:scale-\\[1\\.02\\]:focus {
+  transform: scale(1.02);
+}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Usage Guidelines -->
+            <section id="usage" class="mb-16">
+                <div class="bg-white rounded-pet shadow-lg p-8">
+                    <h2 class="text-3xl font-bold text-pet-navy mb-6">Usage Guidelines</h2>
+                    
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Design Principles</h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="p-4 border-2 border-green-200 rounded-pet bg-green-50">
+                                    <h4 class="font-bold text-green-800 mb-2">✅ Do</h4>
+                                    <ul class="text-sm text-green-700 space-y-1">
+                                        <li>• Use playful emojis and pet-themed elements</li>
+                                        <li>• Implement gentle hover and focus animations</li>
+                                        <li>• Provide helpful hints and feedback messages</li>
+                                        <li>• Use the pet-specific color palette consistently</li>
+                                        <li>• Make interactions feel responsive and delightful</li>
+                                    </ul>
+                                </div>
+                                <div class="p-4 border-2 border-red-200 rounded-pet bg-red-50">
+                                    <h4 class="font-bold text-red-800 mb-2">❌ Don't</h4>
+                                    <ul class="text-sm text-red-700 space-y-1">
+                                        <li>• Overuse animations that might distract</li>
+                                        <li>• Use colors outside the defined palette</li>
+                                        <li>• Make forms too complex or overwhelming</li>
+                                        <li>• Remove accessibility features for animations</li>
+                                        <li>• Use generic error messages without personality</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Component Composition</h3>
+                            <div class="p-4 bg-pet-light/30 rounded-pet">
+                                <p class="text-gray-700 mb-4">
+                                    Components are designed to work together seamlessly. Here's how to combine them effectively:
+                                </p>
+                                <div class="code-block">
+                                    <pre class="language-tsx"><code>import { PlayfulForm, PlayfulInput, PlayfulSelect, PlayfulCheckbox } from './components/PlayfulFormComponents';
+
+const PetRegistrationForm = () => {
+  return (
+    &lt;PlayfulForm
+      title="Register Your Pet"
+      subtitle="Join the Pet Airlines family! 🐾"
+    &gt;
+      &lt;PlayfulFormSection
+        title="Basic Information"
+        description="Tell us about your furry friend"
+        emoji="📝"
+      &gt;
+        &lt;PlayfulInput
+          label="Pet Name"
+          emoji="🐕"
+          placeholder="Enter your pet's name"
+          hint="This will appear on their boarding pass!"
+        /&gt;
+        
+        &lt;PlayfulSelect
+          label="Pet Type"
+          emoji="🎯"
+          options={petTypeOptions}
+        /&gt;
+        
+        &lt;PlayfulCheckbox
+          label="Special Needs"
+          description="Does your pet have any special requirements?"
+          emoji="🏥"
+        /&gt;
+      &lt;/PlayfulFormSection&gt;
+    &lt;/PlayfulForm&gt;
+  );
+};</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 class="text-xl font-semibold text-pet-navy mb-4">Responsive Considerations</h3>
+                            <p class="text-gray-700 mb-4">
+                                All components are designed to be responsive and work well on mobile devices:
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 space-y-2">
+                                <li>Grid layouts automatically stack on smaller screens</li>
+                                <li>Touch-friendly button and input sizes (minimum 44px touch target)</li>
+                                <li>Animations are optimized to respect user's motion preferences</li>
+                                <li>Text remains readable at all screen sizes</li>
+                                <li>Form fields provide adequate spacing for easy interaction</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(link.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    
+                    // Update active nav
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('nav-active'));
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+
+        // Update active navigation on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('nav-active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('nav-active');
+                }
+            });
+        });
+
+        // Copy code functionality
+        document.querySelectorAll('pre code').forEach(block => {
+            const copyButton = document.createElement('button');
+            copyButton.className = 'absolute top-2 right-2 bg-pet-blue text-white px-3 py-1 rounded text-sm opacity-0 hover:opacity-100 transition-opacity';
+            copyButton.textContent = 'Copy';
+            
+            const pre = block.parentElement;
+            pre.style.position = 'relative';
+            pre.appendChild(copyButton);
+            
+            copyButton.addEventListener('click', () => {
+                navigator.clipboard.writeText(block.textContent).then(() => {
+                    copyButton.textContent = 'Copied!';
+                    setTimeout(() => {
+                        copyButton.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+            
+            pre.addEventListener('mouseenter', () => {
+                copyButton.style.opacity = '1';
+            });
+            
+            pre.addEventListener('mouseleave', () => {
+                if (copyButton.textContent === 'Copy') {
+                    copyButton.style.opacity = '0';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

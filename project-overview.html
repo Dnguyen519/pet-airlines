@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Project Overview & Sitemap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .page-card { 
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .page-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(59, 154, 225, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-pet-light">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <img src="variations/pet-airlines-logo-transparent.png" alt="Pet Airlines" class="h-20 w-auto mx-auto mb-6">
+            <h1 class="text-4xl md:text-5xl font-bold text-pet-navy mb-4">
+                Pet Airlines Project Overview
+            </h1>
+            <p class="text-xl text-pet-navy/70 max-w-3xl mx-auto">
+                Complete sitemap and page designs for the Pet Airlines website.
+                Click any page to view the design.
+            </p>
+        </div>
+
+        <!-- Service Tiers Overview -->
+        <div class="bg-white rounded-3xl p-8 mb-12 shadow-lg">
+            <h2 class="text-2xl font-bold text-pet-navy mb-6">Service Package Structure</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-green-50 p-6 rounded-2xl border-2 border-green-200">
+                    <h3 class="font-bold text-green-800 mb-2">🟩 TIER A - Transport Services</h3>
+                    <ul class="text-sm space-y-1 text-green-700">
+                        <li>• Door-to-Door International</li>
+                        <li>• Flight-Only Transport</li>
+                        <li>• Door-to-Airport</li>
+                        <li>• Airport-to-Door</li>
+                        <li>• Premium Pet Nanny</li>
+                    </ul>
+                </div>
+                <div class="bg-yellow-50 p-6 rounded-2xl border-2 border-yellow-200">
+                    <h3 class="font-bold text-yellow-800 mb-2">🟨 TIER B - Support Services</h3>
+                    <ul class="text-sm space-y-1 text-yellow-700">
+                        <li>• Paperwork & Documentation</li>
+                        <li>• Customs Clearance</li>
+                        <li>• Crate Sizing & Delivery</li>
+                        <li>• Regional Compliance</li>
+                    </ul>
+                </div>
+                <div class="bg-orange-50 p-6 rounded-2xl border-2 border-orange-200">
+                    <h3 class="font-bold text-orange-800 mb-2">🟧 TIER C - Consulting</h3>
+                    <ul class="text-sm space-y-1 text-orange-700">
+                        <li>• Basic Consulting (30-45min)</li>
+                        <li>• Premium Advisory</li>
+                        <li>• Full Journey Support</li>
+                        <li>• Custom Solutions</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pages Grid -->
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold text-pet-navy mb-6">Website Pages</h2>
+            <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Home -->
+                <a href="readme-pages/home.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">🏠</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Home</h3>
+                    <p class="text-sm text-gray-600">Landing page with hero, services overview, and CTA</p>
+                </a>
+
+                <!-- Services -->
+                <a href="readme-pages/services.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">✈️</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Services</h3>
+                    <p class="text-sm text-gray-600">Detailed Tier A/B/C service packages</p>
+                </a>
+
+                <!-- Routes -->
+                <a href="readme-pages/routes.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">🗺️</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Routes</h3>
+                    <p class="text-sm text-gray-600">Popular routes with pricing estimates</p>
+                </a>
+
+                <!-- How It Works -->
+                <a href="readme-pages/how-it-works.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">📋</div>
+                    <h3 class="font-bold text-pet-navy mb-1">How It Works</h3>
+                    <p class="text-sm text-gray-600">Step-by-step process guide</p>
+                </a>
+
+                <!-- Pricing -->
+                <a href="readme-pages/pricing.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">💰</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Pricing</h3>
+                    <p class="text-sm text-gray-600">Transparent pricing breakdown</p>
+                </a>
+
+                <!-- Book -->
+                <a href="readme-pages/book.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-orange/30 bg-pet-orange/5">
+                    <div class="text-4xl mb-3">📅</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Book / Inquiry</h3>
+                    <p class="text-sm text-gray-600">Multi-step booking form</p>
+                </a>
+
+                <!-- FAQ -->
+                <a href="readme-pages/faq.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">❓</div>
+                    <h3 class="font-bold text-pet-navy mb-1">FAQ</h3>
+                    <p class="text-sm text-gray-600">Frequently asked questions</p>
+                </a>
+
+                <!-- About -->
+                <a href="readme-pages/about.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">🏢</div>
+                    <h3 class="font-bold text-pet-navy mb-1">About</h3>
+                    <p class="text-sm text-gray-600">Company story and values</p>
+                </a>
+
+                <!-- Resources -->
+                <a href="readme-pages/resources.html" class="page-card bg-white rounded-2xl p-6 border-2 border-pet-blue/20">
+                    <div class="text-4xl mb-3">📚</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Resources</h3>
+                    <p class="text-sm text-gray-600">Guides and documentation</p>
+                </a>
+
+                <!-- Legal -->
+                <a href="readme-pages/legal-privacy.html" class="page-card bg-white rounded-2xl p-6 border-2 border-gray-300">
+                    <div class="text-4xl mb-3">🔒</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Privacy Policy</h3>
+                    <p class="text-sm text-gray-600">Data protection and privacy</p>
+                </a>
+
+                <a href="readme-pages/legal-terms.html" class="page-card bg-white rounded-2xl p-6 border-2 border-gray-300">
+                    <div class="text-4xl mb-3">📜</div>
+                    <h3 class="font-bold text-pet-navy mb-1">Terms of Service</h3>
+                    <p class="text-sm text-gray-600">Service terms and conditions</p>
+                </a>
+            </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="bg-white rounded-3xl p-8 mb-12 shadow-lg">
+            <h2 class="text-2xl font-bold text-pet-navy mb-6">Technical Architecture</h2>
+            <div class="grid md:grid-cols-4 gap-6">
+                <div class="text-center">
+                    <div class="text-4xl mb-2">⚡</div>
+                    <h3 class="font-semibold text-pet-navy">Next.js 15</h3>
+                    <p class="text-sm text-gray-600">App Router & API Routes</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-2">🌐</div>
+                    <h3 class="font-semibold text-pet-navy">Vercel</h3>
+                    <p class="text-sm text-gray-600">Edge Network & CDN</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-2">🗄️</div>
+                    <h3 class="font-semibold text-pet-navy">Supabase</h3>
+                    <p class="text-sm text-gray-600">Database & Auth</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl mb-2">🎨</div>
+                    <h3 class="font-semibold text-pet-navy">TailwindCSS</h3>
+                    <p class="text-sm text-gray-600">Styling & Components</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- i18n Languages -->
+        <div class="bg-white rounded-3xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-pet-navy mb-6">Multi-Language Support (i18n)</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇺🇸</div>
+                    <p class="font-semibold">English</p>
+                    <p class="text-sm text-gray-600">Default</p>
+                </div>
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇪🇸</div>
+                    <p class="font-semibold">Spanish</p>
+                    <p class="text-sm text-gray-600">/es/</p>
+                </div>
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇫🇷</div>
+                    <p class="font-semibold">French</p>
+                    <p class="text-sm text-gray-600">/fr/</p>
+                </div>
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇻🇳</div>
+                    <p class="font-semibold">Vietnamese</p>
+                    <p class="text-sm text-gray-600">/vi/</p>
+                </div>
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇰🇷</div>
+                    <p class="font-semibold">Korean</p>
+                    <p class="text-sm text-gray-600">/ko/</p>
+                </div>
+                <div class="text-center p-4 bg-pet-light rounded-xl">
+                    <div class="text-3xl mb-1">🇨🇳</div>
+                    <p class="font-semibold">Chinese</p>
+                    <p class="text-sm text-gray-600">/zh-cn/</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-12 text-pet-navy/60">
+            <p>Pet Airlines © 2024 - Professional Pet Transportation Services</p>
+            <p class="mt-2">Click any page above to view the design</p>
+        </div>
+    </div>
+</body>
+</html>

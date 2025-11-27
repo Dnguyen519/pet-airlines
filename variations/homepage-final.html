@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Where Tails Wag at 30,000 Feet! 🐾✈️</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                        'pulse-custom': 'pulseCustom 2s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(-100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        pulseCustom: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                        },
+                        fadeInUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes slideIn { 0% { transform: translateX(-100%); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+        @keyframes pulseCustom { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
+        @keyframes fadeInUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes scaleIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.5s ease-out; }
+        .animate-pulse-custom { animation: pulseCustom 2s ease-in-out infinite; }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out; }
+        .animate-scale-in { animation: scaleIn 0.3s ease-out; }
+        
+        .pet-shadow { box-shadow: 0 20px 25px -5px rgba(59, 154, 225, 0.1), 0 10px 10px -5px rgba(59, 154, 225, 0.04); }
+        .pet-shadow-lg { box-shadow: 0 25px 50px -12px rgba(59, 154, 225, 0.25); }
+        
+        .booking-step {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .booking-step.active {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(59, 154, 225, 0.1);
+        }
+        
+        .pet-input:focus {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 3px rgba(255, 163, 102, 0.1);
+        }
+        
+        .pet-card {
+            transition: all 0.3s ease;
+        }
+        
+        .pet-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-pet-light to-white overflow-x-hidden">
+    <!-- Playful Navigation -->
+    <nav class="bg-gradient-to-r from-pet-light to-white shadow-lg sticky top-0 z-50 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 animate-float">
+                    <img src="pet-airlines-logo-transparent.png" alt="Pet Airlines Logo" class="h-16 w-auto">
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#home" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Home
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">🏠</span>
+                    </a>
+                    <a href="#booking" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Book Flight
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">✈️</span>
+                    </a>
+                    <a href="#services" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        Pet Care
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">🐾</span>
+                    </a>
+                    <a href="#about" class="relative px-4 py-2 text-pet-navy font-medium transition-all hover:text-pet-blue group">
+                        About
+                        <span class="absolute -top-2 -right-2 text-xl opacity-0 group-hover:opacity-100 transition-opacity animate-bounce">❤️</span>
+                    </a>
+                    <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transition-all transform hover:scale-105 hover:shadow-lg">
+                        <span class="flex items-center gap-2">
+                            <span>Get Started</span>
+                            <span class="text-xl animate-wiggle">🚀</span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section Enhanced -->
+    <section id="home" class="relative overflow-hidden py-20">
+        <!-- Background Elements -->
+        <div class="absolute inset-0">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-pet-orange opacity-10 rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-pet-blue opacity-10 rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+            <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-pet-sky opacity-5 rounded-full blur-2xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+        
+        <!-- Floating Decorative Elements -->
+        <div class="absolute top-20 left-10 text-6xl opacity-20 animate-float">✈️</div>
+        <div class="absolute bottom-20 right-20 text-6xl opacity-20 animate-float" style="animation-delay: 1s">🐾</div>
+        <div class="absolute top-1/3 right-1/4 text-4xl opacity-15 animate-float" style="animation-delay: 0.5s">🎈</div>
+        <div class="absolute bottom-1/3 left-1/4 text-4xl opacity-15 animate-float" style="animation-delay: 1.5s">☁️</div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 text-center">
+            <!-- Announcement Banner -->
+            <div class="inline-flex items-center gap-2 bg-white/90 backdrop-blur px-6 py-3 rounded-full mb-8 animate-bounce-slow pet-shadow">
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                <span class="text-sm font-medium text-pet-navy">🎉 Now boarding: All pets welcome aboard!</span>
+            </div>
+            
+            <!-- Main Headline -->
+            <h1 class="text-6xl lg:text-7xl font-bold text-pet-navy mb-6 animate-fade-in-up">
+                Fly with Your
+                <div class="relative inline-block ml-4">
+                    <span class="text-pet-orange">Best Friend</span>
+                    <div class="absolute -top-8 -right-8 text-5xl animate-wiggle">🐕</div>
+                    <div class="absolute -bottom-4 -left-4 text-3xl animate-wiggle" style="animation-delay: 0.5s">💫</div>
+                </div>
+            </h1>
+            
+            <!-- Subheadline -->
+            <p class="text-2xl text-gray-600 max-w-2xl mx-auto mb-8 animate-fade-in-up" style="animation-delay: 0.2s">
+                Where tails wag at 30,000 feet! Safe, fun, and pawsitively perfect travel adventures.
+            </p>
+            
+            <!-- Interactive Pet Selector -->
+            <div class="flex justify-center gap-6 mb-12 animate-fade-in-up" style="animation-delay: 0.4s">
+                <div class="pet-selector text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" onclick="selectPet('dog')" style="animation-delay: 0s" data-pet="dog">🐕</div>
+                <div class="pet-selector text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" onclick="selectPet('cat')" style="animation-delay: 0.2s" data-pet="cat">🐈</div>
+                <div class="pet-selector text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" onclick="selectPet('bird')" style="animation-delay: 0.4s" data-pet="bird">🦜</div>
+                <div class="pet-selector text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" onclick="selectPet('rabbit')" style="animation-delay: 0.6s" data-pet="rabbit">🐰</div>
+                <div class="pet-selector text-6xl transform hover:scale-125 transition-all cursor-pointer animate-float" onclick="selectPet('hamster')" style="animation-delay: 0.8s" data-pet="hamster">🐹</div>
+            </div>
+            
+            <!-- Dynamic Message -->
+            <div id="pet-message" class="text-lg text-pet-blue font-medium mb-8 min-h-[28px] animate-fade-in-up" style="animation-delay: 0.6s">
+                Choose your furry friend above to see what we offer! 
+            </div>
+            
+            <!-- CTA Buttons -->
+            <div class="flex justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.8s">
+                <button onclick="scrollToBooking()" class="bg-pet-orange hover:bg-orange-500 text-white px-10 py-4 text-lg rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all group">
+                    <span class="flex items-center gap-3">
+                        Start Your Journey
+                        <span class="group-hover:translate-x-2 transition-transform text-xl">✈️</span>
+                    </span>
+                </button>
+                <button onclick="openVideoModal()" class="border-3 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-10 py-4 text-lg rounded-pet font-bold transition-all">
+                    <span class="flex items-center gap-3">
+                        Watch Happy Pets
+                        <span class="text-xl">📹</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Booking Section -->
+    <section id="booking" class="py-20 bg-gradient-to-r from-pet-sky via-pet-light to-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-pet-navy mb-4">
+                    Quick Paw Booking
+                    <span class="inline-block ml-2 text-4xl animate-wiggle">🐾</span>
+                </h2>
+                <p class="text-xl text-gray-600">Book your pet's adventure in just a few taps!</p>
+            </div>
+            
+            <div class="bg-white rounded-pet pet-shadow-lg p-8 relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-32 h-32 bg-pet-orange opacity-5 rounded-full transform translate-x-16 -translate-y-16"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 bg-pet-blue opacity-5 rounded-full transform -translate-x-12 translate-y-12"></div>
+                
+                <!-- Progress Indicator -->
+                <div class="flex justify-center mb-8">
+                    <div class="flex items-center gap-4">
+                        <div class="step-indicator active flex items-center justify-center w-10 h-10 rounded-full bg-pet-blue text-white font-bold">1</div>
+                        <div class="w-16 h-1 bg-gray-200 rounded-full">
+                            <div class="progress-bar h-full bg-pet-blue rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                        <div class="step-indicator flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 font-bold">2</div>
+                        <div class="w-16 h-1 bg-gray-200 rounded-full">
+                            <div class="progress-bar h-full bg-pet-blue rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                        <div class="step-indicator flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 text-gray-500 font-bold">3</div>
+                    </div>
+                </div>
+                
+                <!-- Step 1: Pet Information -->
+                <div id="step-1" class="booking-step active">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6 text-center">
+                        Tell us about your furry friend! 
+                        <span class="text-3xl animate-wiggle inline-block">🐕</span>
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-pet-navy font-medium block">What's your pet's name?</label>
+                            <input type="text" id="pet-name" placeholder="e.g., Buddy, Luna, Max..." 
+                                   class="pet-input w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue text-lg">
+                            <p class="text-sm text-gray-500">We'll use this to personalize their journey!</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-pet-navy font-medium block">What type of pet?</label>
+                            <select id="pet-type" class="pet-input w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue text-lg">
+                                <option value="">Choose your companion</option>
+                                <option value="dog">🐕 Doggo (Best friend!)</option>
+                                <option value="cat">🐈 Kitty Cat (Purr-fect!)</option>
+                                <option value="bird">🦜 Birdie (Tweet tweet!)</option>
+                                <option value="rabbit">🐰 Bunny (Hop hop!)</option>
+                                <option value="hamster">🐹 Hamster (So tiny!)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-pet-navy font-medium block">How much do they weigh?</label>
+                            <input type="number" id="pet-weight" placeholder="Weight in lbs" 
+                                   class="pet-input w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue text-lg">
+                            <p class="text-sm text-gray-500">This helps us prepare the perfect cabin size!</p>
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <label class="text-pet-navy font-medium block">How old are they?</label>
+                            <input type="number" id="pet-age" placeholder="Age in years" 
+                                   class="pet-input w-full px-4 py-4 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue text-lg">
+                            <p class="text-sm text-gray-500">Young or senior, we love them all!</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Special Needs Section -->
+                    <div class="mt-6 p-6 bg-pet-light/30 rounded-pet">
+                        <h4 class="text-lg font-bold text-pet-navy mb-3">Any special needs? 🏥</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" id="anxiety" class="w-5 h-5 text-pet-blue rounded border-2 border-pet-light">
+                                <span class="text-pet-navy group-hover:text-pet-blue transition-colors">Anxiety or nervousness</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" id="medication" class="w-5 h-5 text-pet-blue rounded border-2 border-pet-light">
+                                <span class="text-pet-navy group-hover:text-pet-blue transition-colors">Takes medication</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" id="dietary" class="w-5 h-5 text-pet-blue rounded border-2 border-pet-light">
+                                <span class="text-pet-navy group-hover:text-pet-blue transition-colors">Special diet</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" id="senior" class="w-5 h-5 text-pet-blue rounded border-2 border-pet-light">
+                                <span class="text-pet-navy group-hover:text-pet-blue transition-colors">Senior pet (7+ years)</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-center mt-8">
+                        <button onclick="nextStep(1)" class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-12 py-4 rounded-pet font-bold text-lg transform hover:scale-105 transition-all shadow-lg">
+                            <span class="flex items-center gap-3">
+                                Next: Choose Your Adventure
+                                <span class="text-xl animate-float">🗺️</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Route Selection -->
+                <div id="step-2" class="booking-step hidden">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6 text-center">
+                        Where are you and your pal going? 
+                        <span class="text-3xl animate-wiggle inline-block">🌎</span>
+                    </h3>
+                    
+                    <!-- Popular Routes -->
+                    <div class="mb-6">
+                        <h4 class="text-lg font-semibold text-pet-navy mb-4">🔥 Popular Routes</h4>
+                        <div class="grid md:grid-cols-3 gap-4" id="route-options">
+                            <div class="route-card p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all" onclick="selectRoute('NYC-LAX')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <p class="font-bold text-pet-navy text-lg">NYC → LAX</p>
+                                        <p class="text-sm text-gray-600">Daily flights • 5h 30m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$299</p>
+                                </div>
+                                <div class="flex gap-2 text-sm">
+                                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full">Climate controlled</span>
+                                </div>
+                            </div>
+                            
+                            <div class="route-card p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all" onclick="selectRoute('SFO-MIA')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <p class="font-bold text-pet-navy text-lg">SFO → MIA</p>
+                                        <p class="text-sm text-gray-600">3x weekly • 5h 15m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$279</p>
+                                </div>
+                                <div class="flex gap-2 text-sm">
+                                    <span class="bg-blue-100 text-blue-700 px-2 py-1 rounded-full">Ocean views</span>
+                                </div>
+                            </div>
+                            
+                            <div class="route-card p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all" onclick="selectRoute('CHI-DEN')">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div>
+                                        <p class="font-bold text-pet-navy text-lg">CHI → DEN</p>
+                                        <p class="text-sm text-gray-600">Daily flights • 2h 30m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$179</p>
+                                </div>
+                                <div class="flex gap-2 text-sm">
+                                    <span class="bg-purple-100 text-purple-700 px-2 py-1 rounded-full">Mountain views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Custom Route -->
+                    <div class="p-6 bg-gray-50 rounded-pet">
+                        <h4 class="text-lg font-semibold text-pet-navy mb-4">🛫 Or create your own route</h4>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <input type="text" id="departure" placeholder="Departure city" 
+                                   class="pet-input px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                            <input type="text" id="arrival" placeholder="Arrival city" 
+                                   class="pet-input px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button onclick="prevStep(2)" class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-8 py-3 rounded-pet font-medium transition-all">
+                            ← Back
+                        </button>
+                        <button onclick="nextStep(2)" class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-12 py-4 rounded-pet font-bold text-lg transform hover:scale-105 transition-all shadow-lg">
+                            <span class="flex items-center gap-3">
+                                Next: Pick Your Package
+                                <span class="text-xl animate-float">📦</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Service Selection -->
+                <div id="step-3" class="booking-step hidden">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6 text-center">
+                        Make it extra special! 
+                        <span class="text-3xl animate-wiggle inline-block">⭐</span>
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <label class="service-option flex items-start gap-4 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all">
+                            <input type="checkbox" id="premium-meal" class="w-6 h-6 text-pet-blue mt-1">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-2xl">🍽️</span>
+                                    <span class="font-bold text-pet-navy">Gourmet Pet Meal</span>
+                                    <span class="bg-pet-orange text-white px-2 py-1 rounded-full text-sm font-bold">+$25</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Specially prepared organic treats and meals during flight</p>
+                            </div>
+                        </label>
+                        
+                        <label class="service-option flex items-start gap-4 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all">
+                            <input type="checkbox" id="live-tracking" class="w-6 h-6 text-pet-blue mt-1">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-2xl">📹</span>
+                                    <span class="font-bold text-pet-navy">Live Pet Cam</span>
+                                    <span class="bg-pet-orange text-white px-2 py-1 rounded-full text-sm font-bold">+$15</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Watch your pet's journey in real-time on your phone</p>
+                            </div>
+                        </label>
+                        
+                        <label class="service-option flex items-start gap-4 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all">
+                            <input type="checkbox" id="spa-service" class="w-6 h-6 text-pet-blue mt-1">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-2xl">🧴</span>
+                                    <span class="font-bold text-pet-navy">In-Flight Spa</span>
+                                    <span class="bg-pet-orange text-white px-2 py-1 rounded-full text-sm font-bold">+$45</span>
+                                </div>
+                                <p class="text-sm text-gray-600">Gentle grooming and relaxation massage service</p>
+                            </div>
+                        </label>
+                        
+                        <label class="service-option flex items-start gap-4 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue hover:bg-pet-light/30 transition-all">
+                            <input type="checkbox" id="pickup" class="w-6 h-6 text-pet-blue mt-1">
+                            <div>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-2xl">🚗</span>
+                                    <span class="font-bold text-pet-navy">Door-to-Door</span>
+                                    <span class="bg-pet-orange text-white px-2 py-1 rounded-full text-sm font-bold">+$50</span>
+                                </div>
+                                <p class="text-sm text-gray-600">We pick up and deliver your pet safely</p>
+                            </div>
+                        </label>
+                    </div>
+                    
+                    <!-- Price Summary -->
+                    <div class="mt-8 p-6 bg-pet-light/50 rounded-pet">
+                        <h4 class="text-lg font-bold text-pet-navy mb-4">🧾 Trip Summary</h4>
+                        <div id="price-breakdown" class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-600">Base flight</span>
+                                <span class="font-medium" id="base-price">$299</span>
+                            </div>
+                            <div id="extras-list"></div>
+                            <div class="border-t border-gray-300 pt-2 mt-2">
+                                <div class="flex justify-between text-lg font-bold text-pet-navy">
+                                    <span>Total</span>
+                                    <span id="total-price">$299</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-between mt-8">
+                        <button onclick="prevStep(3)" class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-8 py-3 rounded-pet font-medium transition-all">
+                            ← Back
+                        </button>
+                        <button onclick="completeBooking()" class="bg-gradient-to-r from-pet-orange to-orange-500 hover:from-orange-500 hover:to-pet-orange text-white px-12 py-4 rounded-pet font-bold text-lg transform hover:scale-105 transition-all shadow-lg">
+                            <span class="flex items-center gap-3">
+                                Complete Booking
+                                <span class="text-2xl animate-bounce">🎉</span>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enhanced Services Section -->
+    <section id="services" class="py-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold text-pet-navy mb-4">
+                    Why Pets Love Flying With Us
+                    <span class="inline-block ml-2 text-4xl animate-wiggle">💕</span>
+                </h2>
+                <p class="text-xl text-gray-600">Every tail has a story, and we make sure it's a happy one!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="pet-card bg-gradient-to-br from-amber-50 to-white rounded-pet shadow-lg p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-200 opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-6xl animate-float mb-6">🏖️</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-4">Vacation Vibes Only</h3>
+                        <p class="text-gray-600 mb-6">Comfy beds, tasty treats, endless belly rubs, and relaxing music make every flight feel like a spa day!</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Orthopedic pet beds</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Organic treat selections</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Calming aromatherapy</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pet-card bg-gradient-to-br from-blue-50 to-white rounded-pet shadow-lg p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-200 opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-6xl animate-float mb-6" style="animation-delay: 0.3s">🎮</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-4">Pet Entertainment Hub</h3>
+                        <p class="text-gray-600 mb-6">Interactive toys, nature documentaries, and specially curated playlists keep your pets engaged and happy!</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Interactive puzzle toys</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Nature documentaries</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Classical music therapy</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pet-card bg-gradient-to-br from-green-50 to-white rounded-pet shadow-lg p-8 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-green-200 opacity-10 rounded-full transform translate-x-16 -translate-y-16"></div>
+                    <div class="relative">
+                        <div class="text-6xl animate-float mb-6" style="animation-delay: 0.6s">👨‍⚕️</div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-4">Expert Paw Care</h3>
+                        <p class="text-gray-600 mb-6">Licensed vets, professional groomers, and certified cuddle specialists ensure your pet feels safe and loved!</p>
+                        <ul class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Licensed veterinarians</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Professional groomers</li>
+                            <li class="flex items-center gap-2"><span class="text-green-500">✓</span> Behavior specialists</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Happy Stories Section -->
+    <section class="py-20 bg-gradient-to-r from-pet-light to-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-5xl font-bold text-pet-navy mb-4">
+                    Happy Tail Stories
+                    <span class="inline-block ml-2 text-3xl animate-wiggle">📖</span>
+                </h2>
+                <p class="text-xl text-gray-600">Hear from our furry frequent flyers!</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="bg-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float">🐕</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic font-medium text-lg">"Woof! Best flight EVER! Got treats, made friends, and the humans were so nice!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center text-2xl">🐕</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Max the Golden</p>
+                            <p class="text-sm text-gray-500">First-class frequent flyer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float" style="animation-delay: 0.3s">🐈</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic font-medium text-lg">"Purr-fection! Cozy cabin, bird videos, and got a window seat!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-purple-200 rounded-full flex items-center justify-center text-2xl">🐈</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Princess Luna</p>
+                            <p class="text-sm text-gray-500">Persian royalty</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-pet shadow-lg p-6 transform hover:scale-105 transition-all">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-1">
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                            <span class="text-pet-orange text-xl">★</span>
+                        </div>
+                        <span class="text-4xl animate-float" style="animation-delay: 0.6s">🦜</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic font-medium text-lg">"Squawk! Sang the whole way! Other passengers loved my concert!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-green-200 rounded-full flex items-center justify-center text-2xl">🦜</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Rio the Performer</p>
+                            <p class="text-sm text-gray-500">Rainbow macaw superstar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 bg-gradient-to-r from-pet-orange to-orange-500 text-white relative overflow-hidden">
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 left-10 text-8xl animate-float">✈️</div>
+            <div class="absolute top-20 right-20 text-6xl animate-float" style="animation-delay: 0.5s">🐾</div>
+            <div class="absolute bottom-10 left-1/4 text-7xl animate-float" style="animation-delay: 1s">🎉</div>
+            <div class="absolute bottom-20 right-1/4 text-6xl animate-float" style="animation-delay: 1.5s">💫</div>
+        </div>
+        
+        <div class="relative max-w-4xl mx-auto text-center px-4">
+            <h2 class="text-5xl font-bold mb-6">Ready for an Epic Adventure?</h2>
+            <p class="text-2xl mb-8 opacity-95">Join thousands of happy pets and their humans! Your furry friend's dream vacation is just one click away!</p>
+            <div class="flex flex-wrap gap-6 justify-center">
+                <button onclick="scrollToBooking()" class="bg-white text-pet-orange hover:bg-gray-100 px-12 py-4 rounded-pet font-bold text-xl transform hover:scale-105 transition-all shadow-xl">
+                    <span class="flex items-center gap-3">
+                        Start Booking Now
+                        <span class="text-2xl animate-bounce">🚀</span>
+                    </span>
+                </button>
+                <button onclick="openVideoModal()" class="border-3 border-white text-white hover:bg-white hover:text-pet-orange px-12 py-4 rounded-pet font-bold text-xl transform hover:scale-105 transition-all">
+                    <span class="flex items-center gap-3">
+                        Watch Pet Stories
+                        <span class="text-2xl">📺</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-pet p-8 max-w-4xl w-full mx-4 animate-scale-in">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-3xl font-bold text-pet-navy">Happy Pet Adventures!</h3>
+                <button onclick="closeVideoModal()" class="text-gray-500 hover:text-gray-700 transform hover:scale-110 transition-all">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="aspect-video bg-gradient-to-br from-pet-light to-pet-sky rounded-pet flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-8xl mb-4 animate-bounce">🎬</div>
+                    <p class="text-2xl text-pet-navy font-bold mb-2">Coming Soon!</p>
+                    <p class="text-gray-600">Amazing pet travel stories and behind-the-scenes footage</p>
+                    <div class="flex justify-center gap-4 mt-6 text-4xl">
+                        <span class="animate-float">🐕</span>
+                        <span class="animate-float" style="animation-delay: 0.2s">🐈</span>
+                        <span class="animate-float" style="animation-delay: 0.4s">🦜</span>
+                        <span class="animate-float" style="animation-delay: 0.6s">🐰</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Pet selection functionality
+        const petMessages = {
+            dog: "Woof! Dogs love our spacious cabins and belly rub service! 🐕❤️",
+            cat: "Purr-fect! Cats enjoy our cozy corners and bird-watching windows! 🐈✨", 
+            bird: "Tweet tweet! Birds love our nature documentaries and singing sessions! 🦜🎵",
+            rabbit: "Hop hop! Rabbits adore our soft bedding and fresh veggie treats! 🐰🥕",
+            hamster: "Squeak! Hamsters love our tiny tunnels and exercise wheels! 🐹🎡"
+        };
+
+        let currentStep = 1;
+        let selectedRoute = null;
+        let basePrice = 299;
+
+        function selectPet(petType) {
+            // Update message
+            const messageEl = document.getElementById('pet-message');
+            messageEl.textContent = petMessages[petType];
+            messageEl.classList.add('animate-scale-in');
+            
+            // Visual feedback on pet selector
+            document.querySelectorAll('.pet-selector').forEach(el => {
+                el.style.transform = 'scale(1)';
+                el.style.filter = 'grayscale(50%)';
+            });
+            
+            const selectedPet = document.querySelector(`[data-pet="${petType}"]`);
+            selectedPet.style.transform = 'scale(1.3)';
+            selectedPet.style.filter = 'none';
+            
+            setTimeout(() => {
+                messageEl.classList.remove('animate-scale-in');
+            }, 300);
+        }
+
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openVideoModal() {
+            document.getElementById('video-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Booking wizard functionality
+        function nextStep(step) {
+            if (!validateStep(step)) return;
+            
+            // Hide current step
+            document.getElementById(`step-${step}`).classList.add('hidden');
+            
+            // Show next step
+            const nextStepEl = document.getElementById(`step-${step + 1}`);
+            nextStepEl.classList.remove('hidden');
+            nextStepEl.classList.add('animate-fade-in-up');
+            
+            currentStep = step + 1;
+            updateProgress();
+            
+            setTimeout(() => {
+                nextStepEl.classList.remove('animate-fade-in-up');
+            }, 800);
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step-${step}`).classList.add('hidden');
+            
+            // Show previous step
+            const prevStepEl = document.getElementById(`step-${step - 1}`);
+            prevStepEl.classList.remove('hidden');
+            prevStepEl.classList.add('animate-fade-in-up');
+            
+            currentStep = step - 1;
+            updateProgress();
+            
+            setTimeout(() => {
+                prevStepEl.classList.remove('animate-fade-in-up');
+            }, 800);
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const petName = document.getElementById('pet-name').value;
+                const petType = document.getElementById('pet-type').value;
+                const petWeight = document.getElementById('pet-weight').value;
+                const petAge = document.getElementById('pet-age').value;
+                
+                if (!petName || !petType || !petWeight || !petAge) {
+                    alert('Please fill in all your pet\'s information! 🐾');
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function updateProgress() {
+            const progressBars = document.querySelectorAll('.progress-bar');
+            const indicators = document.querySelectorAll('.step-indicator');
+            
+            indicators.forEach((indicator, index) => {
+                if (index + 1 <= currentStep) {
+                    indicator.classList.remove('bg-gray-200', 'text-gray-500');
+                    indicator.classList.add('bg-pet-blue', 'text-white');
+                } else {
+                    indicator.classList.remove('bg-pet-blue', 'text-white');
+                    indicator.classList.add('bg-gray-200', 'text-gray-500');
+                }
+            });
+            
+            progressBars.forEach((bar, index) => {
+                if (index + 1 < currentStep) {
+                    bar.style.width = '100%';
+                } else {
+                    bar.style.width = '0%';
+                }
+            });
+        }
+
+        function selectRoute(routeId) {
+            selectedRoute = routeId;
+            
+            // Visual feedback
+            document.querySelectorAll('.route-card').forEach(card => {
+                card.classList.remove('border-pet-orange', 'bg-pet-orange/10');
+                card.classList.add('border-pet-light');
+            });
+            
+            event.currentTarget.classList.remove('border-pet-light');
+            event.currentTarget.classList.add('border-pet-orange', 'bg-pet-orange/10');
+            
+            // Update pricing based on route
+            const prices = {
+                'NYC-LAX': 299,
+                'SFO-MIA': 279, 
+                'CHI-DEN': 179
+            };
+            
+            basePrice = prices[routeId] || 299;
+            updatePriceSummary();
+        }
+
+        function updatePriceSummary() {
+            const basePriceEl = document.getElementById('base-price');
+            const extrasListEl = document.getElementById('extras-list');
+            const totalPriceEl = document.getElementById('total-price');
+            
+            basePriceEl.textContent = `$${basePrice}`;
+            
+            let extras = 0;
+            let extrasHtml = '';
+            
+            const services = [
+                { id: 'premium-meal', name: 'Gourmet meal', price: 25 },
+                { id: 'live-tracking', name: 'Live pet cam', price: 15 },
+                { id: 'spa-service', name: 'In-flight spa', price: 45 },
+                { id: 'pickup', name: 'Door-to-door', price: 50 }
+            ];
+            
+            services.forEach(service => {
+                const checkbox = document.getElementById(service.id);
+                if (checkbox && checkbox.checked) {
+                    extras += service.price;
+                    extrasHtml += `
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">${service.name}</span>
+                            <span class="font-medium">+$${service.price}</span>
+                        </div>
+                    `;
+                }
+            });
+            
+            extrasListEl.innerHTML = extrasHtml;
+            totalPriceEl.textContent = `$${basePrice + extras}`;
+        }
+
+        function completeBooking() {
+            const petName = document.getElementById('pet-name').value;
+            const petType = document.getElementById('pet-type').value;
+            
+            // Celebration animation
+            const celebrationDiv = document.createElement('div');
+            celebrationDiv.innerHTML = `
+                <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div class="bg-white rounded-pet p-12 text-center max-w-md mx-4 animate-scale-in">
+                        <div class="text-8xl mb-4 animate-bounce">🎉</div>
+                        <h3 class="text-3xl font-bold text-pet-navy mb-4">Woo-hoo!</h3>
+                        <p class="text-xl text-gray-600 mb-6">${petName} is all booked for their amazing adventure!</p>
+                        <p class="text-sm text-gray-500 mb-6">Confirmation details have been sent to your email</p>
+                        <button onclick="this.parentElement.parentElement.remove()" class="bg-pet-orange hover:bg-orange-500 text-white px-8 py-3 rounded-pet font-bold transition-all">
+                            Awesome! 🚀
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(celebrationDiv);
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add event listeners for service checkboxes
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', updatePriceSummary);
+            });
+            
+            // Close modals on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeVideoModal();
+                }
+            });
+            
+            // Close modal on backdrop click
+            document.getElementById('video-modal').addEventListener('click', (e) => {
+                if (e.target === e.currentTarget) {
+                    closeVideoModal();
+                }
+            });
+            
+            // Initialize
+            updateProgress();
+            updatePriceSummary();
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-pet-navy text-white py-16 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-64 h-64 bg-pet-blue opacity-10 rounded-full transform translate-x-32 -translate-y-32"></div>
+        <div class="absolute bottom-0 left-0 w-48 h-48 bg-pet-orange opacity-10 rounded-full transform -translate-x-24 translate-y-24"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <div class="flex justify-center items-center gap-4 mb-6">
+                    <span class="text-4xl animate-wiggle">🐾</span>
+                    <h3 class="text-3xl font-bold">Pet Airlines</h3>
+                    <span class="text-4xl animate-wiggle" style="animation-delay: 0.5s">✈️</span>
+                </div>
+                <p class="text-xl opacity-90 mb-6">Where every journey is a tail-wagging adventure!</p>
+                <div class="flex justify-center gap-6 text-4xl">
+                    <span class="cursor-pointer hover:scale-125 transition-transform animate-float">📧</span>
+                    <span class="cursor-pointer hover:scale-125 transition-transform animate-float" style="animation-delay: 0.2s">📘</span>
+                    <span class="cursor-pointer hover:scale-125 transition-transform animate-float" style="animation-delay: 0.4s">📷</span>
+                    <span class="cursor-pointer hover:scale-125 transition-transform animate-float" style="animation-delay: 0.6s">🐦</span>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-lg mb-4 text-pet-orange">Quick Links</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#booking" class="hover:opacity-100 hover:text-pet-orange transition-colors">Book a Flight</a></li>
+                        <li><a href="#services" class="hover:opacity-100 hover:text-pet-orange transition-colors">Our Services</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Pet Travel Guide</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Safety Info</a></li>
+                    </ul>
+                </div>
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-lg mb-4 text-pet-orange">Pet Types</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">🐕 Dog Flights</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">🐈 Cat Travel</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">🦜 Bird Services</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">🐰 Small Pets</a></li>
+                    </ul>
+                </div>
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-lg mb-4 text-pet-orange">Support</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">24/7 Help Center</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Live Chat</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Emergency Line</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="text-center md:text-left">
+                    <h4 class="font-bold text-lg mb-4 text-pet-orange">Company</h4>
+                    <ul class="space-y-2 text-sm opacity-80">
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Careers</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Press</a></li>
+                        <li><a href="#" class="hover:opacity-100 hover:text-pet-orange transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-white/20 pt-8 text-center text-sm opacity-60">
+                <p>© 2024 Pet Airlines. Made with ❤️ for pets and their humans everywhere.</p>
+                <p class="mt-2">Safe travels, happy tails! 🐾✈️</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

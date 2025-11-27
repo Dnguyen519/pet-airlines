@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Interactive Experience</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'pulse-custom': 'pulseCustom 2s ease-in-out infinite',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'fade-in': 'fadeIn 0.8s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        pulseCustom: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.05)', opacity: '0.8' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes pulseCustom { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
+        @keyframes slideUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes fadeIn { 0% { opacity: 0; } 100% { opacity: 1; } }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        .animate-pulse-custom { animation: pulseCustom 2s ease-in-out infinite; }
+        .animate-slide-up { animation: slideUp 0.5s ease-out; }
+        .animate-fade-in { animation: fadeIn 0.8s ease-out; }
+        
+        .booking-step {
+            transition: all 0.3s ease;
+        }
+        
+        .booking-step.active {
+            transform: scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Interactive Navigation -->
+    <nav class="bg-white shadow-lg sticky top-0 z-50" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <svg class="h-10" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                        <path d="M58 31 Q60 32 62 31" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div>
+                        <div class="text-pet-navy font-bold text-lg leading-tight">PET</div>
+                        <div class="text-pet-navy font-bold text-lg leading-tight">AIRLINES</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#hero" class="nav-link text-pet-navy hover:text-pet-blue transition-colors font-medium">Home</a>
+                    <a href="#booking" class="nav-link text-pet-navy hover:text-pet-blue transition-colors font-medium">Book</a>
+                    <a href="#services" class="nav-link text-pet-navy hover:text-pet-blue transition-colors font-medium">Services</a>
+                    <a href="#pricing" class="nav-link text-pet-navy hover:text-pet-blue transition-colors font-medium">Pricing</a>
+                    <button class="bg-pet-orange hover:bg-orange-500 text-white px-6 py-2 rounded-full font-medium transition-all transform hover:scale-105">
+                        <span id="nav-cta-text">Sign In</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Interactive Hero -->
+    <section id="hero" class="relative bg-gradient-to-br from-pet-light to-white overflow-hidden min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8 w-full">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8">
+                    <h1 class="text-5xl lg:text-6xl font-bold text-pet-navy leading-tight animate-fade-in">
+                        Ready for Takeoff?
+                        <span class="block text-3xl text-pet-blue mt-2">
+                            Your pet's adventure awaits
+                        </span>
+                    </h1>
+                    <p class="text-xl text-gray-600 animate-fade-in" style="animation-delay: 0.2s">
+                        Experience the future of pet travel with real-time tracking, premium comfort, and personalized service.
+                    </p>
+                    <div class="flex flex-wrap gap-4 animate-fade-in" style="animation-delay: 0.4s">
+                        <button onclick="scrollToBooking()" class="bg-pet-blue hover:bg-blue-600 text-white px-8 py-3 text-lg rounded-full font-medium transition-all transform hover:scale-105 hover:shadow-lg">
+                            Start Booking
+                        </button>
+                        <button onclick="openVideoModal()" class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-8 py-3 text-lg rounded-full font-medium transition-all">
+                            Watch Demo
+                        </button>
+                    </div>
+                    
+                    <div class="flex items-center gap-8 pt-4 animate-fade-in" style="animation-delay: 0.6s">
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-pet-orange counter" data-target="50000">0</p>
+                            <p class="text-sm text-gray-600">Happy Pets</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-pet-orange counter" data-target="98">0</p>
+                            <p class="text-sm text-gray-600">% Satisfaction</p>
+                        </div>
+                        <div class="text-center">
+                            <p class="text-3xl font-bold text-pet-orange">24/7</p>
+                            <p class="text-sm text-gray-600">Support</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="relative animate-fade-in" style="animation-delay: 0.8s">
+                    <!-- Interactive Route Selector -->
+                    <div class="bg-white rounded-pet shadow-xl p-6 relative z-10">
+                        <h3 class="font-bold text-pet-navy mb-4 text-center">Quick Route Finder</h3>
+                        
+                        <div id="route-selector" class="space-y-4">
+                            <div class="route-option p-4 rounded-pet border-2 border-pet-light hover:border-pet-blue cursor-pointer transition-all" onclick="selectRoute('NYC-LAX', 'New York', 'Los Angeles', '$299', '5h 30m')">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-bold text-pet-navy">NYC → LAX</p>
+                                        <p class="text-sm text-gray-600">5h 30m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$299</p>
+                                </div>
+                            </div>
+                            
+                            <div class="route-option p-4 rounded-pet border-2 border-pet-light hover:border-pet-blue cursor-pointer transition-all" onclick="selectRoute('SFO-MIA', 'San Francisco', 'Miami', '$279', '5h 15m')">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-bold text-pet-navy">SFO → MIA</p>
+                                        <p class="text-sm text-gray-600">5h 15m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$279</p>
+                                </div>
+                            </div>
+                            
+                            <div class="route-option p-4 rounded-pet border-2 border-pet-light hover:border-pet-blue cursor-pointer transition-all" onclick="selectRoute('CHI-DEN', 'Chicago', 'Denver', '$179', '2h 30m')">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="font-bold text-pet-navy">CHI → DEN</p>
+                                        <p class="text-sm text-gray-600">2h 30m</p>
+                                    </div>
+                                    <p class="text-2xl font-bold text-pet-orange">$179</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="continue-btn" class="w-full mt-6 bg-gradient-to-r from-pet-blue to-pet-sky text-white py-3 rounded-pet font-bold opacity-50 cursor-not-allowed transition-all" disabled>
+                            Select a Route First
+                        </button>
+                    </div>
+                    
+                    <!-- Floating Stats -->
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-pet shadow-lg p-4 animate-float">
+                        <div class="flex items-center gap-3">
+                            <div class="text-3xl animate-pulse-custom">🎉</div>
+                            <div>
+                                <p class="font-bold text-pet-navy">Limited Offer</p>
+                                <p class="text-sm text-gray-600">20% off first flight</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Booking Flow -->
+    <section id="booking" class="py-20 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Book in 3 Easy Steps</h2>
+                <div class="flex justify-center items-center gap-4 mb-8">
+                    <div id="progress-bar" class="w-full max-w-md h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div id="progress-fill" class="progress-bar h-full bg-pet-blue w-0"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="booking-wizard" class="space-y-8">
+                <!-- Step 1: Pet Information -->
+                <div id="step-1" class="booking-step bg-gray-50 rounded-pet p-8 active">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6">1. Tell us about your pet</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="text-pet-navy font-medium mb-2 block">Pet's Name</label>
+                            <input type="text" id="pet-name" placeholder="e.g., Buddy, Luna, Max..." 
+                                   class="w-full px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="text-pet-navy font-medium mb-2 block">Pet Type</label>
+                            <select id="pet-type" class="w-full px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                                <option value="">Select pet type</option>
+                                <option value="dog">🐕 Dog</option>
+                                <option value="cat">🐈 Cat</option>
+                                <option value="bird">🦜 Bird</option>
+                                <option value="rabbit">🐰 Rabbit</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-pet-navy font-medium mb-2 block">Weight (lbs)</label>
+                            <input type="number" id="pet-weight" placeholder="Pet's weight" 
+                                   class="w-full px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                        </div>
+                        <div>
+                            <label class="text-pet-navy font-medium mb-2 block">Age</label>
+                            <input type="number" id="pet-age" placeholder="Pet's age" 
+                                   class="w-full px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all">
+                        </div>
+                    </div>
+                    <button onclick="nextStep(1)" class="mt-6 bg-pet-blue hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all">
+                        Next: Choose Flight
+                    </button>
+                </div>
+
+                <!-- Step 2: Flight Selection -->
+                <div id="step-2" class="booking-step bg-gray-50 rounded-pet p-8 opacity-50">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6">2. Select your flight</h3>
+                    <div id="flight-options" class="space-y-4">
+                        <!-- Flight options will be populated here -->
+                    </div>
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="prevStep(2)" class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-6 py-3 rounded-full font-medium transition-all">
+                            Back
+                        </button>
+                        <button onclick="nextStep(2)" class="bg-pet-blue hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all">
+                            Next: Add Services
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 3: Additional Services -->
+                <div id="step-3" class="booking-step bg-gray-50 rounded-pet p-8 opacity-50">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-6">3. Choose additional services</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <label class="flex items-center gap-3 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue transition-all">
+                            <input type="checkbox" id="premium-meal" class="w-5 h-5 text-pet-blue">
+                            <div>
+                                <span class="font-medium text-pet-navy">Premium Meal (+$25)</span>
+                                <p class="text-sm text-gray-600">Gourmet treats during flight</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue transition-all">
+                            <input type="checkbox" id="live-tracking" class="w-5 h-5 text-pet-blue">
+                            <div>
+                                <span class="font-medium text-pet-navy">Live Video Feed (+$15)</span>
+                                <p class="text-sm text-gray-600">Watch your pet during flight</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue transition-all">
+                            <input type="checkbox" id="insurance" class="w-5 h-5 text-pet-blue">
+                            <div>
+                                <span class="font-medium text-pet-navy">Travel Insurance (+$35)</span>
+                                <p class="text-sm text-gray-600">Full coverage protection</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue transition-all">
+                            <input type="checkbox" id="pickup" class="w-5 h-5 text-pet-blue">
+                            <div>
+                                <span class="font-medium text-pet-navy">Door-to-Door (+$50)</span>
+                                <p class="text-sm text-gray-600">Pickup and delivery service</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="flex gap-4 mt-6">
+                        <button onclick="prevStep(3)" class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-6 py-3 rounded-full font-medium transition-all">
+                            Back
+                        </button>
+                        <button onclick="completeBooking()" class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+                            Complete Booking
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Services -->
+    <section id="services" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Our Premium Services</h2>
+                <p class="text-xl text-gray-600">Hover to explore each service</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="service-card bg-white rounded-pet shadow-lg p-8 cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl">
+                    <div class="text-5xl mb-4 animate-float">🛡️</div>
+                    <h3 class="text-2xl font-bold text-pet-navy mb-3">Safety First</h3>
+                    <p class="text-gray-600 mb-4">Advanced safety protocols and emergency response systems.</p>
+                    <div class="service-details hidden">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li>• Temperature monitoring every 5 minutes</li>
+                            <li>• Veterinary staff on board</li>
+                            <li>• Emergency landing protocols</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white rounded-pet shadow-lg p-8 cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl">
+                    <div class="text-5xl mb-4 animate-float" style="animation-delay: 0.3s">📱</div>
+                    <h3 class="text-2xl font-bold text-pet-navy mb-3">Live Tracking</h3>
+                    <p class="text-gray-600 mb-4">Real-time location and health monitoring throughout the journey.</p>
+                    <div class="service-details hidden">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li>• GPS tracking in real-time</li>
+                            <li>• Heart rate monitoring</li>
+                            <li>• Live video feed option</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="service-card bg-white rounded-pet shadow-lg p-8 cursor-pointer transform transition-all hover:scale-105 hover:shadow-2xl">
+                    <div class="text-5xl mb-4 animate-float" style="animation-delay: 0.6s">🏥</div>
+                    <h3 class="text-2xl font-bold text-pet-navy mb-3">Expert Care</h3>
+                    <p class="text-gray-600 mb-4">Trained pet specialists provide personalized attention.</p>
+                    <div class="service-details hidden">
+                        <ul class="text-sm text-gray-600 space-y-2">
+                            <li>• Certified pet attendants</li>
+                            <li>• Customized comfort plans</li>
+                            <li>• Post-flight health report</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Pricing -->
+    <section id="pricing" class="py-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Choose Your Plan</h2>
+                <div class="flex justify-center gap-4 mb-8">
+                    <button onclick="togglePricing('domestic')" id="domestic-btn" class="px-6 py-2 rounded-full bg-pet-blue text-white font-medium">
+                        Domestic Flights
+                    </button>
+                    <button onclick="togglePricing('international')" id="international-btn" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium">
+                        International Flights
+                    </button>
+                </div>
+            </div>
+            
+            <div id="pricing-cards" class="grid md:grid-cols-3 gap-8">
+                <!-- Pricing cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-pet p-8 max-w-2xl w-full mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-2xl font-bold text-pet-navy">See Pet Airlines in Action</h3>
+                <button onclick="closeVideoModal()" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="aspect-video bg-gray-200 rounded-pet flex items-center justify-center">
+                <div class="text-center">
+                    <div class="text-6xl mb-4">📹</div>
+                    <p class="text-gray-600">Demo video would play here</p>
+                    <p class="text-sm text-gray-500 mt-2">Showing happy pets traveling safely</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        let selectedRoute = null;
+        let selectedPricing = 'domestic';
+
+        // Navigation scroll effects
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-xl');
+            } else {
+                navbar.classList.remove('shadow-xl');
+            }
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const increment = target / 100;
+                let current = 0;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Route selection
+        function selectRoute(id, from, to, price, duration) {
+            selectedRoute = { id, from, to, price, duration };
+            
+            // Remove active class from all routes
+            document.querySelectorAll('.route-option').forEach(route => {
+                route.classList.remove('border-pet-orange', 'bg-pet-light');
+                route.classList.add('border-pet-light');
+            });
+            
+            // Add active class to selected route
+            event.currentTarget.classList.remove('border-pet-light');
+            event.currentTarget.classList.add('border-pet-orange', 'bg-pet-light');
+            
+            // Enable continue button
+            const continueBtn = document.getElementById('continue-btn');
+            continueBtn.disabled = false;
+            continueBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            continueBtn.classList.add('hover:shadow-lg', 'transform', 'hover:scale-105');
+            continueBtn.textContent = `Continue with ${from} → ${to}`;
+            continueBtn.onclick = () => scrollToBooking();
+        }
+
+        // Booking wizard
+        function nextStep(step) {
+            if (validateStep(step)) {
+                // Hide current step
+                document.getElementById(`step-${step}`).classList.remove('active');
+                document.getElementById(`step-${step}`).classList.add('opacity-50');
+                
+                // Show next step
+                const nextStepElement = document.getElementById(`step-${step + 1}`);
+                nextStepElement.classList.remove('opacity-50');
+                nextStepElement.classList.add('active');
+                
+                currentStep = step + 1;
+                updateProgress();
+                
+                if (step === 1) {
+                    populateFlightOptions();
+                }
+            }
+        }
+
+        function prevStep(step) {
+            // Hide current step
+            document.getElementById(`step-${step}`).classList.remove('active');
+            document.getElementById(`step-${step}`).classList.add('opacity-50');
+            
+            // Show previous step
+            const prevStepElement = document.getElementById(`step-${step - 1}`);
+            prevStepElement.classList.remove('opacity-50');
+            prevStepElement.classList.add('active');
+            
+            currentStep = step - 1;
+            updateProgress();
+        }
+
+        function validateStep(step) {
+            if (step === 1) {
+                const petName = document.getElementById('pet-name').value;
+                const petType = document.getElementById('pet-type').value;
+                return petName && petType;
+            }
+            return true;
+        }
+
+        function updateProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const percentage = (currentStep / 3) * 100;
+            progressFill.style.width = `${percentage}%`;
+        }
+
+        function populateFlightOptions() {
+            const flightOptions = document.getElementById('flight-options');
+            const flights = [
+                { time: '8:00 AM', price: '$299', class: 'Economy' },
+                { time: '2:00 PM', price: '$399', class: 'Premium' },
+                { time: '6:00 PM', price: '$599', class: 'First Class' }
+            ];
+            
+            flightOptions.innerHTML = flights.map((flight, index) => `
+                <div class="flight-option p-4 border-2 border-pet-light rounded-pet cursor-pointer hover:border-pet-blue transition-all" onclick="selectFlight(${index})">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-pet-navy">${flight.time} Departure</p>
+                            <p class="text-sm text-gray-600">${flight.class}</p>
+                        </div>
+                        <p class="text-2xl font-bold text-pet-orange">${flight.price}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function selectFlight(index) {
+            document.querySelectorAll('.flight-option').forEach((option, i) => {
+                if (i === index) {
+                    option.classList.add('border-pet-orange', 'bg-pet-light');
+                } else {
+                    option.classList.remove('border-pet-orange', 'bg-pet-light');
+                }
+            });
+        }
+
+        function completeBooking() {
+            alert('🎉 Booking completed! Your pet\'s adventure awaits!');
+        }
+
+        // Service cards interaction
+        document.addEventListener('DOMContentLoaded', () => {
+            const serviceCards = document.querySelectorAll('.service-card');
+            serviceCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const details = card.querySelector('.service-details');
+                    details.classList.remove('hidden');
+                    card.classList.add('animate-slide-up');
+                });
+                
+                card.addEventListener('mouseleave', () => {
+                    const details = card.querySelector('.service-details');
+                    details.classList.add('hidden');
+                    card.classList.remove('animate-slide-up');
+                });
+            });
+        });
+
+        // Pricing toggle
+        function togglePricing(type) {
+            selectedPricing = type;
+            
+            // Update buttons
+            const domesticBtn = document.getElementById('domestic-btn');
+            const internationalBtn = document.getElementById('international-btn');
+            
+            if (type === 'domestic') {
+                domesticBtn.className = 'px-6 py-2 rounded-full bg-pet-blue text-white font-medium transition-all';
+                internationalBtn.className = 'px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all';
+            } else {
+                domesticBtn.className = 'px-6 py-2 rounded-full bg-gray-200 text-gray-700 font-medium transition-all';
+                internationalBtn.className = 'px-6 py-2 rounded-full bg-pet-blue text-white font-medium transition-all';
+            }
+            
+            updatePricingCards();
+        }
+
+        function updatePricingCards() {
+            const pricingData = {
+                domestic: [
+                    { name: 'Essential', price: '$99', features: ['Cabin transport', 'Basic amenities', '24/7 support'] },
+                    { name: 'Premium', price: '$199', features: ['Premium cabin', 'Gourmet meals', 'Live tracking', 'Priority boarding'], popular: true },
+                    { name: 'Luxury', price: '$399', features: ['Private suite', 'Personal attendant', 'Spa services', 'Door-to-door'] }
+                ],
+                international: [
+                    { name: 'Essential', price: '$299', features: ['Cabin transport', 'Basic amenities', 'Documentation help'] },
+                    { name: 'Premium', price: '$499', features: ['Premium cabin', 'Gourmet meals', 'Live tracking', 'Customs assistance'], popular: true },
+                    { name: 'Luxury', price: '$899', features: ['Private suite', 'Personal attendant', 'Quarantine support', 'Full concierge'] }
+                ]
+            };
+            
+            const cards = pricingData[selectedPricing];
+            const pricingCards = document.getElementById('pricing-cards');
+            
+            pricingCards.innerHTML = cards.map(card => `
+                <div class="relative ${card.popular ? 'transform scale-105' : ''}">
+                    ${card.popular ? '<div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-pet-orange text-white px-4 py-1 rounded-full text-sm font-bold">Most Popular</div>' : ''}
+                    <div class="bg-white rounded-pet shadow-lg p-8 text-center ${card.popular ? 'border-2 border-pet-orange' : ''}">
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">${card.name}</h3>
+                        <p class="text-4xl font-bold text-pet-blue mb-6">${card.price}<span class="text-lg text-gray-500 font-normal">/trip</span></p>
+                        <ul class="space-y-3 mb-8 text-left">
+                            ${card.features.map(feature => `
+                                <li class="flex items-center gap-2">
+                                    <span class="text-green-500">✓</span>
+                                    <span class="text-gray-700">${feature}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                        <button class="w-full ${card.popular ? 'bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white' : 'border border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white'} py-2.5 rounded-full font-medium transition-all">
+                            Choose ${card.name}
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Modal functions
+        function openVideoModal() {
+            document.getElementById('video-modal').classList.remove('hidden');
+        }
+
+        function closeVideoModal() {
+            document.getElementById('video-modal').classList.add('hidden');
+        }
+
+        // Scroll functions
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgress();
+            updatePricingCards();
+            
+            // Start counter animation when hero is visible
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            });
+            observer.observe(document.getElementById('hero'));
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-pet-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <div class="flex justify-center items-center gap-3 mb-4">
+                    <svg class="h-8" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="white" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="white" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="white" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                    </svg>
+                    <span class="text-xl font-bold">Pet Airlines</span>
+                </div>
+                <p class="text-center opacity-60 text-sm mb-8">© 2024 Pet Airlines. Premium pet travel reimagined.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

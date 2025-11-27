@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Pet Airlines | Fun & Safe Pet Travel 🐾</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'scale-in': 'scaleIn 0.3s ease-out',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        fadeInUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        scaleIn: {
+                            '0%': { transform: 'scale(0.8)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .pet-shadow { box-shadow: 0 20px 25px -5px rgba(59, 154, 225, 0.1), 0 10px 10px -5px rgba(59, 154, 225, 0.04); }
+        .pet-shadow-lg { box-shadow: 0 25px 50px -12px rgba(59, 154, 225, 0.25); }
+        .service-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .service-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); }
+    </style>
+</head>
+<body class="bg-pet-light">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-3">
+                        <img src="../variations/pet-airlines-logo-transparent.png" alt="Pet Airlines Logo" class="h-16 w-auto">
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/book-flight" class="bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all duration-200">
+                        Book Flight 🎫
+                    </a>
+                    <div class="relative group">
+                        <button class="text-pet-navy font-semibold hover:text-pet-blue transition-colors flex items-center space-x-1">
+                            <span>Services</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-56 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                            <div class="bg-white rounded-2xl shadow-lg p-4">
+                                <a href="/services/travel-classes" class="block px-4 py-2 text-pet-navy hover:bg-pet-light rounded-lg transition-colors">✈️ Travel Classes</a>
+                                <a href="/services/in-flight-care" class="block px-4 py-2 text-pet-navy hover:bg-pet-light rounded-lg transition-colors">🏥 In-Flight Care</a>
+                                <a href="/services/special-services" class="block px-4 py-2 text-pet-navy hover:bg-pet-light rounded-lg transition-colors">⭐ Special Services</a>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="/travel-guide" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Travel Guide</a>
+                    <a href="/about" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">About</a>
+                    <a href="/support" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Support</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl animate-float">✈️</div>
+            <div class="absolute top-20 right-20 text-4xl animate-bounce-slow">🐕</div>
+            <div class="absolute bottom-10 left-1/4 text-5xl animate-wiggle">🐈</div>
+            <div class="absolute bottom-20 right-1/3 text-4xl animate-float" style="animation-delay: 1s;">🦜</div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-pet-navy mb-6 animate-fade-in-up">
+                Our Tail-Wagging Services 🐾
+            </h1>
+            <p class="text-xl md:text-2xl text-pet-navy/80 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                From economy cuddles to first-class suites, we've got every pet covered!
+            </p>
+        </div>
+    </section>
+
+    <!-- Quick Benefits Bar -->
+    <section class="bg-white py-6 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <span class="text-3xl mb-2 block">✈️</span>
+                    <p class="text-pet-navy font-semibold">3 Travel Classes</p>
+                </div>
+                <div class="text-center">
+                    <span class="text-3xl mb-2 block">🏥</span>
+                    <p class="text-pet-navy font-semibold">24/7 Vet Support</p>
+                </div>
+                <div class="text-center">
+                    <span class="text-3xl mb-2 block">🎥</span>
+                    <p class="text-pet-navy font-semibold">Live Pet Cams</p>
+                </div>
+                <div class="text-center">
+                    <span class="text-3xl mb-2 block">🚚</span>
+                    <p class="text-pet-navy font-semibold">Door-to-Door Service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service Categories -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Choose Your Adventure 🗺️</h2>
+                <p class="text-lg text-pet-navy/70">Every pet deserves a journey as unique as they are!</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Travel Classes Card -->
+                <div class="bg-white rounded-3xl p-8 service-card pet-shadow">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-pet-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🎫</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">Travel Classes</h3>
+                        <p class="text-pet-navy/70">From cozy to luxurious</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Economy Comfort Seats</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Premium Pet Cabins</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">First Class Pet Suites</span>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="/services/travel-classes" class="inline-flex items-center space-x-2 bg-pet-blue text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                            <span>Explore Classes</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- In-Flight Care Card -->
+                <div class="bg-white rounded-3xl p-8 service-card pet-shadow">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-pet-orange/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">🏥</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">In-Flight Care</h3>
+                        <p class="text-pet-navy/70">Professional pampering</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Certified Pet Attendants</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Onboard Veterinarian</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Playtime & Exercise</span>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="/services/in-flight-care" class="inline-flex items-center space-x-2 bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                            <span>Learn More</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Special Services Card -->
+                <div class="bg-white rounded-3xl p-8 service-card pet-shadow">
+                    <div class="text-center mb-6">
+                        <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-4xl">⭐</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">Special Services</h3>
+                        <p class="text-pet-navy/70">Extra special touches</p>
+                    </div>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Door-to-Door Pickup</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Pet Spa & Grooming</span>
+                        </li>
+                        <li class="flex items-center">
+                            <span class="text-green-500 mr-2">✓</span>
+                            <span class="text-pet-navy">Live Flight Streaming</span>
+                        </li>
+                    </ul>
+                    <div class="text-center">
+                        <a href="/services/special-services" class="inline-flex items-center space-x-2 bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                            <span>Discover More</span>
+                            <span>→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Our Services -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Why Pets Love Flying With Us 💕</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Statistics -->
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-pet-blue mb-2 animate-pulse">99%</div>
+                    <p class="text-lg text-pet-navy">Happy Tail Wags</p>
+                    <p class="text-pet-navy/60 mt-2">Customer satisfaction rate</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-pet-orange mb-2 animate-pulse">24/7</div>
+                    <p class="text-lg text-pet-navy">Expert Care</p>
+                    <p class="text-pet-navy/60 mt-2">Round-the-clock support</p>
+                </div>
+                <div class="text-center">
+                    <div class="text-5xl font-bold text-purple-500 mb-2 animate-pulse">50k+</div>
+                    <p class="text-lg text-pet-navy">Pets Flown</p>
+                    <p class="text-pet-navy/60 mt-2">And counting!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-20 bg-pet-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-pet-navy mb-4">Paw-sitive Reviews 🐾</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-white rounded-3xl p-6 pet-shadow">
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-pet-navy mb-4">"My golden retriever Max had the time of his life! The staff treated him like royalty."</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-pet-orange/20 rounded-full flex items-center justify-center mr-3">
+                            <span>🐕</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pet-navy">Sarah & Max</p>
+                            <p class="text-sm text-pet-navy/60">Golden Retriever</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 pet-shadow">
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-pet-navy mb-4">"The live stream feature gave me peace of mind. Worth every penny!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-pet-blue/20 rounded-full flex items-center justify-center mr-3">
+                            <span>🐈</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pet-navy">Mike & Whiskers</p>
+                            <p class="text-sm text-pet-navy/60">Persian Cat</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-3xl p-6 pet-shadow">
+                    <div class="flex items-center mb-4">
+                        <span class="text-yellow-400 text-xl">⭐⭐⭐⭐⭐</span>
+                    </div>
+                    <p class="text-pet-navy mb-4">"Professional service from start to finish. My parrot arrived happy and healthy!"</p>
+                    <div class="flex items-center">
+                        <div class="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center mr-3">
+                            <span>🦜</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-pet-navy">Emma & Rio</p>
+                            <p class="text-sm text-pet-navy/60">Macaw</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-pet-blue to-pet-navy text-white">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-6">Ready to Give Your Pet the VIP Treatment? ✨</h2>
+            <p class="text-xl mb-8 opacity-90">Book their next adventure today and watch them soar!</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/book-flight" class="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+                    <span>Book a Flight</span>
+                    <span class="ml-2">🎫</span>
+                </a>
+                <a href="/travel-guide" class="bg-white text-pet-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+                    <span>Travel Guide</span>
+                    <span class="ml-2">📖</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pet-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <img src="../variations/pet-airlines-logo-transparent.png" alt="Pet Airlines" class="h-12 w-auto mb-4 brightness-0 invert">
+                    <p class="text-white/70">Where every pet flies first class!</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-white/70">
+                        <li><a href="/book-flight" class="hover:text-pet-orange transition-colors">Book a Flight</a></li>
+                        <li><a href="/services" class="hover:text-pet-orange transition-colors">Our Services</a></li>
+                        <li><a href="/travel-guide" class="hover:text-pet-orange transition-colors">Travel Guide</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-white/70">
+                        <li><a href="/support" class="hover:text-pet-orange transition-colors">Help Center</a></li>
+                        <li><a href="/faq" class="hover:text-pet-orange transition-colors">FAQs</a></li>
+                        <li><a href="/contact" class="hover:text-pet-orange transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Connect</h4>
+                    <p class="text-white/70 mb-4">Follow us for daily pet travel tips!</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/70 hover:text-pet-orange transition-colors">📘</a>
+                        <a href="#" class="text-white/70 hover:text-pet-orange transition-colors">📷</a>
+                        <a href="#" class="text-white/70 hover:text-pet-orange transition-colors">🐦</a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white/10 text-center text-white/50">
+                <p>© 2024 Pet Airlines. All paws reserved. 🐾</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

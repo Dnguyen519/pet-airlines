@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Complete Component Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'slide-in': 'slideIn 0.3s ease-out',
+                        'fly-in': 'flyIn 0.5s ease-out',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        slideIn: {
+                            '0%': { transform: 'translateX(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' },
+                        },
+                        flyIn: {
+                            '0%': { transform: 'translateX(100%) translateY(100%)', opacity: '0' },
+                            '100%': { transform: 'translateX(0) translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        
+        @keyframes slideIn {
+            0% { transform: translateX(100%); opacity: 0; }
+            100% { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes flyIn {
+            0% { transform: translateX(100%) translateY(100%); opacity: 0; }
+            100% { transform: translateX(0) translateY(0); opacity: 1; }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 2s ease-in-out infinite; }
+        .animate-slide-in { animation: slideIn 0.3s ease-out; }
+        .animate-fly-in { animation: flyIn 0.5s ease-out; }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .section-spacing {
+            padding-top: 4rem;
+            margin-top: -4rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Sticky Navigation -->
+    <nav class="bg-gradient-to-r from-pet-light to-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 animate-float">
+                    <svg class="h-12" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                        <path d="M58 31 Q60 32 62 31" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">PET</div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">AIRLINES</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#hero" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Hero</a>
+                    <a href="#buttons" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Buttons</a>
+                    <a href="#cards" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Cards</a>
+                    <a href="#forms" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Forms</a>
+                    <a href="#badges" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Badges</a>
+                    <a href="#alerts" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Alerts</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
+        <!-- Hero Sections -->
+        <section id="hero" class="section-spacing space-y-12">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Hero Section Variations</h2>
+            
+            <!-- Hero Playful -->
+            <div class="rounded-pet overflow-hidden shadow-xl">
+                <div class="relative bg-gradient-to-r from-pet-sky via-pet-light to-white overflow-hidden py-20">
+                    <div class="absolute inset-0">
+                        <div class="absolute top-0 left-0 w-96 h-96 bg-pet-orange opacity-10 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 right-0 w-96 h-96 bg-pet-blue opacity-10 rounded-full blur-3xl"></div>
+                    </div>
+                    
+                    <div class="relative text-center space-y-8">
+                        <div class="inline-flex items-center gap-2 bg-white/80 backdrop-blur px-4 py-2 rounded-full">
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            <span class="text-sm font-medium text-pet-navy">Now boarding: All pets welcome!</span>
+                        </div>
+                        
+                        <h1 class="text-6xl lg:text-7xl font-bold text-pet-navy">
+                            Fly with Your
+                            <span class="text-pet-orange"> Best Friend </span>
+                            <span class="text-4xl animate-wiggle inline-block">🐕</span>
+                        </h1>
+                        
+                        <p class="text-2xl text-gray-600 max-w-2xl mx-auto">
+                            Where tails wag at 30,000 feet! Safe, fun, and pawsitively perfect travel.
+                        </p>
+                        
+                        <div class="flex justify-center gap-4 pt-8">
+                            <button class="bg-pet-orange hover:bg-orange-500 text-white px-8 py-3 text-lg rounded-full font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                                Start Your Journey →
+                            </button>
+                            <button class="text-pet-navy hover:bg-pet-light px-8 py-3 text-lg rounded-full font-medium transition-all">
+                                Watch Video
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hero Classic -->
+            <div class="rounded-pet overflow-hidden shadow-xl">
+                <div class="bg-gradient-to-br from-pet-light to-white overflow-hidden">
+                    <div class="py-24 px-8">
+                        <div class="grid lg:grid-cols-2 gap-12 items-center max-w-6xl mx-auto">
+                            <div class="space-y-8">
+                                <h1 class="text-5xl lg:text-6xl font-bold text-pet-navy leading-tight">
+                                    Your Pet's
+                                    <span class="text-pet-blue"> First-Class</span>
+                                    Journey Starts Here
+                                </h1>
+                                <p class="text-xl text-gray-600">
+                                    Safe, comfortable, and stress-free air travel designed specifically for your beloved companions.
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                                        Book a Flight ✈️
+                                    </button>
+                                    <button class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-8 py-3 rounded-full font-medium transition-all">
+                                        Learn More
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="relative">
+                                <div class="bg-gradient-to-br from-pet-blue to-pet-sky rounded-pet p-8 text-white">
+                                    <h3 class="text-2xl font-bold mb-6">Why Choose Pet Airlines?</h3>
+                                    <div class="space-y-4">
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-2xl">✅</span>
+                                            <div>
+                                                <p class="font-bold">Dedicated Pet Cabins</p>
+                                                <p class="text-sm opacity-90">No cargo holds, ever.</p>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-start gap-3">
+                                            <span class="text-2xl">✅</span>
+                                            <div>
+                                                <p class="font-bold">Live Updates</p>
+                                                <p class="text-sm opacity-90">Track your pet's journey.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="section-spacing bg-white p-8 rounded-pet shadow-lg">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Button Variations</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Primary Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-pet-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            Book Now
+                        </button>
+                        <button class="bg-pet-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            Learn More
+                        </button>
+                        <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                            Start Journey ✈️
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Playful Icon Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                            <span class="flex items-center gap-3">
+                                <span class="text-2xl group-hover:animate-wiggle">🐕</span>
+                                Dog Travel
+                            </span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                            <span class="flex items-center gap-3">
+                                <span class="text-2xl group-hover:animate-wiggle">🐈</span>
+                                Cat Travel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section id="cards" class="section-spacing space-y-8">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Card Components</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Service Card -->
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl animate-float">🛡️</div>
+                        <div class="flex-1">
+                            <h3 class="text-pet-navy font-bold text-xl mb-2">Pet Safety First</h3>
+                            <p class="text-gray-600 mb-4">Temperature-controlled cabins and dedicated pet attendants.</p>
+                            <button class="bg-pet-orange hover:bg-orange-500 text-white px-4 py-1.5 text-sm rounded-full font-medium transition-all">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Card -->
+                <div class="bg-white rounded-pet shadow-md hover:shadow-xl transition-shadow p-6 border-2 border-pet-light hover:border-pet-blue">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 text-pet-navy">
+                                <span class="font-bold text-lg">NYC</span>
+                                <span>→</span>
+                                <span class="font-bold text-lg">LAX</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-1">Dec 15, 2024</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-pet-orange font-bold text-2xl">$299</p>
+                            <p class="text-gray-500 text-sm">per pet</p>
+                        </div>
+                    </div>
+                    <button class="w-full bg-pet-blue hover:bg-blue-600 text-white py-2.5 rounded-full font-medium transition-all">
+                        Select Flight
+                    </button>
+                </div>
+
+                <!-- Pricing Card Premium -->
+                <div class="relative transform scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-pet-orange text-white px-4 py-1 rounded-full text-sm font-bold">
+                        Most Popular
+                    </div>
+                    <div class="bg-white rounded-pet shadow-xl p-8 border-2 border-pet-orange">
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">Premium</h3>
+                        <p class="text-4xl font-bold text-pet-blue mb-6">$199<span class="text-lg text-gray-500 font-normal">/trip</span></p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span class="text-gray-700">Premium cabin</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span class="text-gray-700">Gourmet meals</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                            Choose Premium
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Forms Section -->
+        <section id="forms" class="section-spacing">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Form Components</h2>
+            
+            <div class="bg-white rounded-pet shadow-lg p-8 max-w-2xl">
+                <h3 class="text-2xl font-bold text-pet-navy mb-6">Book Your Pet's Flight</h3>
+                
+                <div class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-pet-navy font-medium text-sm">Pet Name</label>
+                            <input type="text" placeholder="Enter your pet's name" class="w-full px-4 py-3 rounded-pet bg-white border-2 border-pet-light focus:border-pet-orange focus:outline-none transition-all duration-200 hover:border-pet-blue">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-pet-navy font-medium text-sm">Pet Type</label>
+                            <select class="w-full px-4 py-3 rounded-pet border-2 border-pet-light focus:border-pet-blue focus:outline-none transition-colors appearance-none bg-white">
+                                <option>🐕 Dog</option>
+                                <option>🐈 Cat</option>
+                                <option>🦜 Bird</option>
+                                <option>🐰 Rabbit</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <p class="text-pet-navy font-medium">Travel Preferences</p>
+                        <label class="flex items-center gap-3 cursor-pointer group">
+                            <input type="checkbox" class="w-5 h-5 text-pet-blue rounded">
+                            <span class="text-pet-navy">Window seat preferred</span>
+                        </label>
+                        <label class="flex items-center gap-3 cursor-pointer">
+                            <input type="checkbox" class="w-5 h-5 text-pet-blue rounded">
+                            <span class="text-pet-navy">Special dietary requirements</span>
+                        </label>
+                    </div>
+                    
+                    <button class="w-full bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white py-3 rounded-pet font-bold transform hover:scale-[1.02] hover:shadow-lg transition-all">
+                        Continue to Payment
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badges Section -->
+        <section id="badges" class="section-spacing bg-white p-8 rounded-pet shadow-lg">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Badges & Tags</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Standard Badges</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-pet-light text-pet-navy">Default</span>
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">Success</span>
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-orange-100 text-orange-700">Warning</span>
+                        <span class="inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-pet-orange to-orange-400 text-white">Playful</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Animated Badges</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 bg-pet-orange text-white px-4 py-2 rounded-full font-bold transform hover:scale-105 transition-all duration-200 hover:shadow-lg">
+                            <span class="animate-bounce text-lg">✈️</span>
+                            Now Boarding
+                        </span>
+                        <span class="inline-flex items-center gap-2 bg-pet-orange text-white px-4 py-2 rounded-full font-bold transform hover:scale-105 transition-all duration-200 hover:shadow-lg">
+                            <span class="animate-bounce text-lg">🎉</span>
+                            Limited Offer
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Status Badges</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">
+                            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                            Active
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-yellow-100 text-yellow-700">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                            Pending
+                        </span>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-700">
+                            <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                            Completed
+                        </span>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Pet Type Badges</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-amber-100 text-amber-700">
+                            <span>🐕</span>
+                            <span>Dog</span>
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-purple-100 text-purple-700">
+                            <span>🐈</span>
+                            <span>Cat</span>
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium bg-green-100 text-green-700">
+                            <span>🦜</span>
+                            <span>Bird</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alerts Section -->
+        <section id="alerts" class="section-spacing space-y-8">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Alerts & Notifications</h2>
+            
+            <div class="space-y-4">
+                <div class="flex items-start gap-3 p-4 rounded-pet border-2 bg-blue-50 border-blue-200 text-blue-800">
+                    <span class="text-xl">ℹ️</span>
+                    <div>Your pet's flight is scheduled for tomorrow at 10:00 AM.</div>
+                </div>
+                
+                <div class="flex items-start gap-3 p-4 rounded-pet border-2 bg-green-50 border-green-200 text-green-800">
+                    <span class="text-xl">✅</span>
+                    <div>Booking confirmed! Check your email for details.</div>
+                </div>
+                
+                <div class="flex items-start gap-3 p-4 rounded-pet border-2 bg-orange-50 border-orange-200 text-orange-800">
+                    <span class="text-xl">⚠️</span>
+                    <div>Please arrive 2 hours before departure for pet check-in.</div>
+                    <button class="hover:opacity-70 transition-opacity">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="flex items-start gap-3 p-4 rounded-pet border-2 bg-gradient-to-r from-pet-light to-white border-pet-blue text-pet-navy">
+                    <span class="text-xl">✈️</span>
+                    <div><strong>Woof!</strong> Your furry friend is ready for their adventure!</div>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold text-pet-navy mb-4">Promotional Banner</h3>
+                <div class="relative overflow-hidden bg-gradient-to-r from-pet-orange to-orange-500 text-white">
+                    <div class="max-w-7xl mx-auto px-4 py-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <span class="text-2xl animate-bounce">🎉</span>
+                                <p class="font-bold">Limited Time: Free pet carrier with premium bookings!</p>
+                            </div>
+                            <button class="hover:opacity-70 transition-opacity">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-4 opacity-20">
+                        <span class="text-8xl">✈️</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating Notification Example -->
+    <div class="fixed bottom-8 right-8 max-w-sm animate-fly-in">
+        <div class="bg-white rounded-pet shadow-2xl p-6 border-2 border-pet-light">
+            <div class="flex items-start gap-4">
+                <div class="text-4xl animate-float">✈️</div>
+                <div>
+                    <p class="font-bold text-pet-navy mb-1">Flight Update</p>
+                    <p class="text-gray-600">Your pet's flight is on time!</p>
+                </div>
+            </div>
+            <button class="absolute top-2 right-2 text-gray-400 hover:text-gray-600">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</body>
+</html>

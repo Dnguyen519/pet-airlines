@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines - Component Showcase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    borderRadius: {
+                        'pet': '1.5rem',
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        wiggle: {
+                            '0%, 100%': { transform: 'rotate(-3deg)' },
+                            '50%': { transform: 'rotate(3deg)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+        
+        .animate-float { animation: float 3s ease-in-out infinite; }
+        .animate-wiggle { animation: wiggle 1s ease-in-out infinite; }
+        .animate-bounce-slow { animation: bounce 2s ease-in-out infinite; }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-gradient-to-r from-pet-light to-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center gap-3 animate-float">
+                    <svg class="h-12" viewBox="0 0 100 60" fill="none">
+                        <path d="M20 30 Q30 15 50 20 L80 25 Q85 30 80 35 L50 40 Q30 45 20 30" 
+                              fill="#3B9AE1" stroke="#1B3A5F" stroke-width="2"/>
+                        <path d="M40 25 L30 15 Q28 13 30 15 L40 20" 
+                              fill="#FFA366" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="55" cy="28" r="8" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+                        <circle cx="53" cy="26" r="1.5" fill="#1B3A5F"/>
+                        <path d="M58 31 Q60 32 62 31" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+                    </svg>
+                    <div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">PET</div>
+                        <div class="text-pet-navy font-bold text-xl leading-tight">AIRLINES</div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="#buttons" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Buttons</a>
+                    <a href="#cards" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Cards</a>
+                    <a href="#forms" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Forms</a>
+                    <a href="#hero" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Hero</a>
+                    <a href="#badges" class="text-pet-navy hover:text-pet-blue font-medium transition-colors">Badges</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-12 space-y-16">
+        <!-- Hero Section -->
+        <section class="text-center py-16 bg-gradient-to-r from-pet-light to-white rounded-pet">
+            <h1 class="text-5xl font-bold text-pet-navy mb-4">Pet Airlines Component Library</h1>
+            <p class="text-xl text-gray-600">Fun, Playful & Friendly Design System</p>
+        </section>
+
+        <!-- Buttons Section -->
+        <section id="buttons" class="bg-white p-8 rounded-pet shadow-lg">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Button Variations</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Primary Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="bg-pet-blue hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            Book Now
+                        </button>
+                        <button class="bg-pet-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            Learn More
+                        </button>
+                        <button class="bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white px-8 py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                            Start Journey ✈️
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Outline & Ghost Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            View Prices
+                        </button>
+                        <button class="text-pet-navy hover:bg-pet-light hover:text-pet-blue px-6 py-2.5 rounded-full font-medium transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Playful Icon Buttons</h3>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                            <span class="flex items-center gap-3">
+                                <span class="text-2xl group-hover:animate-wiggle">🐕</span>
+                                Dog Travel
+                            </span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                            <span class="flex items-center gap-3">
+                                <span class="text-2xl group-hover:animate-wiggle">🐈</span>
+                                Cat Travel
+                            </span>
+                        </button>
+                        <button class="group bg-white border-2 border-pet-light hover:border-pet-blue text-pet-navy px-6 py-3 rounded-pet font-medium transition-all hover:shadow-lg">
+                            <span class="flex items-center gap-3">
+                                <span class="text-2xl group-hover:animate-wiggle">🦜</span>
+                                Bird Travel
+                            </span>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-pet-navy mb-4">Size Variations</h3>
+                    <div class="flex flex-wrap gap-4 items-center">
+                        <button class="bg-pet-orange hover:bg-orange-500 text-white px-4 py-1.5 text-sm rounded-full font-medium transition-all">
+                            Small
+                        </button>
+                        <button class="bg-pet-orange hover:bg-orange-500 text-white px-6 py-2.5 rounded-full font-medium transition-all">
+                            Medium
+                        </button>
+                        <button class="bg-pet-orange hover:bg-orange-500 text-white px-8 py-3 text-lg rounded-full font-medium transition-all">
+                            Large
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Cards Section -->
+        <section id="cards" class="space-y-8">
+            <h2 class="text-3xl font-bold text-pet-navy mb-8">Card Components</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <!-- Service Card -->
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-1 p-6">
+                    <div class="flex items-start gap-4">
+                        <div class="text-4xl animate-float">🛡️</div>
+                        <div class="flex-1">
+                            <h3 class="text-pet-navy font-bold text-xl mb-2">Pet Safety First</h3>
+                            <p class="text-gray-600 mb-4">Temperature-controlled cabins and dedicated pet attendants.</p>
+                            <button class="bg-pet-orange hover:bg-orange-500 text-white px-4 py-1.5 text-sm rounded-full font-medium transition-all">
+                                Learn More
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flight Card -->
+                <div class="bg-white rounded-pet shadow-md hover:shadow-xl transition-shadow p-6 border-2 border-pet-light hover:border-pet-blue">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <div class="flex items-center gap-2 text-pet-navy">
+                                <span class="font-bold text-lg">NYC</span>
+                                <span>→</span>
+                                <span class="font-bold text-lg">LAX</span>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-1">Dec 15, 2024</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-pet-orange font-bold text-2xl">$299</p>
+                            <p class="text-gray-500 text-sm">per pet</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="bg-pet-light text-pet-navy px-3 py-1 rounded-full text-sm font-medium">
+                            All pets
+                        </span>
+                        <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
+                            Climate controlled
+                        </span>
+                    </div>
+                    <button class="w-full bg-pet-blue hover:bg-blue-600 text-white py-2.5 rounded-full font-medium transition-all">
+                        Select Flight
+                    </button>
+                </div>
+
+                <!-- Testimonial Card -->
+                <div class="bg-gradient-to-br from-pet-light to-white rounded-pet shadow-lg hover:shadow-2xl transition-all p-6">
+                    <div class="flex items-center gap-1 mb-3">
+                        <span class="text-pet-orange">★</span>
+                        <span class="text-pet-orange">★</span>
+                        <span class="text-pet-orange">★</span>
+                        <span class="text-pet-orange">★</span>
+                        <span class="text-pet-orange">★</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">"Max had the best flight experience ever!"</p>
+                    <div class="flex items-center gap-3">
+                        <div class="w-12 h-12 bg-pet-light rounded-full flex items-center justify-center text-2xl">🐕</div>
+                        <div>
+                            <p class="font-bold text-pet-navy">Sarah Johnson</p>
+                            <p class="text-sm text-gray-500">Flying with Max</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Cards -->
+            <div class="grid md:grid-cols-3 gap-8 items-end">
+                <div class="bg-white rounded-pet shadow-md hover:shadow-xl transition-all p-8">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-2">Basic</h3>
+                    <p class="text-4xl font-bold text-pet-blue mb-6">$99<span class="text-lg text-gray-500 font-normal">/trip</span></p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-500">✓</span>
+                            <span class="text-gray-700">Standard cabin</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-500">✓</span>
+                            <span class="text-gray-700">Basic amenities</span>
+                        </li>
+                    </ul>
+                    <button class="w-full border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white py-2.5 rounded-full font-medium transition-all">
+                        Choose Basic
+                    </button>
+                </div>
+
+                <div class="relative transform scale-105">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-pet-orange text-white px-4 py-1 rounded-full text-sm font-bold">
+                        Most Popular
+                    </div>
+                    <div class="bg-white rounded-pet shadow-xl p-8 border-2 border-pet-orange">
+                        <h3 class="text-2xl font-bold text-pet-navy mb-2">Premium</h3>
+                        <p class="text-4xl font-bold text-pet-blue mb-6">$199<span class="text-lg text-gray-500 font-normal">/trip</span></p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span class="text-gray-700">Premium cabin</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span class="text-gray-700">Gourmet meals</span>
+                            </li>
+                            <li class="flex items-center gap-2">
+                                <span class="text-green-500">✓</span>
+                                <span class="text-gray-700">Live streaming</span>
+                            </li>
+                        </ul>
+                        <button class="w-full bg-gradient-to-r from-pet-blue to-pet-sky hover:from-pet-sky hover:to-pet-blue text-white py-3 rounded-pet font-bold transform hover:scale-105 hover:shadow-lg transition-all">
+                            Choose Premium
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-pet shadow-md hover:shadow-xl transition-all p-8">
+                    <h3 class="text-2xl font-bold text-pet-navy mb-2">First Class</h3>
+                    <p class="text-4xl font-bold text-pet-blue mb-6">$399<span class="text-lg text-gray-500 font-normal">/trip</span></p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-500">✓</span>
+                            <span class="text-gray-700">Private suite</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-500">✓</span>
+                            <span class="text-gray-700">Personal attendant</span>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <span class="text-green-500">✓</span>
+                            <span class="text-gray-700">Spa services</span>
+                        </li>
+                    </ul>
+                    <button class="w-full border-2 border-pet-navy text-pet-navy hover:bg-pet-navy hover:text-white py-2.5 rounded-full font-medium transition-all">
+                        Choose First Class
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

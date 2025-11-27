@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Travel Classes - Pet Airlines | Economy to First Class 🎫</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'pet-blue': '#3B9AE1',
+                        'pet-navy': '#1B3A5F',
+                        'pet-orange': '#FFA366',
+                        'pet-light': '#E8F4FB',
+                        'pet-sky': '#87CEEB',
+                    },
+                    animation: {
+                        'float': 'float 3s ease-in-out infinite',
+                        'wiggle': 'wiggle 1s ease-in-out infinite',
+                        'bounce-slow': 'bounce 2s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out',
+                        'slide-in': 'slideIn 0.5s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        @keyframes wiggle { 0%, 100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        @keyframes fadeInUp { 0% { transform: translateY(30px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        @keyframes slideIn { 0% { transform: translateX(-20px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
+        
+        .pet-shadow { box-shadow: 0 20px 25px -5px rgba(59, 154, 225, 0.1), 0 10px 10px -5px rgba(59, 154, 225, 0.04); }
+        .pet-shadow-lg { box-shadow: 0 25px 50px -12px rgba(59, 154, 225, 0.25); }
+        .class-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .class-card:hover { transform: translateY(-8px) scale(1.02); }
+        .class-card.recommended { border: 3px solid #FFA366; }
+    </style>
+</head>
+<body class="bg-pet-light">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-3">
+                        <img src="../../variations/pet-airlines-logo-transparent.png" alt="Pet Airlines Logo" class="h-16 w-auto">
+                    </a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <a href="/book-flight" class="bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all duration-200">
+                        Book Flight 🎫
+                    </a>
+                    <a href="/services" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Services</a>
+                    <a href="/travel-guide" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Travel Guide</a>
+                    <a href="/about" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">About</a>
+                    <a href="/support" class="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Support</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-10 left-10 text-6xl animate-float">✈️</div>
+            <div class="absolute top-20 right-20 text-4xl animate-bounce-slow">🎫</div>
+            <div class="absolute bottom-10 left-1/4 text-5xl animate-wiggle">🐾</div>
+        </div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold text-pet-navy mb-6 animate-fade-in-up">
+                Choose Your Pet's Perfect Journey 🛫
+            </h1>
+            <p class="text-xl md:text-2xl text-pet-navy/80 max-w-3xl mx-auto animate-fade-in-up" style="animation-delay: 0.2s;">
+                From cozy economy seats to luxurious first-class suites!
+            </p>
+        </div>
+    </section>
+
+    <!-- Quick Benefits Bar -->
+    <section class="bg-white py-6 shadow-md sticky top-20 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-center space-x-8 overflow-x-auto">
+                <a href="#economy" class="text-center px-4 py-2 hover:text-pet-blue transition-colors whitespace-nowrap">
+                    <span class="block text-2xl mb-1">💺</span>
+                    <span class="text-sm font-semibold">Economy</span>
+                </a>
+                <a href="#premium" class="text-center px-4 py-2 hover:text-pet-orange transition-colors whitespace-nowrap">
+                    <span class="block text-2xl mb-1">🎖️</span>
+                    <span class="text-sm font-semibold">Premium</span>
+                </a>
+                <a href="#first" class="text-center px-4 py-2 hover:text-purple-500 transition-colors whitespace-nowrap">
+                    <span class="block text-2xl mb-1">👑</span>
+                    <span class="text-sm font-semibold">First Class</span>
+                </a>
+                <a href="#compare" class="text-center px-4 py-2 hover:text-pet-blue transition-colors whitespace-nowrap">
+                    <span class="block text-2xl mb-1">📊</span>
+                    <span class="text-sm font-semibold">Compare</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Class Cards -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Economy Class -->
+            <div id="economy" class="mb-16 scroll-mt-40">
+                <div class="bg-white rounded-3xl overflow-hidden class-card pet-shadow">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 p-8 lg:p-12">
+                            <div class="flex items-center mb-4">
+                                <span class="text-4xl mr-3">💺</span>
+                                <h2 class="text-3xl font-bold text-pet-navy">Economy Pet Class</h2>
+                            </div>
+                            <p class="text-lg text-pet-navy/70 mb-6">
+                                Comfortable and affordable travel for every pet! Our economy class provides all the essentials for a safe and happy journey.
+                            </p>
+                            
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Cozy climate-controlled cabin area</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Regular feeding and water breaks</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Basic comfort amenities (blanket & toy)</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Health monitoring every 2 hours</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Post-flight report card</span>
+                                </li>
+                            </ul>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-pet-navy/60">Starting from</p>
+                                    <p class="text-3xl font-bold text-pet-blue">$99</p>
+                                </div>
+                                <a href="/book-flight" class="bg-pet-blue text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                                    Book Economy →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="h-full bg-gradient-to-br from-pet-blue/10 to-pet-sky/20 p-8 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="bg-white rounded-2xl p-6 pet-shadow-lg animate-float">
+                                        <span class="text-6xl block mb-4">🐕</span>
+                                        <p class="text-pet-navy font-semibold">Perfect for:</p>
+                                        <p class="text-pet-navy/70">Short flights & budget-conscious pet parents</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Premium Class -->
+            <div id="premium" class="mb-16 scroll-mt-40">
+                <div class="bg-white rounded-3xl overflow-hidden class-card pet-shadow recommended relative">
+                    <div class="absolute top-0 right-0 bg-pet-orange text-white px-4 py-1 rounded-bl-2xl font-semibold">
+                        Most Popular! 🌟
+                    </div>
+                    <div class="md:flex flex-row-reverse">
+                        <div class="md:w-1/2 p-8 lg:p-12">
+                            <div class="flex items-center mb-4">
+                                <span class="text-4xl mr-3">🎖️</span>
+                                <h2 class="text-3xl font-bold text-pet-navy">Premium Pet Class</h2>
+                            </div>
+                            <p class="text-lg text-pet-navy/70 mb-6">
+                                The perfect balance of comfort and value! Extra space and premium amenities for a more relaxing journey.
+                            </p>
+                            
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Spacious private cabin with viewing window</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Premium meals & treats menu</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Personal pet attendant check-ins</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Mid-flight playtime session</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Live photo updates during flight</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Priority boarding & deplaning</span>
+                                </li>
+                            </ul>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-pet-navy/60">Starting from</p>
+                                    <p class="text-3xl font-bold text-pet-orange">$199</p>
+                                </div>
+                                <a href="/book-flight" class="bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                                    Book Premium →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="h-full bg-gradient-to-br from-pet-orange/10 to-yellow-100 p-8 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="bg-white rounded-2xl p-6 pet-shadow-lg animate-bounce-slow">
+                                        <span class="text-6xl block mb-4">🐈</span>
+                                        <p class="text-pet-navy font-semibold">Perfect for:</p>
+                                        <p class="text-pet-navy/70">Cross-country trips & pampered pets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- First Class -->
+            <div id="first" class="mb-16 scroll-mt-40">
+                <div class="bg-white rounded-3xl overflow-hidden class-card pet-shadow">
+                    <div class="md:flex">
+                        <div class="md:w-1/2 p-8 lg:p-12">
+                            <div class="flex items-center mb-4">
+                                <span class="text-4xl mr-3">👑</span>
+                                <h2 class="text-3xl font-bold text-pet-navy">First Class Pet Suites</h2>
+                            </div>
+                            <p class="text-lg text-pet-navy/70 mb-6">
+                                The ultimate luxury experience! Your pet will travel like royalty in our exclusive first-class suites.
+                            </p>
+                            
+                            <ul class="space-y-3 mb-8">
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Private luxury suite with bed & entertainment</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Gourmet meal service with custom menu</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Dedicated pet concierge throughout journey</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Live HD streaming access for owners</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Spa service & grooming available</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Door-to-door limousine service included</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <span class="text-green-500 mr-2 mt-1">✓</span>
+                                    <span class="text-pet-navy">Complimentary pet photoshoot</span>
+                                </li>
+                            </ul>
+
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm text-pet-navy/60">Starting from</p>
+                                    <p class="text-3xl font-bold text-purple-600">$399</p>
+                                </div>
+                                <a href="/book-flight" class="bg-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all">
+                                    Book First Class →
+                                </a>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="h-full bg-gradient-to-br from-purple-100 to-pink-100 p-8 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="bg-white rounded-2xl p-6 pet-shadow-lg animate-wiggle">
+                                        <span class="text-6xl block mb-4">🦜</span>
+                                        <p class="text-pet-navy font-semibold">Perfect for:</p>
+                                        <p class="text-pet-navy/70">International travel & VIP pets</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparison Table -->
+            <div id="compare" class="scroll-mt-40">
+                <h2 class="text-4xl font-bold text-pet-navy text-center mb-12">
+                    Compare Our Classes 📊
+                </h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="w-full bg-white rounded-3xl overflow-hidden pet-shadow">
+                        <thead class="bg-pet-navy text-white">
+                            <tr>
+                                <th class="p-4 text-left">Features</th>
+                                <th class="p-4 text-center">Economy 💺</th>
+                                <th class="p-4 text-center bg-pet-orange">Premium 🎖️</th>
+                                <th class="p-4 text-center">First Class 👑</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Cabin Space</td>
+                                <td class="p-4 text-center">Standard</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Spacious</td>
+                                <td class="p-4 text-center">Private Suite</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Meal Service</td>
+                                <td class="p-4 text-center">Basic</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Premium Menu</td>
+                                <td class="p-4 text-center">Gourmet Custom</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Attendant Care</td>
+                                <td class="p-4 text-center">Every 2 hours</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Hourly</td>
+                                <td class="p-4 text-center">Dedicated</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Entertainment</td>
+                                <td class="p-4 text-center">Basic Toy</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Playtime Session</td>
+                                <td class="p-4 text-center">Full Entertainment</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Live Updates</td>
+                                <td class="p-4 text-center">❌</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Photos</td>
+                                <td class="p-4 text-center">HD Streaming</td>
+                            </tr>
+                            <tr>
+                                <td class="p-4 font-semibold text-pet-navy">Ground Transport</td>
+                                <td class="p-4 text-center">❌</td>
+                                <td class="p-4 text-center bg-pet-orange/5">Available ($)</td>
+                                <td class="p-4 text-center">Included</td>
+                            </tr>
+                            <tr class="bg-gray-50">
+                                <td class="p-4 font-bold text-pet-navy">Starting Price</td>
+                                <td class="p-4 text-center font-bold text-pet-blue text-xl">$99</td>
+                                <td class="p-4 text-center font-bold text-pet-orange text-xl bg-pet-orange/5">$199</td>
+                                <td class="p-4 text-center font-bold text-purple-600 text-xl">$399</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-pet-navy text-center mb-12">
+                See Our Cabins in Action 📸
+            </h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="bg-gradient-to-br from-pet-blue/20 to-pet-sky/30 h-64 flex items-center justify-center">
+                        <div class="text-center">
+                            <span class="text-6xl block mb-2 group-hover:animate-bounce">💺</span>
+                            <p class="text-pet-navy font-semibold">Economy Cabin</p>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-pet-blue/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <p class="text-white bg-pet-blue px-4 py-2 rounded-full">View Gallery →</p>
+                    </div>
+                </div>
+                
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="bg-gradient-to-br from-pet-orange/20 to-yellow-100 h-64 flex items-center justify-center">
+                        <div class="text-center">
+                            <span class="text-6xl block mb-2 group-hover:animate-bounce">🎖️</span>
+                            <p class="text-pet-navy font-semibold">Premium Cabin</p>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-pet-orange/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <p class="text-white bg-pet-orange px-4 py-2 rounded-full">View Gallery →</p>
+                    </div>
+                </div>
+                
+                <div class="relative group overflow-hidden rounded-2xl">
+                    <div class="bg-gradient-to-br from-purple-100 to-pink-100 h-64 flex items-center justify-center">
+                        <div class="text-center">
+                            <span class="text-6xl block mb-2 group-hover:animate-bounce">👑</span>
+                            <p class="text-pet-navy font-semibold">First Class Suite</p>
+                        </div>
+                    </div>
+                    <div class="absolute inset-0 bg-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <p class="text-white bg-purple-600 px-4 py-2 rounded-full">View Gallery →</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-20 bg-pet-light">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-pet-navy text-center mb-12">
+                Frequently Asked Questions 💬
+            </h2>
+
+            <div class="space-y-6">
+                <details class="bg-white rounded-2xl p-6 pet-shadow group">
+                    <summary class="font-semibold text-pet-navy cursor-pointer flex justify-between items-center">
+                        <span>What size pets can travel in each class?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-pet-navy/70">
+                        All classes accommodate pets up to 150 lbs. Economy is perfect for small to medium pets (up to 50 lbs), 
+                        Premium handles medium to large pets comfortably (up to 100 lbs), and First Class suites can luxuriously 
+                        accommodate pets of any size with custom arrangements for extra-large breeds.
+                    </p>
+                </details>
+
+                <details class="bg-white rounded-2xl p-6 pet-shadow group">
+                    <summary class="font-semibold text-pet-navy cursor-pointer flex justify-between items-center">
+                        <span>Can I upgrade my pet's class after booking?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-pet-navy/70">
+                        Absolutely! You can upgrade your pet's travel class up to 24 hours before departure, subject to availability. 
+                        Just log into your account or call our 24/7 support team. Upgrade fees apply based on the difference in class pricing.
+                    </p>
+                </details>
+
+                <details class="bg-white rounded-2xl p-6 pet-shadow group">
+                    <summary class="font-semibold text-pet-navy cursor-pointer flex justify-between items-center">
+                        <span>Are multiple pets allowed to share a cabin?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-pet-navy/70">
+                        Yes! Pets from the same family can share cabins in Premium and First Class at no extra charge. 
+                        Economy class pets travel individually for safety, but we'll ensure family pets are placed near each other.
+                    </p>
+                </details>
+
+                <details class="bg-white rounded-2xl p-6 pet-shadow group">
+                    <summary class="font-semibold text-pet-navy cursor-pointer flex justify-between items-center">
+                        <span>What's included in the meal service?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-pet-navy/70">
+                        Economy includes standard pet food and water. Premium offers a selection of premium brands and special treats. 
+                        First Class features custom meal plans, including fresh-prepared options, special dietary accommodations, and gourmet treats. 
+                        All classes can accommodate prescription diets.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-pet-blue to-pet-navy text-white">
+        <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold mb-6">Ready to Choose Your Pet's Perfect Flight? ✨</h2>
+            <p class="text-xl mb-8 opacity-90">Every class is designed with love, safety, and comfort in mind!</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/book-flight" class="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+                    <span>Book Now</span>
+                    <span class="ml-2">🎫</span>
+                </a>
+                <a href="/support" class="bg-white text-pet-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+                    <span>Need Help Choosing?</span>
+                    <span class="ml-2">💬</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-pet-navy text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <img src="../../variations/pet-airlines-logo-transparent.png" alt="Pet Airlines" class="h-12 w-auto mx-auto mb-4 brightness-0 invert">
+                <p class="text-white/70 mb-4">Where every pet flies first class!</p>
+                <div class="flex justify-center space-x-6">
+                    <a href="/services" class="text-white/70 hover:text-pet-orange transition-colors">Services</a>
+                    <a href="/travel-guide" class="text-white/70 hover:text-pet-orange transition-colors">Travel Guide</a>
+                    <a href="/support" class="text-white/70 hover:text-pet-orange transition-colors">Support</a>
+                </div>
+                <div class="mt-8 pt-8 border-t border-white/10 text-white/50">
+                    <p>© 2024 Pet Airlines. All paws reserved. 🐾</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
