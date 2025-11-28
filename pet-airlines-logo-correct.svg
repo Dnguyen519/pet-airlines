@@ -1,0 +1,48 @@
+<svg width="200" height="180" viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Dog head (white fill with navy stroke for visibility) -->
+  <path d="M60 80 Q50 60 70 50 Q90 45 110 50 Q130 60 120 80 Q125 90 110 100 Q90 105 70 100 Q55 90 60 80 Z" 
+        fill="white" stroke="#1B3A5F" stroke-width="3"/>
+  
+  <!-- Orange ear -->
+  <ellipse cx="75" cy="65" rx="8" ry="15" fill="#FF8C42" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Dog eye -->
+  <circle cx="95" cy="75" r="4" fill="#1B3A5F"/>
+  
+  <!-- Dog nose -->
+  <ellipse cx="105" cy="85" rx="3" ry="2" fill="#1B3A5F"/>
+  
+  <!-- Dog smile -->
+  <path d="M102 88 Q105 92 108 88" stroke="#1B3A5F" stroke-width="2" fill="none" stroke-linecap="round"/>
+  
+  <!-- Airplane body -->
+  <ellipse cx="100" cy="90" rx="45" ry="18" fill="#4A9EFF" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Airplane windows (dots) -->
+  <circle cx="75" cy="87" r="2.5" fill="#1B3A5F"/>
+  <circle cx="85" cy="87" r="2.5" fill="#1B3A5F"/>
+  <circle cx="95" cy="87" r="2.5" fill="#1B3A5F"/>
+  <circle cx="105" cy="87" r="2.5" fill="#1B3A5F"/>
+  <circle cx="115" cy="87" r="2.5" fill="#1B3A5F"/>
+  
+  <!-- Left wing -->
+  <path d="M60 85 Q40 75 35 70 Q30 65 40 65 Q50 70 60 80" 
+        fill="#4A9EFF" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Right wing -->
+  <path d="M140 80 Q150 70 160 65 Q170 65 165 70 Q160 75 140 85" 
+        fill="#4A9EFF" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Airplane tail -->
+  <path d="M140 90 Q155 85 160 80 Q165 85 155 95 Q145 98 140 95" 
+        fill="#4A9EFF" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Motion lines -->
+  <path d="M20 100 Q25 98 30 100" stroke="#87CEEB" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.8"/>
+  <path d="M15 105 Q20 103 25 105" stroke="#87CEEB" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.6"/>
+  <path d="M25 110 Q30 108 35 110" stroke="#87CEEB" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+  
+  <!-- Company text -->
+  <text x="100" y="140" font-family="Arial, sans-serif" font-size="24" font-weight="900" text-anchor="middle" fill="#1B3A5F">PET</text>
+  <text x="100" y="165" font-family="Arial, sans-serif" font-size="24" font-weight="900" text-anchor="middle" fill="#1B3A5F">AIRLINES</text>
+</svg>
