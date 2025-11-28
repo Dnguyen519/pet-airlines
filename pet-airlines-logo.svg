@@ -1,0 +1,43 @@
+<svg width="200" height="120" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle for better contrast -->
+  <circle cx="100" cy="60" r="50" fill="white" opacity="0.9" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Airplane body -->
+  <ellipse cx="100" cy="55" rx="35" ry="15" fill="#3B9AE1"/>
+  
+  <!-- Airplane windows -->
+  <circle cx="85" cy="52" r="2" fill="#1B3A5F"/>
+  <circle cx="90" cy="52" r="2" fill="#1B3A5F"/>
+  <circle cx="95" cy="52" r="2" fill="#1B3A5F"/>
+  <circle cx="100" cy="52" r="2" fill="#1B3A5F"/>
+  <circle cx="105" cy="52" r="2" fill="#1B3A5F"/>
+  
+  <!-- Wings -->
+  <path d="M70 55 Q60 45 65 40 Q75 42 85 50" fill="#3B9AE1"/>
+  <path d="M115 50 Q125 42 135 40 Q140 45 130 55" fill="#3B9AE1"/>
+  
+  <!-- Dog head (white with stroke for visibility) -->
+  <ellipse cx="90" cy="45" rx="12" ry="15" fill="white" stroke="#1B3A5F" stroke-width="2"/>
+  
+  <!-- Dog ears -->
+  <ellipse cx="85" cy="38" rx="5" ry="8" fill="#FFA366" stroke="#1B3A5F" stroke-width="1"/>
+  <ellipse cx="95" cy="38" rx="5" ry="8" fill="white" stroke="#1B3A5F" stroke-width="1"/>
+  
+  <!-- Dog eyes -->
+  <circle cx="87" cy="43" r="2" fill="#1B3A5F"/>
+  <circle cx="93" cy="43" r="2" fill="#1B3A5F"/>
+  
+  <!-- Dog nose -->
+  <ellipse cx="90" cy="48" rx="2" ry="1.5" fill="#1B3A5F"/>
+  
+  <!-- Dog smile -->
+  <path d="M87 50 Q90 52 93 50" stroke="#1B3A5F" stroke-width="1.5" fill="none"/>
+  
+  <!-- Motion lines -->
+  <path d="M30 65 Q35 63 40 65" stroke="#87CEEB" stroke-width="2" fill="none" opacity="0.7"/>
+  <path d="M25 70 Q30 68 35 70" stroke="#87CEEB" stroke-width="2" fill="none" opacity="0.5"/>
+  
+  <!-- Company text -->
+  <text x="100" y="95" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1B3A5F">PET</text>
+  <text x="100" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#1B3A5F">AIRLINES</text>
+</svg>

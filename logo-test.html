@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Airlines Logo Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="logo-styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <h1 class="text-3xl font-bold text-center mb-8">Pet Airlines Logo Visibility Tests</h1>
+        
+        <!-- Light Background -->
+        <div class="bg-white p-8 rounded-lg shadow-lg mb-8">
+            <h2 class="text-xl font-bold mb-4">Light Background (Original)</h2>
+            <div class="flex items-center justify-center space-x-8">
+                <div class="pet-logo pet-logo-light">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-20">
+                </div>
+                <div class="pet-logo pet-logo-light pet-logo-float">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-16">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Dark Background -->
+        <div class="bg-gray-800 p-8 rounded-lg shadow-lg mb-8">
+            <h2 class="text-xl font-bold mb-4 text-white">Dark Background (Fixed)</h2>
+            <div class="flex items-center justify-center space-x-8">
+                <div class="pet-logo pet-logo-dark">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-20">
+                </div>
+                <div class="pet-logo pet-logo-dark pet-logo-float">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-16">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navy Background (Brand Color) -->
+        <div class="p-8 rounded-lg shadow-lg mb-8" style="background: linear-gradient(135deg, #1B3A5F 0%, #3B9AE1 100%);">
+            <h2 class="text-xl font-bold mb-4 text-white">Brand Gradient Background</h2>
+            <div class="flex items-center justify-center space-x-8">
+                <div class="pet-logo pet-logo-dark">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-20">
+                </div>
+                <div class="pet-logo pet-logo-dark pet-logo-float">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo" class="h-16">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Navigation Bar Test -->
+        <div class="bg-white shadow-lg rounded-lg p-4 mb-8">
+            <nav class="flex justify-between items-center">
+                <div class="pet-logo pet-logo-nav pet-logo-light">
+                    <img src="pet-airlines-logo.svg" alt="Pet Airlines Logo">
+                </div>
+                <div class="space-x-4">
+                    <button class="px-4 py-2 bg-blue-600 text-white rounded">Book Flight</button>
+                    <button class="px-4 py-2 border border-blue-600 text-blue-600 rounded">Get Quote</button>
+                </div>
+            </nav>
+        </div>
+        
+        <!-- Original PNG for comparison -->
+        <div class="bg-gray-200 p-8 rounded-lg shadow-lg">
+            <h2 class="text-xl font-bold mb-4">Original PNG (for comparison)</h2>
+            <div class="flex items-center justify-center">
+                <img src="variations/pet-airlines-logo-transparent.png" alt="Original Logo" class="h-20">
+            </div>
+            <p class="text-center mt-4 text-gray-600">
+                Original logo may be invisible on dark backgrounds
+            </p>
+        </div>
+    </div>
+</body>
+</html>

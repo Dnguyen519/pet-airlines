@@ -1,0 +1,81 @@
+/* Pet Airlines Logo Styles */
+
+.pet-logo {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.pet-logo img, .pet-logo svg {
+    height: auto;
+    max-width: 100%;
+}
+
+/* Logo on light backgrounds */
+.pet-logo-light {
+    filter: none;
+}
+
+/* Logo on dark backgrounds - add white background circle */
+.pet-logo-dark {
+    background: radial-gradient(circle, rgba(255,255,255,0.9) 60%, transparent 60%);
+    border-radius: 50%;
+    padding: 8px;
+}
+
+/* Logo on navigation - responsive sizing */
+.pet-logo-nav {
+    height: 3rem; /* 48px */
+    width: auto;
+}
+
+.pet-logo-nav img, .pet-logo-nav svg {
+    height: 100%;
+    width: auto;
+}
+
+/* Logo in hero section */
+.pet-logo-hero {
+    height: 6rem; /* 96px */
+    width: auto;
+}
+
+/* Logo in footer */
+.pet-logo-footer {
+    height: 2.5rem; /* 40px */
+    width: auto;
+    filter: brightness(0) invert(1); /* Make white for dark footer */
+}
+
+/* Hover effects */
+.pet-logo:hover {
+    transform: scale(1.05);
+}
+
+.pet-logo-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+    .pet-logo-nav {
+        height: 2.5rem; /* 40px on mobile */
+    }
+    
+    .pet-logo-hero {
+        height: 4rem; /* 64px on mobile */
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .pet-logo-auto {
+        background: radial-gradient(circle, rgba(255,255,255,0.9) 60%, transparent 60%);
+        border-radius: 50%;
+        padding: 8px;
+    }
+}
