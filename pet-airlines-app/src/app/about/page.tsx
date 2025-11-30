@@ -1,136 +1,400 @@
+'use client'
+
+import { useEffect, useRef } from 'react'
 import Layout from '@/components/layout/Layout'
 
 export default function AboutPage() {
+  const counterRefs = useRef<(HTMLSpanElement | null)[]>([])
+
+  useEffect(() => {
+    const animateCounter = (element: HTMLSpanElement, target: number) => {
+      const increment = target / 200
+      let current = 0
+      
+      const updateCounter = () => {
+        if (current < target) {
+          current = Math.ceil(current + increment)
+          element.innerText = current.toString()
+          setTimeout(updateCounter, 10)
+        } else {
+          element.innerText = target.toString()
+        }
+      }
+      
+      updateCounter()
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.target instanceof HTMLSpanElement) {
+          const target = parseInt(entry.target.getAttribute('data-target') || '0')
+          animateCounter(entry.target as HTMLSpanElement, target)
+          observer.unobserve(entry.target)
+        }
+      })
+    }, { threshold: 0.5 })
+
+    counterRefs.current.forEach(ref => {
+      if (ref) observer.observe(ref)
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <Layout>
-      <div className="py-20">
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 text-6xl animate-float">🏢</div>
+          <div className="absolute top-20 right-20 text-4xl animate-float" style={{animationDelay: '0.5s'}}>❤️</div>
+          <div className="absolute bottom-10 left-1/4 text-5xl animate-float" style={{animationDelay: '1s'}}>🐾</div>
+        </div>
+        
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h1 className="text-5xl md:text-6xl font-bold text-pet-navy mb-6 animate-fade-in-up">
+            About Pet Airlines 🛫
+          </h1>
+          <p className="text-xl md:text-2xl text-pet-navy/80 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+            Reuniting pets with their families across the globe since 2014
+          </p>
+        </div>
+      </section>
+
+      {/* Our Story */}
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Hero */}
-          <div className="text-center mb-16">
-            <h1 className="text-5xl font-bold text-pet-navy mb-6">About Pet Airlines</h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're passionate about reuniting pets with their families worldwide. 
-              Our mission is to make international pet transportation safe, stress-free, and reliable.
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="animate-slide-in">
+              <h2 className="text-4xl font-bold text-pet-navy mb-6">Our Story 📖</h2>
+              <p className="text-gray-700 mb-4">
+                Pet Airlines was born from a simple belief: no family should be separated from their pets due to international relocation. 
+                Founded in 2014 by a team of pet lovers and logistics experts, we saw the stress and confusion pet owners faced when 
+                trying to navigate international pet transportation.
+              </p>
+              <p className="text-gray-700 mb-4">
+                What started as a small operation helping expats in Asia has grown into a trusted global network, 
+                serving thousands of families each year. We've turned the complex process of pet relocation into 
+                a seamless, stress-free experience.
+              </p>
+              <p className="text-gray-700">
+                Today, we're proud to be the bridge that keeps families together, no matter where life takes them.
+              </p>
+            </div>
+            <div className="bg-gradient-to-br from-pet-blue/10 to-pet-orange/10 rounded-3xl p-8 text-center">
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <span 
+                    ref={el => counterRefs.current[0] = el}
+                    className="text-4xl font-bold text-pet-blue counter-number" 
+                    data-target="10"
+                  >0</span>
+                  <p className="text-gray-600 mt-2">Years of Service</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <span 
+                    ref={el => counterRefs.current[1] = el}
+                    className="text-4xl font-bold text-pet-orange counter-number" 
+                    data-target="5000"
+                  >0</span>+
+                  <p className="text-gray-600 mt-2">Happy Pets Transported</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <span 
+                    ref={el => counterRefs.current[2] = el}
+                    className="text-4xl font-bold text-green-500 counter-number" 
+                    data-target="50"
+                  >0</span>+
+                  <p className="text-gray-600 mt-2">Countries Served</p>
+                </div>
+                <div className="bg-white rounded-2xl p-6 shadow-lg">
+                  <span 
+                    ref={el => counterRefs.current[3] = el}
+                    className="text-4xl font-bold text-purple-500 counter-number" 
+                    data-target="100"
+                  >0</span>%
+                  <p className="text-gray-600 mt-2">Safe Arrivals</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision */}
+      <section className="py-20 bg-pet-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">Our Mission & Values 🎯</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+            <div className="bg-white rounded-3xl p-8 shadow-lg">
+              <div className="text-center mb-6">
+                <span className="text-5xl">🚀</span>
+                <h3 className="text-2xl font-bold text-pet-navy mt-4">Our Mission</h3>
+              </div>
+              <p className="text-gray-700 text-center">
+                To provide safe, compassionate, and stress-free international pet transportation services 
+                that keep families together across borders. We treat every pet as if they were our own.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-3xl p-8 shadow-lg">
+              <div className="text-center mb-6">
+                <span className="text-5xl">🔮</span>
+                <h3 className="text-2xl font-bold text-pet-navy mt-4">Our Vision</h3>
+              </div>
+              <p className="text-gray-700 text-center">
+                To be the global leader in pet relocation services, setting the standard for safety, 
+                transparency, and customer care while making international pet travel accessible to all families.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
+              <span className="text-4xl mb-3 block">❤️</span>
+              <h4 className="font-bold text-pet-navy mb-2">Compassion</h4>
+              <p className="text-sm text-gray-600">Every pet deserves love and care during their journey</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
+              <span className="text-4xl mb-3 block">🛡️</span>
+              <h4 className="font-bold text-pet-navy mb-2">Safety First</h4>
+              <p className="text-sm text-gray-600">100% commitment to your pet's wellbeing</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
+              <span className="text-4xl mb-3 block">💎</span>
+              <h4 className="font-bold text-pet-navy mb-2">Transparency</h4>
+              <p className="text-sm text-gray-600">Clear communication and honest pricing always</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
+              <span className="text-4xl mb-3 block">🌟</span>
+              <h4 className="font-bold text-pet-navy mb-2">Excellence</h4>
+              <p className="text-sm text-gray-600">Exceeding expectations in every interaction</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Team */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">Meet Our Team 👥</h2>
+            <p className="text-xl text-gray-600">Passionate professionals dedicated to your pet's journey</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
+            <div className="text-center team-card">
+              <div className="bg-pet-light rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">👨‍💼</span>
+              </div>
+              <h4 className="font-bold text-pet-navy">Michael Chen</h4>
+              <p className="text-pet-blue mb-2">Founder & CEO</p>
+              <p className="text-sm text-gray-600">15+ years in logistics, dog dad to Max & Luna</p>
+            </div>
+
+            <div className="text-center team-card">
+              <div className="bg-pet-light rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">👩‍⚕️</span>
+              </div>
+              <h4 className="font-bold text-pet-navy">Dr. Sarah Kim</h4>
+              <p className="text-pet-blue mb-2">Head Veterinary Advisor</p>
+              <p className="text-sm text-gray-600">DVM with 20 years experience</p>
+            </div>
+
+            <div className="text-center team-card">
+              <div className="bg-pet-light rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">👨‍✈️</span>
+              </div>
+              <h4 className="font-bold text-pet-navy">James Park</h4>
+              <p className="text-pet-blue mb-2">Operations Director</p>
+              <p className="text-sm text-gray-600">Former airline cargo specialist</p>
+            </div>
+
+            <div className="text-center team-card">
+              <div className="bg-pet-light rounded-full w-32 h-32 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">👩‍💻</span>
+              </div>
+              <h4 className="font-bold text-pet-navy">Emily Nguyen</h4>
+              <p className="text-pet-blue mb-2">Customer Success Lead</p>
+              <p className="text-sm text-gray-600">Speaks 5 languages, cat mom</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12">
+            <p className="text-gray-600 mb-6">
+              Our team of 50+ pet lovers, logistics experts, and customer care specialists work around the clock to ensure every pet's safe journey.
             </p>
-          </div>
-
-          {/* Story */}
-          <div className="bg-white rounded-3xl p-12 mb-16">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl font-bold text-pet-navy mb-6">Our Story</h2>
-                <p className="text-gray-700 mb-4">
-                  Founded by pet lovers who experienced the challenges of international relocation firsthand, 
-                  Pet Airlines was born from a simple belief: every pet deserves a safe, comfortable journey 
-                  to their new home.
-                </p>
-                <p className="text-gray-700 mb-4">
-                  We've helped hundreds of families reunite with their beloved companions across six continents, 
-                  handling everything from complex documentation to specialized medical requirements.
-                </p>
-                <p className="text-gray-700">
-                  Our team combines years of logistics experience with genuine care for animal welfare, 
-                  ensuring every journey is handled with the attention your pet deserves.
-                </p>
-              </div>
-              <div className="bg-pet-blue/10 rounded-3xl p-8 text-center">
-                <div className="text-8xl mb-4">🌍</div>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <div className="text-3xl font-bold text-pet-blue">500+</div>
-                    <div className="text-sm text-gray-600">Pets Safely Transported</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-pet-blue">50+</div>
-                    <div className="text-sm text-gray-600">Countries Served</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-pet-blue">5+</div>
-                    <div className="text-sm text-gray-600">Years Experience</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-pet-blue">100%</div>
-                    <div className="text-sm text-gray-600">Safe Arrivals</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Values */}
-          <div className="mb-16">
-            <h2 className="text-3xl font-bold text-pet-navy text-center mb-12">Our Values</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="text-5xl mb-4">🛡️</div>
-                <h3 className="text-xl font-bold text-pet-navy mb-4">Safety First</h3>
-                <p className="text-gray-700">
-                  Every transport is planned with your pet's safety and comfort as our top priority. 
-                  We work with certified carriers and follow strict international standards.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-5xl mb-4">💖</div>
-                <h3 className="text-xl font-bold text-pet-navy mb-4">Compassionate Care</h3>
-                <p className="text-gray-700">
-                  We understand the emotional journey of relocating with pets. 
-                  Our team provides support and updates every step of the way.
-                </p>
-              </div>
-              <div className="text-center">
-                <div className="text-5xl mb-4">🌐</div>
-                <h3 className="text-xl font-bold text-pet-navy mb-4">Global Expertise</h3>
-                <p className="text-gray-700">
-                  With deep knowledge of international regulations and partnerships worldwide, 
-                  we navigate complex requirements so you don't have to.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Team */}
-          <div className="bg-white rounded-3xl p-12">
-            <h2 className="text-3xl font-bold text-pet-navy text-center mb-12">Our Team</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="w-24 h-24 bg-pet-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">👨‍💼</span>
-                </div>
-                <h3 className="font-bold text-pet-navy mb-2">Sarah Johnson</h3>
-                <p className="text-pet-blue font-medium mb-2">Lead Transport Specialist</p>
-                <p className="text-sm text-gray-600">10+ years in international logistics and animal transportation</p>
-              </div>
-              <div className="text-center">
-                <div className="w-24 h-24 bg-pet-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">👩‍⚕️</span>
-                </div>
-                <h3 className="font-bold text-pet-navy mb-2">Dr. Emily Chen</h3>
-                <p className="text-pet-blue font-medium mb-2">Veterinary Advisor</p>
-                <p className="text-sm text-gray-600">Licensed veterinarian specializing in travel health requirements</p>
-              </div>
-              <div className="text-center">
-                <div className="w-24 h-24 bg-pet-blue/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">👨‍💻</span>
-                </div>
-                <h3 className="font-bold text-pet-navy mb-2">Michael Rodriguez</h3>
-                <p className="text-pet-blue font-medium mb-2">Documentation Expert</p>
-                <p className="text-sm text-gray-600">Expert in international pet documentation and customs procedures</p>
-              </div>
-            </div>
-          </div>
-
-          {/* CTA */}
-          <div className="text-center mt-16">
-            <h2 className="text-3xl font-bold text-pet-navy mb-4">Ready to Start Your Pet's Journey?</h2>
-            <p className="text-lg text-gray-600 mb-8">
-              Let our experienced team handle every detail of your pet's international travel.
-            </p>
-            <a href="/quote" className="btn-primary text-lg px-8 py-4">
-              Get Free Quote
+            <a href="/quote" className="inline-flex items-center text-pet-blue font-semibold hover:underline">
+              Meet more of our team
+              <span className="ml-2">→</span>
             </a>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Certifications & Partners */}
+      <section className="py-20 bg-pet-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">Certifications & Partnerships 🏆</h2>
+            <p className="text-xl text-gray-600">Trusted by industry leaders worldwide</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <div>
+              <h3 className="text-2xl font-bold text-pet-navy mb-6">Our Certifications</h3>
+              <div className="space-y-4">
+                <div className="flex items-center bg-white rounded-xl p-4 shadow">
+                  <span className="text-3xl mr-4">✈️</span>
+                  <div>
+                    <h4 className="font-semibold text-pet-navy">IATA Certified</h4>
+                    <p className="text-sm text-gray-600">International Air Transport Association member</p>
+                  </div>
+                </div>
+                <div className="flex items-center bg-white rounded-xl p-4 shadow">
+                  <span className="text-3xl mr-4">🌐</span>
+                  <div>
+                    <h4 className="font-semibold text-pet-navy">IPATA Member</h4>
+                    <p className="text-sm text-gray-600">International Pet and Animal Transportation Association</p>
+                  </div>
+                </div>
+                <div className="flex items-center bg-white rounded-xl p-4 shadow">
+                  <span className="text-3xl mr-4">🛡️</span>
+                  <div>
+                    <h4 className="font-semibold text-pet-navy">Licensed & Insured</h4>
+                    <p className="text-sm text-gray-600">Full coverage in all operating countries</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-bold text-pet-navy mb-6">Trusted Partners</h3>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="bg-white rounded-xl p-6 text-center shadow">
+                  <span className="text-4xl mb-2 block">🛩️</span>
+                  <p className="font-semibold text-pet-navy">Major Airlines</p>
+                </div>
+                <div className="bg-white rounded-xl p-6 text-center shadow">
+                  <span className="text-4xl mb-2 block">🏥</span>
+                  <p className="font-semibold text-pet-navy">Vet Clinics</p>
+                </div>
+                <div className="bg-white rounded-xl p-6 text-center shadow">
+                  <span className="text-4xl mb-2 block">🏛️</span>
+                  <p className="font-semibold text-pet-navy">Government Agencies</p>
+                </div>
+                <div className="bg-white rounded-xl p-6 text-center shadow">
+                  <span className="text-4xl mb-2 block">🚚</span>
+                  <p className="font-semibold text-pet-navy">Ground Transport</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Responsibility */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">Giving Back 💚</h2>
+            <p className="text-xl text-gray-600">Supporting animal welfare worldwide</p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">🏠</span>
+              </div>
+              <h4 className="font-bold text-pet-navy mb-2">Shelter Support</h4>
+              <p className="text-gray-600">Monthly donations to local animal shelters in our operating regions</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">🆘</span>
+              </div>
+              <h4 className="font-bold text-pet-navy mb-2">Rescue Transport</h4>
+              <p className="text-gray-600">Free transport for rescued animals to their forever homes</p>
+            </div>
+
+            <div className="text-center">
+              <div className="bg-green-100 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-4">
+                <span className="text-5xl">🌱</span>
+              </div>
+              <h4 className="font-bold text-pet-navy mb-2">Green Initiative</h4>
+              <p className="text-gray-600">Carbon offset program for all pet flights</p>
+            </div>
+          </div>
+
+          <div className="text-center mt-12 bg-green-50 rounded-3xl p-8">
+            <p className="text-lg text-green-800 font-semibold">
+              1% of all profits go directly to animal welfare organizations
+            </p>
+            <p className="text-green-700 mt-2">
+              Together, we've contributed over $250,000 to help animals in need
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Press & Recognition */}
+      <section className="py-20 bg-pet-light">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">In The News 📰</h2>
+            <p className="text-xl text-gray-600">Recognized for excellence in pet transportation</p>
+          </div>
+
+          <div className="grid md:grid-cols-4 gap-6 text-center">
+            <div className="bg-white rounded-xl p-6 shadow">
+              <span className="text-3xl mb-3 block">🏅</span>
+              <p className="font-semibold text-pet-navy">Best Pet Transport 2023</p>
+              <p className="text-sm text-gray-600">Global Pet Expo Awards</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow">
+              <span className="text-3xl mb-3 block">⭐</span>
+              <p className="font-semibold text-pet-navy">5.0 Rating</p>
+              <p className="text-sm text-gray-600">500+ Google Reviews</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow">
+              <span className="text-3xl mb-3 block">📺</span>
+              <p className="font-semibold text-pet-navy">Featured on CNN</p>
+              <p className="text-sm text-gray-600">"Setting the Standard"</p>
+            </div>
+            <div className="bg-white rounded-xl p-6 shadow">
+              <span className="text-3xl mb-3 block">🌟</span>
+              <p className="font-semibold text-pet-navy">Industry Leader</p>
+              <p className="text-sm text-gray-600">IPATA Excellence Award</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-pet-blue to-pet-navy text-white">
+        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold mb-6 animate-fade-in-up">
+            Join Our Growing Family 🏠
+          </h2>
+          <p className="text-xl mb-8 opacity-90 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
+            Let us help reunite you with your furry family member
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
+            <a href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+              Start Your Journey
+              <span className="ml-2">→</span>
+            </a>
+            <a href="/faq" className="bg-white text-pet-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+              Learn More
+              <span className="ml-2">📚</span>
+            </a>
+          </div>
+        </div>
+      </section>
     </Layout>
   )
 }

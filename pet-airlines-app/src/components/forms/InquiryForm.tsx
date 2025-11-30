@@ -2,9 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { supabase, submitInquiry, getCountries, type Country } from '@/lib/supabase'
+import { getCitiesForCountry } from '@/data/cities'
 
 export default function InquiryForm() {
   const [countries, setCountries] = useState<Country[]>([])
+  const [fromCities, setFromCities] = useState<string[]>([])
+  const [toCities, setToCities] = useState<string[]>([])
+  const [showPopularRoutes, setShowPopularRoutes] = useState(true)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [formData, setFormData] = useState({
@@ -33,6 +37,24 @@ export default function InquiryForm() {
   useEffect(() => {
     loadCountries()
   }, [])
+  
+  useEffect(() => {
+    // Initialize city lists when countries are first loaded
+    if (countries.length > 0 && fromCities.length === 0 && toCities.length === 0) {
+      if (formData.from_country_id) {
+        const fromCountry = countries.find(c => c.id === formData.from_country_id)
+        if (fromCountry) {
+          setFromCities(getCitiesForCountry(fromCountry.code))
+        }
+      }
+      if (formData.to_country_id) {
+        const toCountry = countries.find(c => c.id === formData.to_country_id)
+        if (toCountry) {
+          setToCities(getCitiesForCountry(toCountry.code))
+        }
+      }
+    }
+  }, [countries]) // Only depend on countries loading
 
   const loadCountries = async () => {
     const countriesData = await getCountries()
@@ -45,6 +67,31 @@ export default function InquiryForm() {
       ...prev,
       [name]: value
     }))
+    
+    // Update city options when country changes
+    if (name === 'from_country_id' && value) {
+      const selectedCountry = countries.find(c => c.id === value)
+      if (selectedCountry) {
+        const cities = getCitiesForCountry(selectedCountry.code)
+        setFromCities(cities)
+        // Reset city selection when country changes
+        setFormData(prev => ({ ...prev, from_city: '' }))
+      } else {
+        setFromCities([])
+      }
+    }
+    
+    if (name === 'to_country_id' && value) {
+      const selectedCountry = countries.find(c => c.id === value)
+      if (selectedCountry) {
+        const cities = getCitiesForCountry(selectedCountry.code)
+        setToCities(cities)
+        // Reset city selection when country changes
+        setFormData(prev => ({ ...prev, to_city: '' }))
+      } else {
+        setToCities([])
+      }
+    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -73,6 +120,39 @@ export default function InquiryForm() {
 
       const result = await submitInquiry(inquiryData)
       console.log('Inquiry submitted successfully:', result)
+      
+      // Send confirmation emails
+      try {
+        const fromCountry = countries.find(c => c.id === formData.from_country_id)
+        const toCountry = countries.find(c => c.id === formData.to_country_id)
+        
+        const emailData = {
+          fullName: formData.full_name,
+          email: formData.email,
+          inquiryNumber: result.inquiry_number,
+          petType: formData.pet_type,
+          originCountry: fromCountry?.name || formData.from_city,
+          destinationCountry: toCountry?.name || formData.to_city,
+          travelDate: formData.travel_date || 'To be determined',
+          language: 'en' // MVP: English only
+        }
+        
+        const emailResponse = await fetch('/api/send-inquiry-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData),
+        })
+        
+        if (!emailResponse.ok) {
+          console.error('Failed to send confirmation emails')
+        } else {
+          console.log('Confirmation emails sent successfully')
+        }
+      } catch (emailError) {
+        console.error('Error sending emails:', emailError)
+      }
       
       setSubmitStatus('success')
       
@@ -127,6 +207,59 @@ export default function InquiryForm() {
         <h1 className="text-4xl font-bold text-pet-navy mb-4">Get Your Free Quote</h1>
         <p className="text-lg text-gray-600">Tell us about your pet's journey and receive a detailed quote within 24 hours</p>
       </div>
+
+      {/* Popular Routes Quick Selection */}
+      {showPopularRoutes && (
+        <div className="card mb-8">
+          <h3 className="text-lg font-semibold text-pet-navy mb-4 flex items-center justify-between">
+            <span>🚀 Popular Routes</span>
+            <button 
+              type="button"
+              onClick={() => setShowPopularRoutes(false)}
+              className="text-sm text-gray-500 hover:text-gray-700"
+            >
+              ×
+            </button>
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[
+              { fromCode: 'CA', fromCity: 'Toronto', toCode: 'KR', toCity: 'Seoul', label: '🇨🇦 Canada → 🇰🇷 Korea' },
+              { fromCode: 'KR', fromCity: 'Seoul', toCode: 'VN', toCity: 'Ho Chi Minh City', label: '🇰🇷 Korea → 🇻🇳 Vietnam' },
+              { fromCode: 'CA', fromCity: 'Vancouver', toCode: 'VN', toCity: 'Hanoi', label: '🇨🇦 Canada → 🇻🇳 Vietnam' },
+              { fromCode: 'CA', fromCity: 'Montreal', toCode: 'FR', toCity: 'Paris', label: '🇨🇦 Canada → 🇫🇷 France' },
+              { fromCode: 'KR', fromCity: 'Busan', toCode: 'FR', toCity: 'Paris', label: '🇰🇷 Korea → 🇫🇷 France' },
+              { fromCode: 'VN', fromCity: 'Da Nang', toCode: 'FR', toCity: 'Lyon', label: '🇻🇳 Vietnam → 🇫🇷 France' }
+            ].map((route, index) => {
+              const fromCountry = countries.find(c => c.code === route.fromCode)
+              const toCountry = countries.find(c => c.code === route.toCode)
+              
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => {
+                    if (fromCountry && toCountry) {
+                      setFormData(prev => ({
+                        ...prev,
+                        from_country_id: fromCountry.id,
+                        from_city: route.fromCity,
+                        to_country_id: toCountry.id,
+                        to_city: route.toCity
+                      }))
+                      // Update city lists
+                      setFromCities(getCitiesForCountry(route.fromCode))
+                      setToCities(getCitiesForCountry(route.toCode))
+                    }
+                  }}
+                  className="text-sm py-2 px-3 bg-pet-light rounded-xl hover:bg-pet-blue/20 transition-all text-center"
+                >
+                  {route.label}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      )}
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Pet Information */}
@@ -219,6 +352,13 @@ export default function InquiryForm() {
             Travel Information
           </h2>
           
+          {/* Helpful tip */}
+          <div className="bg-pet-light rounded-xl p-4 mb-6">
+            <p className="text-sm text-pet-navy">
+              💡 <strong>Tip:</strong> Select your country first, then choose from popular cities. Don't see your city? Select "Other" and specify in the special requests section.
+            </p>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="from_country_id" className="block text-sm font-semibold text-pet-navy mb-2">
@@ -245,16 +385,36 @@ export default function InquiryForm() {
               <label htmlFor="from_city" className="block text-sm font-semibold text-pet-navy mb-2">
                 From City <span className="text-red-500">*</span>
               </label>
-              <input 
-                type="text" 
-                id="from_city" 
-                name="from_city" 
-                required 
-                value={formData.from_city}
-                onChange={handleInputChange}
-                placeholder="e.g., Toronto" 
-                className="input-field"
-              />
+              {fromCities.length > 0 ? (
+                <select 
+                  id="from_city" 
+                  name="from_city" 
+                  required 
+                  value={formData.from_city}
+                  onChange={handleInputChange}
+                  className="input-field"
+                >
+                  <option value="">Select city</option>
+                  {fromCities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                  <option value="other">Other (specify in special requests)</option>
+                </select>
+              ) : (
+                <input 
+                  type="text" 
+                  id="from_city" 
+                  name="from_city" 
+                  required 
+                  value={formData.from_city}
+                  onChange={handleInputChange}
+                  placeholder={formData.from_country_id ? "Please select a country first" : "e.g., Toronto"} 
+                  className="input-field"
+                  disabled={!formData.from_country_id}
+                />
+              )}
             </div>
 
             <div>
@@ -282,16 +442,36 @@ export default function InquiryForm() {
               <label htmlFor="to_city" className="block text-sm font-semibold text-pet-navy mb-2">
                 To City <span className="text-red-500">*</span>
               </label>
-              <input 
-                type="text" 
-                id="to_city" 
-                name="to_city" 
-                required 
-                value={formData.to_city}
-                onChange={handleInputChange}
-                placeholder="e.g., Seoul" 
-                className="input-field"
-              />
+              {toCities.length > 0 ? (
+                <select 
+                  id="to_city" 
+                  name="to_city" 
+                  required 
+                  value={formData.to_city}
+                  onChange={handleInputChange}
+                  className="input-field"
+                >
+                  <option value="">Select city</option>
+                  {toCities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                  <option value="other">Other (specify in special requests)</option>
+                </select>
+              ) : (
+                <input 
+                  type="text" 
+                  id="to_city" 
+                  name="to_city" 
+                  required 
+                  value={formData.to_city}
+                  onChange={handleInputChange}
+                  placeholder={formData.to_country_id ? "Please select a country first" : "e.g., Seoul"} 
+                  className="input-field"
+                  disabled={!formData.to_country_id}
+                />
+              )}
             </div>
 
             <div>
@@ -304,8 +484,10 @@ export default function InquiryForm() {
                 name="travel_date" 
                 value={formData.travel_date}
                 onChange={handleInputChange}
+                min={new Date().toISOString().split('T')[0]}
                 className="input-field"
               />
+              <p className="text-xs text-gray-500 mt-1">Not sure yet? Leave blank and we'll discuss options</p>
             </div>
           </div>
         </div>
@@ -379,7 +561,7 @@ export default function InquiryForm() {
             rows={4}
             value={formData.special_requests}
             onChange={handleInputChange}
-            placeholder="Tell us about any special needs, medical conditions, or specific requirements..."
+            placeholder="Tell us about any special needs, medical conditions, or specific requirements. If your city is not listed above, please specify it here."
             className="input-field resize-none"
           />
         </div>
