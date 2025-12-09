@@ -2,8 +2,15 @@
 
 import { useState } from 'react'
 
+interface TestResults {
+  environment?: any
+  supabase?: any
+  email?: any
+  inquiry?: any
+}
+
 export default function TestDebugPage() {
-  const [results, setResults] = useState<any>({})
+  const [results, setResults] = useState<TestResults>({})
   const [loading, setLoading] = useState<string>('')
 
   const testSupabaseConnection = async () => {
@@ -12,7 +19,7 @@ export default function TestDebugPage() {
       const response = await fetch('/api/test-1-supabase', { method: 'POST' })
       const data = await response.json()
       setResults(prev => ({ ...prev, supabase: data }))
-    } catch (error) {
+    } catch (error: any) {
       setResults(prev => ({ ...prev, supabase: { error: error.message } }))
     }
     setLoading('')
@@ -24,7 +31,7 @@ export default function TestDebugPage() {
       const response = await fetch('/api/test-2-email', { method: 'POST' })
       const data = await response.json()
       setResults(prev => ({ ...prev, email: data }))
-    } catch (error) {
+    } catch (error: any) {
       setResults(prev => ({ ...prev, email: { error: error.message } }))
     }
     setLoading('')
@@ -46,7 +53,7 @@ export default function TestDebugPage() {
       })
       const data = await response.json()
       setResults(prev => ({ ...prev, inquiry: data }))
-    } catch (error) {
+    } catch (error: any) {
       setResults(prev => ({ ...prev, inquiry: { error: error.message } }))
     }
     setLoading('')
@@ -58,7 +65,7 @@ export default function TestDebugPage() {
       const response = await fetch('/api/test-0-environment', { method: 'POST' })
       const data = await response.json()
       setResults(prev => ({ ...prev, environment: data }))
-    } catch (error) {
+    } catch (error: any) {
       setResults(prev => ({ ...prev, environment: { error: error.message } }))
     }
     setLoading('')
