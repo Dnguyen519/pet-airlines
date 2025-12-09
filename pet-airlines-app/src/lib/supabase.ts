@@ -7,7 +7,13 @@ if (!supabaseUrl || !supabaseAnonKey) {
   throw new Error('Missing Supabase environment variables')
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: {
+    persistSession: false,
+    autoRefreshToken: false,
+    detectSessionInUrl: false
+  }
+})
 
 // Types for our database tables
 export interface Inquiry {
@@ -15,17 +21,17 @@ export interface Inquiry {
   inquiry_number: string
   full_name: string
   email: string
-  phone?: string
+  phone?: string | null
   pet_type: 'dog' | 'cat' | 'bird' | 'rabbit' | 'other'
-  pet_breed?: string
-  pet_weight_kg?: number
+  pet_breed?: string | null
+  pet_weight_kg?: number | null
   pet_count: number
-  from_country_id?: string
-  from_city?: string
-  to_country_id?: string
-  to_city?: string
-  travel_date?: string
-  special_requests?: string
+  from_country_id?: string | null
+  from_city?: string | null
+  to_country_id?: string | null
+  to_city?: string | null
+  travel_date?: string | null
+  special_requests?: string | null
   status: 'new' | 'contacted' | 'quoted' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled'
   created_at: string
 }
@@ -72,7 +78,7 @@ export async function getCountries() {
     return []
   }
 
-  return data
+  return data || []
 }
 
 export async function getLanguages() {

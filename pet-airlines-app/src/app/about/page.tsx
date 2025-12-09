@@ -85,7 +85,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <span 
-                    ref={el => counterRefs.current[0] = el}
+                    ref={el => { counterRefs.current[0] = el; }}
                     className="text-4xl font-bold text-pet-blue counter-number" 
                     data-target="10"
                   >0</span>
@@ -93,7 +93,7 @@ export default function AboutPage() {
                 </div>
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <span 
-                    ref={el => counterRefs.current[1] = el}
+                    ref={el => { counterRefs.current[1] = el; }}
                     className="text-4xl font-bold text-pet-orange counter-number" 
                     data-target="5000"
                   >0</span>+
@@ -101,7 +101,7 @@ export default function AboutPage() {
                 </div>
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <span 
-                    ref={el => counterRefs.current[2] = el}
+                    ref={el => { counterRefs.current[2] = el; }}
                     className="text-4xl font-bold text-green-500 counter-number" 
                     data-target="50"
                   >0</span>+
@@ -109,7 +109,7 @@ export default function AboutPage() {
                 </div>
                 <div className="bg-white rounded-2xl p-6 shadow-lg">
                   <span 
-                    ref={el => counterRefs.current[3] = el}
+                    ref={el => { counterRefs.current[3] = el; }}
                     className="text-4xl font-bold text-purple-500 counter-number" 
                     data-target="100"
                   >0</span>%

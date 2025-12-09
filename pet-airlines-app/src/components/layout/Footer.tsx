@@ -34,7 +34,7 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-white/70">
-              <li>📧 info@petairlines.com</li>
+              <li>📧 info@pet-airlines.com</li>
               <li>📱 WhatsApp: +1 234 567 890</li>
               <li>🌐 Available in 6 languages</li>
             </ul>

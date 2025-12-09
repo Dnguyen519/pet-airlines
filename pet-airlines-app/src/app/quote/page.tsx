@@ -1,4 +1,4 @@
-import InquiryForm from '@/components/forms/InquiryForm'
+import InquiryForm from '@/components/forms/InquiryFormV2'
 import Layout from '@/components/layout/Layout'
 
 export default function QuotePage() {
