@@ -13,7 +13,7 @@ export interface EmailOptions {
   from?: string;
 }
 
-export async function sendEmail({ to, subject, html, from = 'Pet Airlines <noreply@pet-airlines.com>' }: EmailOptions) {
+export async function sendEmail({ to, subject, html, from = 'Pet Airlines <onboarding@resend.dev>' }: EmailOptions) {
   try {
     const data = await resend.emails.send({
       from,
