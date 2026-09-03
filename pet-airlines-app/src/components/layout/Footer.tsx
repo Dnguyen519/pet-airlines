@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function Footer() {
   return (
     <footer className="bg-pet-navy text-white py-12">
@@ -15,7 +17,7 @@ export default function Footer() {
               <li><a href="/services#tier-a" className="hover:text-pet-orange transition-colors">Transport Services</a></li>
               <li><a href="/services#tier-b" className="hover:text-pet-orange transition-colors">Support Services</a></li>
               <li><a href="/services#tier-c" className="hover:text-pet-orange transition-colors">Consulting</a></li>
-              <li><a href="/routes" className="hover:text-pet-orange transition-colors">Popular Routes</a></li>
+              <li><Link href="/routes" className="hover:text-pet-orange transition-colors">Popular Routes</Link></li>
               <li><a href="/pricing" className="hover:text-pet-orange transition-colors">Pricing Calculator</a></li>
             </ul>
           </div>

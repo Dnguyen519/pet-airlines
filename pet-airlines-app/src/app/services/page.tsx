@@ -35,7 +35,7 @@ export default function ServicesPage() {
             Complete Pet Transportation Services 🌍
           </h1>
           <p className="text-xl md:text-2xl text-pet-navy/80 max-w-3xl mx-auto animate-fade-in-up" style={{animationDelay: '0.2s'}}>
-            From full door-to-door international transport to consulting services, we've got your pet's journey covered
+            From full door-to-door international transport to consulting services, we&apos;ve got your pet&apos;s journey covered
           </p>
         </div>
       </section>
@@ -87,7 +87,7 @@ export default function ServicesPage() {
                   
                   <div className="grid md:grid-cols-2 gap-6 mb-6">
                     <div>
-                      <h4 className="font-semibold text-pet-navy mb-3">What's Included:</h4>
+                      <h4 className="font-semibold text-pet-navy mb-3">What&apos;s Included:</h4>
                       <ul className="space-y-2">
                         <li className="flex items-start">
                           <span className="text-green-500 mr-2 mt-1">✓</span>
@@ -464,7 +464,7 @@ export default function ServicesPage() {
               <strong className="text-pet-navy">Door-to-Door (Tier A)</strong> fits owners who
               want the fewest touchpoints on their end — home pickup, airline coordination, export
               and import paperwork, customs clearance, and final delivery are all handled as one
-              package. It's the right choice when the destination has import permits, quarantine
+              package. It&apos;s the right choice when the destination has import permits, quarantine
               rules, or breed restrictions that are easy to get wrong on a first attempt.
             </p>
             <p className="text-gray-700">
@@ -482,7 +482,7 @@ export default function ServicesPage() {
             <p className="text-gray-700">
               <strong className="text-pet-navy">Consulting (Tier C)</strong> is for DIY travelers
               who mainly need a second opinion on their timeline, document checklist, or a
-              specific destination's quarantine and import rules before they book anything
+              specific destination&apos;s quarantine and import rules before they book anything
               themselves.
             </p>
           </div>
@@ -493,7 +493,7 @@ export default function ServicesPage() {
       <section className="py-20 bg-gradient-to-br from-pet-blue to-pet-navy text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold mb-6 animate-fade-in-up">
-            Ready to Start Your Pet's Journey? 🛫
+            Ready to Start Your Pet&apos;s Journey? 🛫
           </h2>
           <p className="text-xl mb-8 opacity-90 animate-fade-in-up" style={{animationDelay: '0.2s'}}>
             Get a customized quote based on your specific needs

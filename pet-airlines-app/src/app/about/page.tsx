@@ -53,11 +53,11 @@ export default function AboutPage() {
               </p>
               <p className="text-gray-700 mb-4">
                 What started as a small operation helping expats in Asia has grown into a trusted global network, 
-                serving thousands of families each year. We've turned the complex process of pet relocation into 
+                serving thousands of families each year. We&apos;ve turned the complex process of pet relocation into
                 a seamless, stress-free experience.
               </p>
               <p className="text-gray-700">
-                Today, we're proud to be the bridge that keeps families together, no matter where life takes them.
+                Today, we&apos;re proud to be the bridge that keeps families together, no matter where life takes them.
               </p>
             </div>
             <div className="bg-gradient-to-br from-pet-blue/10 to-pet-orange/10 rounded-3xl p-8 text-center">
@@ -112,7 +112,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
               <span className="text-4xl mb-3 block">🛡️</span>
               <h4 className="font-bold text-pet-navy mb-2">Safety First</h4>
-              <p className="text-sm text-gray-600">100% commitment to your pet's wellbeing</p>
+              <p className="text-sm text-gray-600">100% commitment to your pet&apos;s wellbeing</p>
             </div>
             <div className="bg-white rounded-2xl p-6 text-center value-card shadow-md">
               <span className="text-4xl mb-3 block">💎</span>
@@ -133,7 +133,7 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-pet-navy mb-4">Meet Our Team 👥</h2>
-            <p className="text-xl text-gray-600">Passionate professionals dedicated to your pet's journey</p>
+            <p className="text-xl text-gray-600">Passionate professionals dedicated to your pet&apos;s journey</p>
           </div>
 
           <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
@@ -176,7 +176,7 @@ export default function AboutPage() {
 
           <div className="text-center mt-12">
             <p className="text-gray-600 mb-6">
-              Our team of 50+ pet lovers, logistics experts, and customer care specialists work around the clock to ensure every pet's safe journey.
+              Our team of 50+ pet lovers, logistics experts, and customer care specialists work around the clock to ensure every pet&apos;s safe journey.
             </p>
             <a href="/quote" className="inline-flex items-center text-pet-blue font-semibold hover:underline">
               Meet more of our team
@@ -286,7 +286,7 @@ export default function AboutPage() {
               1% of all profits go directly to animal welfare organizations
             </p>
             <p className="text-green-700 mt-2">
-              Together, we've contributed over $250,000 to help animals in need
+              Together, we&apos;ve contributed over $250,000 to help animals in need
             </p>
           </div>
         </div>
@@ -314,7 +314,7 @@ export default function AboutPage() {
             <div className="bg-white rounded-xl p-6 shadow">
               <span className="text-3xl mb-3 block">📺</span>
               <p className="font-semibold text-pet-navy">Featured on CNN</p>
-              <p className="text-sm text-gray-600">"Setting the Standard"</p>
+              <p className="text-sm text-gray-600">&quot;Setting the Standard&quot;</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow">
               <span className="text-3xl mb-3 block">🌟</span>

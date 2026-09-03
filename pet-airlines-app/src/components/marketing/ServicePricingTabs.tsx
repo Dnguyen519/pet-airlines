@@ -20,6 +20,28 @@ interface ServicePricingTabsProps {
 
 type TabId = 'transport' | 'support' | 'consulting'
 
+interface TabButtonProps {
+  id: TabId
+  label: string
+  activeTab: TabId
+  onSelect: (id: TabId) => void
+}
+
+function TabButton({ id, label, activeTab, onSelect }: TabButtonProps) {
+  return (
+    <button
+      onClick={() => onSelect(id)}
+      className={`px-6 py-3 rounded-full font-semibold transition-all ${
+        activeTab === id
+          ? 'bg-pet-blue text-white'
+          : 'bg-white text-pet-navy hover:bg-pet-blue hover:text-white'
+      }`}
+    >
+      {label}
+    </button>
+  )
+}
+
 export function ServicePricingTabs({
   transportServices,
   supportServices,
@@ -40,25 +62,12 @@ export function ServicePricingTabs({
     }
   }
 
-  const TabButton = ({ id, label }: { id: TabId; label: string }) => (
-    <button
-      onClick={() => setActiveTab(id)}
-      className={`px-6 py-3 rounded-full font-semibold transition-all ${
-        activeTab === id
-          ? 'bg-pet-blue text-white'
-          : 'bg-white text-pet-navy hover:bg-pet-blue hover:text-white'
-      }`}
-    >
-      {label}
-    </button>
-  )
-
   return (
     <>
       <div className="flex flex-wrap justify-center gap-4 mb-8">
-        <TabButton id="transport" label="✈️ Transport Services" />
-        <TabButton id="support" label="📋 Support Services" />
-        <TabButton id="consulting" label="💡 Consulting" />
+        <TabButton id="transport" label="✈️ Transport Services" activeTab={activeTab} onSelect={setActiveTab} />
+        <TabButton id="support" label="📋 Support Services" activeTab={activeTab} onSelect={setActiveTab} />
+        <TabButton id="consulting" label="💡 Consulting" activeTab={activeTab} onSelect={setActiveTab} />
       </div>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -54,7 +54,7 @@ export default function HowItWorksPage() {
           <div className="text-center mb-16">
             <h1 className="text-5xl font-bold text-pet-navy mb-6">How It Works</h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Simple process, professional results. We handle every detail so you can focus on your pet's comfort.
+              Simple process, professional results. We handle every detail so you can focus on your pet&apos;s comfort.
             </p>
           </div>
 
@@ -195,7 +195,7 @@ export default function HowItWorksPage() {
                   during the hottest months, or breed restrictions for snub-nosed dogs and cats.
                 </p>
                 <p className="text-gray-700">
-                  We confirm crate sizing and the airline's current policy before booking, so
+                  We confirm crate sizing and the airline&apos;s current policy before booking, so
                   there are no surprises at the check-in counter.
                 </p>
               </div>

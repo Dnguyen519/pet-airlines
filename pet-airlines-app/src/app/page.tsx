@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout'
 
 export const metadata: Metadata = {
@@ -66,7 +67,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-pet-navy mb-4">Our Service Packages</h2>
-            <p className="text-xl text-gray-600">Choose the perfect solution for your pet's journey</p>
+            <p className="text-xl text-gray-600">Choose the perfect solution for your pet&apos;s journey</p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -231,9 +232,9 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-8">
-            <a href="/routes" className="text-pet-blue font-semibold hover:underline">
+            <Link href="/routes" className="text-pet-blue font-semibold hover:underline">
               View All Routes →
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -350,9 +351,9 @@ export default function HomePage() {
                 breeds — are restricted or refused by many carriers for cargo travel because of
                 their higher risk of respiratory distress, and some destinations apply seasonal
                 heat embargoes that pause live-animal cargo during the hottest summer months.
-                Depending on the pet's size and the route, transport can move as manifest cargo,
+                Depending on the pet&apos;s size and the route, transport can move as manifest cargo,
                 as checked baggage, or in some cases in the cabin — the right option depends on
-                weight limits, the airline's own policy, and the specific route.
+                weight limits, the airline&apos;s own policy, and the specific route.
               </p>
             </div>
 
@@ -360,12 +361,12 @@ export default function HomePage() {
               <h3 className="text-2xl font-bold text-pet-navy mb-4">Quarantine and destination rules</h3>
               <p className="text-gray-700">
                 Some countries and territories require a quarantine period on arrival regardless
-                of documentation — this varies by country, and in a few cases by the pet's origin
+                of documentation — this varies by country, and in a few cases by the pet&apos;s origin
                 country and vaccination history. Where quarantine applies, it needs to be booked
                 and paid for in advance, and it changes the realistic timeline for a move by
                 weeks. Countries without quarantine requirements still carry their own import
-                permit, health certificate, and customs clearance steps, so "no quarantine" does
-                not mean "no paperwork."
+                permit, health certificate, and customs clearance steps, so &quot;no quarantine&quot; does
+                not mean &quot;no paperwork.&quot;
               </p>
             </div>
 
@@ -374,7 +375,7 @@ export default function HomePage() {
               <p className="text-gray-700">
                 Between vaccination sequencing, permit processing, and airline booking, most
                 international pet moves take somewhere between 2 and 8 weeks of lead time from
-                first consultation to travel day, depending on the destination's specific
+                first consultation to travel day, depending on the destination&apos;s specific
                 requirements. Routes with EU entry (health certification through the TRACES
                 system, for example) or destinations that require quarantine tend to sit at the
                 longer end of that range. Starting the health and documentation steps early is
@@ -389,7 +390,7 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-pet-blue to-pet-navy text-white">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold mb-6">Ready to Start Your Pet's Journey?</h2>
+          <h2 className="text-4xl font-bold mb-6">Ready to Start Your Pet&apos;s Journey?</h2>
           <p className="text-xl mb-8 opacity-90">Get a free quote in less than 24 hours</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
