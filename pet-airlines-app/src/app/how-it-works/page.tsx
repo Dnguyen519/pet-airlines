@@ -1,4 +1,19 @@
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+
+export const metadata: Metadata = {
+  title: 'How Pet Relocation Works',
+  description:
+    'The step-by-step pet relocation process: health certificates, microchip and rabies timing, import permits, crate approval, travel day, and arrival.',
+  alternates: { canonical: '/how-it-works' },
+  openGraph: {
+    title: 'How Pet Relocation Works | Pet Airlines',
+    description:
+      'The step-by-step pet relocation process: health certificates, microchip and rabies timing, import permits, crate approval, travel day, and arrival.',
+    url: '/how-it-works',
+    type: 'website',
+  },
+}
 
 export default function HowItWorksPage() {
   const steps = [
@@ -143,6 +158,43 @@ export default function HowItWorksPage() {
                   <div className="text-6xl mb-4">🏠</div>
                   <p className="font-semibold text-pet-navy">Safe arrival at new home</p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Documentation & Timeline Detail */}
+          <div className="bg-white rounded-3xl p-12 mb-16">
+            <h2 className="text-3xl font-bold text-pet-navy mb-8 text-center">Understanding the Timeline</h2>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-pet-navy mb-3">Microchip, rabies, and health certificate order</h3>
+                <p className="text-gray-700 mb-3">
+                  Most destinations require the microchip to be implanted before or on the same
+                  day as the rabies vaccination — vaccinating first and chipping afterward can
+                  invalidate the vaccination for entry purposes. From there, rabies vaccination
+                  timing rules vary by destination: some require a minimum of 21 days between
+                  vaccination and travel, others require the vaccination to simply be current.
+                  The health certificate itself is usually only valid for a short window before
+                  departure, commonly 5-10 days, so it has to be scheduled last, not first.
+                </p>
+                <p className="text-gray-700">
+                  Getting this sequence wrong is the most common reason a travel date slips —
+                  we build the whole document schedule backward from your target travel date.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-pet-navy mb-3">Crate approval and airline sign-off</h3>
+                <p className="text-gray-700 mb-3">
+                  Crates have to meet IATA Live Animals Regulations sizing: the pet must be able
+                  to stand at full height, turn around, and lie down without touching the crate
+                  walls. Airlines typically require crate approval as part of check-in, and some
+                  routes are subject to seasonal heat embargoes that suspend live-animal cargo
+                  during the hottest months, or breed restrictions for snub-nosed dogs and cats.
+                </p>
+                <p className="text-gray-700">
+                  We confirm crate sizing and the airline's current policy before booking, so
+                  there are no surprises at the check-in counter.
+                </p>
               </div>
             </div>
           </div>

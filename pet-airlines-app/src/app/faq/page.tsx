@@ -1,92 +1,109 @@
-'use client'
-
-import { useState } from 'react'
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+import { FaqAccordion, type FaqSection } from '@/components/marketing/FaqAccordion'
+
+export const metadata: Metadata = {
+  title: 'Pet Transportation FAQ',
+  description:
+    'Answers on documentation timelines, microchip and rabies vaccination order, crate sizing, pricing, tracking, and cabin vs. cargo travel for international pet relocation.',
+  alternates: { canonical: '/faq' },
+  openGraph: {
+    title: 'Pet Transportation FAQ | Pet Airlines',
+    description:
+      'Answers on documentation timelines, microchip and rabies vaccination order, crate sizing, pricing, tracking, and cabin vs. cargo travel.',
+    url: '/faq',
+    type: 'website',
+  },
+}
+
+const faqs: FaqSection[] = [
+  {
+    category: 'General',
+    questions: [
+      {
+        q: 'How long does international pet transport take?',
+        a: 'Processing time varies by route, typically 7-21 days for documentation plus travel time. We provide detailed timelines during consultation.',
+      },
+      {
+        q: 'Is pet transportation safe?',
+        a: 'Yes, we follow strict international safety standards. All our transport partners are certified, and we maintain a 100% safe arrival rate.',
+      },
+      {
+        q: 'What countries do you serve?',
+        a: 'We serve 50+ countries worldwide, with expertise in routes between Canada, Korea, Vietnam, France, and the USA. Custom routes available.',
+      },
+    ],
+  },
+  {
+    category: 'Documentation',
+    questions: [
+      {
+        q: 'What documents does my pet need?',
+        a: 'Requirements vary by destination but typically include health certificates, vaccination records, microchip documentation, and import permits. We handle all paperwork.',
+      },
+      {
+        q: 'Do you help with veterinary requirements?',
+        a: 'Yes, we provide detailed checklists and work with your veterinarian to ensure all health requirements are met for your destination country.',
+      },
+      {
+        q: 'How much advance notice do you need?',
+        a: 'We recommend contacting us 2-3 months before travel to allow time for documentation and health preparations, though urgent cases can sometimes be accommodated.',
+      },
+      {
+        q: 'What order do the microchip and rabies vaccination need to happen in?',
+        a: 'Most destinations require the microchip to be implanted before or on the same day as the rabies vaccination — vaccinating first and chipping afterward can invalidate the vaccination for entry purposes. We sequence this for you as part of the documentation plan.',
+      },
+    ],
+  },
+  {
+    category: 'Pricing',
+    questions: [
+      {
+        q: 'How much does pet transportation cost?',
+        a: 'Costs vary by route, pet size, and services needed. Transport services start from $800, support services from $150, consulting from $50. Contact us for a detailed quote.',
+      },
+      {
+        q: 'Are there hidden fees?',
+        a: 'No hidden fees. We provide transparent pricing with detailed breakdowns. All costs are discussed upfront during consultation.',
+      },
+      {
+        q: 'Do you offer payment plans?',
+        a: 'Yes, we offer flexible payment options for larger transports. Discuss payment plans during your consultation.',
+      },
+    ],
+  },
+  {
+    category: 'Travel Process',
+    questions: [
+      {
+        q: 'Can I track my pet during travel?',
+        a: "Yes, we provide real-time updates throughout the journey via WhatsApp, email, and phone. You'll know your pet's status every step of the way.",
+      },
+      {
+        q: 'What size crate does my pet need?',
+        a: "Crate size depends on your pet's measurements and airline requirements — IATA Live Animals Regulations require the pet to stand fully upright, turn around, and lie down without touching the crate walls. We provide sizing guidance and can arrange IATA-compliant crates.",
+      },
+      {
+        q: 'Can pets travel in cabin?',
+        a: "Small pets may travel in cabin on some routes, subject to airline policies and destination requirements. We'll advise on the best option for your pet.",
+      },
+      {
+        q: 'What is a heat embargo?',
+        a: 'Many airlines suspend live-animal cargo during the hottest summer months on routes where tarmac temperatures pose a health risk. This can shift travel dates or routing, and we plan around it when booking.',
+      },
+      {
+        q: 'Are there breed restrictions?',
+        a: 'Snub-nosed (brachycephalic) breeds — pugs, bulldogs, Persian cats, and similar breeds — are restricted or refused by many carriers for cargo travel due to a higher risk of respiratory distress. We check the specific airline and route policy before booking.',
+      },
+      {
+        q: 'Does my destination require quarantine?',
+        a: "Some countries and territories require a quarantine period on arrival regardless of documentation, and this varies by country and sometimes by the pet's origin and vaccination history. Where quarantine applies, it needs to be booked and paid for in advance, which extends the overall timeline by weeks.",
+      },
+    ],
+  },
+]
 
 export default function FAQPage() {
-  const [openItems, setOpenItems] = useState<number[]>([])
-
-  const toggleItem = (index: number) => {
-    setOpenItems(prev => 
-      prev.includes(index) 
-        ? prev.filter(i => i !== index)
-        : [...prev, index]
-    )
-  }
-
-  const faqs = [
-    {
-      category: 'General',
-      questions: [
-        {
-          q: 'How long does international pet transport take?',
-          a: 'Processing time varies by route, typically 7-21 days for documentation plus travel time. We provide detailed timelines during consultation.'
-        },
-        {
-          q: 'Is pet transportation safe?',
-          a: 'Yes, we follow strict international safety standards. All our transport partners are certified, and we maintain a 100% safe arrival rate.'
-        },
-        {
-          q: 'What countries do you serve?',
-          a: 'We serve 50+ countries worldwide, with expertise in routes between Canada, Korea, Vietnam, France, and the USA. Custom routes available.'
-        }
-      ]
-    },
-    {
-      category: 'Documentation',
-      questions: [
-        {
-          q: 'What documents does my pet need?',
-          a: 'Requirements vary by destination but typically include health certificates, vaccination records, microchip documentation, and import permits. We handle all paperwork.'
-        },
-        {
-          q: 'Do you help with veterinary requirements?',
-          a: 'Yes, we provide detailed checklists and work with your veterinarian to ensure all health requirements are met for your destination country.'
-        },
-        {
-          q: 'How much advance notice do you need?',
-          a: 'We recommend contacting us 2-3 months before travel to allow time for documentation and health preparations, though urgent cases can sometimes be accommodated.'
-        }
-      ]
-    },
-    {
-      category: 'Pricing',
-      questions: [
-        {
-          q: 'How much does pet transportation cost?',
-          a: 'Costs vary by route, pet size, and services needed. Transport services start from $800, support services from $150, consulting from $50. Contact us for a detailed quote.'
-        },
-        {
-          q: 'Are there hidden fees?',
-          a: 'No hidden fees. We provide transparent pricing with detailed breakdowns. All costs are discussed upfront during consultation.'
-        },
-        {
-          q: 'Do you offer payment plans?',
-          a: 'Yes, we offer flexible payment options for larger transports. Discuss payment plans during your consultation.'
-        }
-      ]
-    },
-    {
-      category: 'Travel Process',
-      questions: [
-        {
-          q: 'Can I track my pet during travel?',
-          a: 'Yes, we provide real-time updates throughout the journey via WhatsApp, email, and phone. You\'ll know your pet\'s status every step of the way.'
-        },
-        {
-          q: 'What size crate does my pet need?',
-          a: 'Crate size depends on your pet\'s measurements and airline requirements. We provide sizing guidance and can arrange IATA-compliant crates.'
-        },
-        {
-          q: 'Can pets travel in cabin?',
-          a: 'Small pets may travel in cabin on some routes, subject to airline policies and destination requirements. We\'ll advise on the best option for your pet.'
-        }
-      ]
-    }
-  ]
-
-  let questionIndex = 0
-
   const faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
@@ -116,49 +133,13 @@ export default function FAQPage() {
             <p className="text-xl text-gray-600">Find answers to common questions about pet transportation</p>
           </div>
 
-          {/* FAQ Sections */}
-          <div className="space-y-8">
-            {faqs.map((section, sectionIndex) => (
-              <div key={sectionIndex} className="bg-white rounded-3xl p-8">
-                <h2 className="text-2xl font-bold text-pet-navy mb-6">{section.category}</h2>
-                
-                <div className="space-y-4">
-                  {section.questions.map((faq, faqIndex) => {
-                    const currentIndex = questionIndex++
-                    const isOpen = openItems.includes(currentIndex)
-                    
-                    return (
-                      <div key={faqIndex} className="border border-gray-200 rounded-2xl">
-                        <button
-                          onClick={() => toggleItem(currentIndex)}
-                          className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 rounded-2xl transition-colors"
-                        >
-                          <h3 className="font-semibold text-pet-navy pr-4">{faq.q}</h3>
-                          <span className={`text-pet-blue transform transition-transform ${isOpen ? 'rotate-180' : ''}`}>
-                            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                          </span>
-                        </button>
-                        
-                        {isOpen && (
-                          <div className="px-6 pb-6">
-                            <p className="text-gray-700 leading-relaxed">{faq.a}</p>
-                          </div>
-                        )}
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
+          <FaqAccordion sections={faqs} />
 
           {/* Contact CTA */}
           <div className="bg-gradient-to-r from-pet-blue to-pet-sky rounded-3xl p-8 text-center text-white mt-12">
             <h2 className="text-3xl font-bold mb-4">Still Have Questions?</h2>
             <p className="text-lg mb-6 opacity-90">
-              Our experts are here to help with any specific concerns about your pet's journey.
+              Our experts are here to help with any specific concerns about your pet&apos;s journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">

@@ -1,9 +1,14 @@
+import type { Metadata } from 'next'
 import './globals.css'
 
 const SITE_URL = 'https://www.pet-airlines.com'
 
-export const metadata = {
-  title: 'Pet Airlines - International Pet Transportation',
+export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.pet-airlines.com'),
+  title: {
+    default: 'Pet Airlines - International Pet Transportation',
+    template: '%s | Pet Airlines',
+  },
   description: 'Professional door-to-door pet transportation services worldwide. Safe, reliable, and stress-free travel for your furry family members.',
   keywords: 'pet transportation, international pet travel, pet relocation, pet airline, pet shipping',
 }

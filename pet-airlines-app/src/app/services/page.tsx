@@ -1,6 +1,19 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+
+export const metadata: Metadata = {
+  title: 'Pet Transportation Services & Pricing',
+  description:
+    'Door-to-door international transport, flight-only booking, documentation, customs clearance, IATA crating, and pet relocation consulting — full service breakdown.',
+  alternates: { canonical: '/services' },
+  openGraph: {
+    title: 'Pet Transportation Services & Pricing | Pet Airlines',
+    description:
+      'Door-to-door international transport, flight-only booking, documentation, customs clearance, IATA crating, and consulting.',
+    url: '/services',
+    type: 'website',
+  },
+}
 
 export default function ServicesPage() {
   return (
@@ -430,6 +443,45 @@ export default function ServicesPage() {
                 <p className="text-sm text-gray-600 mt-2">Support until arrival</p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Choosing the Right Tier */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <span className="text-6xl mb-4 block">🧭</span>
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">Which Tier Is Right for Your Pet?</h2>
+            <p className="text-xl text-pet-navy/70">A quick guide to matching the service to your situation</p>
+          </div>
+
+          <div className="max-w-4xl mx-auto space-y-6">
+            <p className="text-gray-700">
+              <strong className="text-pet-navy">Door-to-Door (Tier A)</strong> fits owners who
+              want the fewest touchpoints on their end — home pickup, airline coordination, export
+              and import paperwork, customs clearance, and final delivery are all handled as one
+              package. It's the right choice when the destination has import permits, quarantine
+              rules, or breed restrictions that are easy to get wrong on a first attempt.
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-pet-navy">Flight-Only (also Tier A)</strong> works for owners
+              who can manage ground transport and paperwork themselves but want a specialist
+              handling the airline booking, crate approval, and check-in — routes with strict
+              live-animal cargo policies or seasonal heat embargoes are where this matters most.
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-pet-navy">Support Services (Tier B)</strong> — documentation,
+              customs clearance, or crate sizing on their own — suit owners already booking their
+              own flight who need one specific piece done correctly, most often the health
+              certificate and vaccination timeline or an IATA-compliant crate.
+            </p>
+            <p className="text-gray-700">
+              <strong className="text-pet-navy">Consulting (Tier C)</strong> is for DIY travelers
+              who mainly need a second opinion on their timeline, document checklist, or a
+              specific destination's quarantine and import rules before they book anything
+              themselves.
+            </p>
           </div>
         </div>
       </section>

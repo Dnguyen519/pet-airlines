@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 export default function Footer() {
   return (
     <footer className="bg-pet-navy text-white py-12">
@@ -36,7 +34,6 @@ export default function Footer() {
             <ul className="space-y-2 text-white/70">
               <li>📧 info@pet-airlines.com</li>
               <li>📱 WhatsApp: +1 234 567 890</li>
-              <li>🌐 Available in 6 languages</li>
             </ul>
             <div className="mt-4">
               <h4 className="font-semibold mb-2">Follow Us</h4>

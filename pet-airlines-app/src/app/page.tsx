@@ -1,6 +1,19 @@
-'use client'
-
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+
+export const metadata: Metadata = {
+  title: 'International Pet Transportation & Relocation',
+  description:
+    'Door-to-door international pet transportation with documentation, customs clearance, and IATA-compliant crating. Serving Canada, Korea, Vietnam, France and more.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'International Pet Transportation & Relocation | Pet Airlines',
+    description:
+      'Door-to-door international pet transportation with documentation, customs clearance, and IATA-compliant crating.',
+    url: '/',
+    type: 'website',
+  },
+}
 
 export default function HomePage() {
   return (
@@ -288,6 +301,86 @@ export default function HomePage() {
             <div>
               <div className="text-4xl font-bold text-pet-blue mb-2">100%</div>
               <p className="text-gray-600">Safe Arrivals</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* What International Relocation Involves */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-pet-navy mb-4">What International Pet Relocation Involves</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Moving a pet across a border is a documentation and logistics exercise, not just a
+              plane ticket. Here is what actually has to happen before your pet can travel.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-pet-light rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-pet-navy mb-4">Health certificates and timing</h3>
+              <p className="text-gray-700 mb-3">
+                Most destination countries require an official health certificate issued by an
+                accredited veterinarian within a fixed window before departure — often 10 days,
+                sometimes as little as 5. Rabies vaccination has its own clock: many countries
+                require the vaccine to have been given at least 21 days before travel, and some
+                require it to be current for a minimum period rather than freshly administered.
+                Microchipping generally has to happen before or on the same day as the rabies
+                vaccination for the vaccination to count toward entry requirements — vaccinate
+                first and chip later, and the paperwork can be rejected at the border.
+              </p>
+              <p className="text-gray-700">
+                Import permits, when required, are typically applied for weeks in advance and can
+                expire before travel if the trip is delayed, so the whole document set has to be
+                sequenced around the actual travel date, not assembled all at once.
+              </p>
+            </div>
+
+            <div className="bg-pet-light rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-pet-navy mb-4">Crating, cargo, and cabin rules</h3>
+              <p className="text-gray-700 mb-3">
+                Airlines that accept pets follow IATA Live Animals Regulations for crate sizing:
+                the crate has to let the pet stand fully upright, turn around, and lie down
+                naturally, with ventilation on at least two sides. A crate that is too small is
+                the single most common reason a booking gets rejected at check-in.
+              </p>
+              <p className="text-gray-700">
+                Snub-nosed (brachycephalic) breeds — pugs, bulldogs, Persian cats, and similar
+                breeds — are restricted or refused by many carriers for cargo travel because of
+                their higher risk of respiratory distress, and some destinations apply seasonal
+                heat embargoes that pause live-animal cargo during the hottest summer months.
+                Depending on the pet's size and the route, transport can move as manifest cargo,
+                as checked baggage, or in some cases in the cabin — the right option depends on
+                weight limits, the airline's own policy, and the specific route.
+              </p>
+            </div>
+
+            <div className="bg-pet-light rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-pet-navy mb-4">Quarantine and destination rules</h3>
+              <p className="text-gray-700">
+                Some countries and territories require a quarantine period on arrival regardless
+                of documentation — this varies by country, and in a few cases by the pet's origin
+                country and vaccination history. Where quarantine applies, it needs to be booked
+                and paid for in advance, and it changes the realistic timeline for a move by
+                weeks. Countries without quarantine requirements still carry their own import
+                permit, health certificate, and customs clearance steps, so "no quarantine" does
+                not mean "no paperwork."
+              </p>
+            </div>
+
+            <div className="bg-pet-light rounded-3xl p-8">
+              <h3 className="text-2xl font-bold text-pet-navy mb-4">A realistic timeline</h3>
+              <p className="text-gray-700">
+                Between vaccination sequencing, permit processing, and airline booking, most
+                international pet moves take somewhere between 2 and 8 weeks of lead time from
+                first consultation to travel day, depending on the destination's specific
+                requirements. Routes with EU entry (health certification through the TRACES
+                system, for example) or destinations that require quarantine tend to sit at the
+                longer end of that range. Starting the health and documentation steps early is
+                what keeps a move on schedule — most delays come from a vaccination or permit
+                step that was scheduled too close to the travel date.
+              </p>
             </div>
           </div>
         </div>

@@ -1,46 +1,22 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
+import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+import { AnimatedCounter } from '@/components/marketing/AnimatedCounter'
+
+export const metadata: Metadata = {
+  title: 'About Us',
+  description:
+    'Pet Airlines is a pet relocation team handling documentation, customs clearance, and door-to-door international pet transportation since 2014.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About Pet Airlines',
+    description:
+      'Pet Airlines is a pet relocation team handling documentation, customs clearance, and door-to-door international pet transportation since 2014.',
+    url: '/about',
+    type: 'website',
+  },
+}
 
 export default function AboutPage() {
-  const counterRefs = useRef<(HTMLSpanElement | null)[]>([])
-
-  useEffect(() => {
-    const animateCounter = (element: HTMLSpanElement, target: number) => {
-      const increment = target / 200
-      let current = 0
-      
-      const updateCounter = () => {
-        if (current < target) {
-          current = Math.ceil(current + increment)
-          element.innerText = current.toString()
-          setTimeout(updateCounter, 10)
-        } else {
-          element.innerText = target.toString()
-        }
-      }
-      
-      updateCounter()
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && entry.target instanceof HTMLSpanElement) {
-          const target = parseInt(entry.target.getAttribute('data-target') || '0')
-          animateCounter(entry.target as HTMLSpanElement, target)
-          observer.unobserve(entry.target)
-        }
-      })
-    }, { threshold: 0.5 })
-
-    counterRefs.current.forEach(ref => {
-      if (ref) observer.observe(ref)
-    })
-
-    return () => observer.disconnect()
-  }, [])
-
   return (
     <Layout>
       {/* Hero Section */}
@@ -83,38 +59,10 @@ export default function AboutPage() {
             </div>
             <div className="bg-gradient-to-br from-pet-blue/10 to-pet-orange/10 rounded-3xl p-8 text-center">
               <div className="grid grid-cols-2 gap-6">
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <span 
-                    ref={el => { counterRefs.current[0] = el; }}
-                    className="text-4xl font-bold text-pet-blue counter-number" 
-                    data-target="10"
-                  >0</span>
-                  <p className="text-gray-600 mt-2">Years of Service</p>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <span 
-                    ref={el => { counterRefs.current[1] = el; }}
-                    className="text-4xl font-bold text-pet-orange counter-number" 
-                    data-target="5000"
-                  >0</span>+
-                  <p className="text-gray-600 mt-2">Happy Pets Transported</p>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <span 
-                    ref={el => { counterRefs.current[2] = el; }}
-                    className="text-4xl font-bold text-green-500 counter-number" 
-                    data-target="50"
-                  >0</span>+
-                  <p className="text-gray-600 mt-2">Countries Served</p>
-                </div>
-                <div className="bg-white rounded-2xl p-6 shadow-lg">
-                  <span 
-                    ref={el => { counterRefs.current[3] = el; }}
-                    className="text-4xl font-bold text-purple-500 counter-number" 
-                    data-target="100"
-                  >0</span>%
-                  <p className="text-gray-600 mt-2">Safe Arrivals</p>
-                </div>
+                <AnimatedCounter target={10} colorClass="text-pet-blue" label="Years of Service" />
+                <AnimatedCounter target={5000} suffix="+" colorClass="text-pet-orange" label="Happy Pets Transported" />
+                <AnimatedCounter target={50} suffix="+" colorClass="text-green-500" label="Countries Served" />
+                <AnimatedCounter target={100} suffix="%" colorClass="text-purple-500" label="Safe Arrivals" />
               </div>
             </div>
           </div>
