@@ -24,9 +24,13 @@ export const InquirySchema = z.object({
   travelDate: z.string().regex(DATE_ONLY_RE, 'travelDate must be YYYY-MM-DD').optional(),
   specialRequests: z.string().max(2000).optional(),
 
-  // Honeypot — real users never fill this in. Defaulted so an omitted field
-  // doesn't fail validation for a legitimate client that never sends it.
-  website: z.string().max(0).default(''),
+  // Honeypot — real users never fill this in; bots that autofill every field
+  // do. Defaulted so an omitted field doesn't fail validation for a
+  // legitimate client that never sends it. Must accept a non-empty value
+  // (not max(0)) so a filled-in honeypot reaches the route handler's
+  // fake-success branch instead of being rejected here as a validation
+  // error — a 400 would tip the bot off that the field was checked.
+  website: z.string().max(200).default(''),
 })
 
 export type InquiryInput = z.infer<typeof InquirySchema>
