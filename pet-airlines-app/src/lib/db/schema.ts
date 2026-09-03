@@ -35,6 +35,7 @@ export const inquiries = pgTable(
   },
   (table) => ({
     createdAtIdx: index('inquiries_created_at_idx').on(table.createdAt.desc()),
+    ipHashCreatedAtIdx: index('inquiries_ip_hash_created_at_idx').on(table.ipHash, table.createdAt.desc()),
   })
 )
 

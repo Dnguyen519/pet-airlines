@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
-import { COUNTRIES } from '@/lib/countries'
+import { COUNTRIES, POPULAR_ROUTES } from '@/lib/countries'
 import { InquirySchema, PET_TYPES, type InquiryInput } from '@/lib/validation/inquiry'
 
 interface InquiryFormProps {
@@ -27,14 +27,14 @@ type FormState = {
   website: string
 }
 
-const POPULAR_ROUTE_CHIPS = [
-  { from: 'CA', to: 'VN', label: 'Canada → Vietnam' },
-  { from: 'CA', to: 'KR', label: 'Canada → South Korea' },
-  { from: 'KR', to: 'VN', label: 'South Korea → Vietnam' },
-  { from: 'CA', to: 'FR', label: 'Canada → France' },
-  { from: 'KR', to: 'FR', label: 'South Korea → France' },
-  { from: 'VN', to: 'FR', label: 'Vietnam → France' },
-]
+// Derived from POPULAR_ROUTES (single source of truth in @/lib/countries)
+// rather than hand-duplicated, so a new corridor or a title change there
+// can't silently drift out of sync with the chips shown here.
+const POPULAR_ROUTE_CHIPS = POPULAR_ROUTES.map((route) => ({
+  from: route.from,
+  to: route.to,
+  label: route.title.replace(' to ', ' → '),
+}))
 
 const PET_TYPE_LABELS: Record<(typeof PET_TYPES)[number], string> = {
   dog: '🐕 Dog',
@@ -96,6 +96,13 @@ export function InquiryForm({ initialFrom, initialTo }: InquiryFormProps) {
   const [result, setResult] = useState<SubmitResult>({ status: 'idle' })
 
   const isSubmitting = result.status === 'submitting'
+  const successPanelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (result.status === 'success') {
+      successPanelRef.current?.focus()
+    }
+  }, [result.status])
 
   function update<K extends keyof FormState>(key: K, value: string) {
     setForm((prev) => ({ ...prev, [key]: value }))
@@ -167,7 +174,13 @@ export function InquiryForm({ initialFrom, initialTo }: InquiryFormProps) {
 
   if (result.status === 'success') {
     return (
-      <div className="card max-w-2xl mx-auto text-center">
+      <div
+        ref={successPanelRef}
+        role="status"
+        aria-live="polite"
+        tabIndex={-1}
+        className="card max-w-2xl mx-auto text-center focus:outline-none"
+      >
         <div className="text-6xl mb-4">🎉</div>
         <h2 className="text-3xl font-bold text-pet-navy mb-4">Request received</h2>
         <p className="text-lg text-gray-700 mb-2">

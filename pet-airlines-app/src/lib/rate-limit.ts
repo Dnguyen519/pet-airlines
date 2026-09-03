@@ -1,8 +1,12 @@
-// In-memory sliding-window rate limiter. State lives in module scope, so it
-// is per-instance only — adequate as long as this app runs on a single
-// Fluid Compute instance. If the app scales to multiple instances, this
-// needs to move to a shared store (e.g. Redis) or every instance enforces
-// its own independent limit.
+// In-memory fixed-window rate limiter — `windowStart` is set once per key
+// and the count increments until the window rolls over, not a sliding
+// window. State lives in module scope, so it is per-instance only —
+// adequate as a fast first-pass check as long as this app runs on a single
+// Fluid Compute instance; see `countRecentInquiriesByIp` in
+// `@/lib/inquiries` for the durable, DB-backed check that also covers cold
+// starts and multiple instances. If the app scales to multiple instances,
+// this in-memory layer needs to move to a shared store (e.g. Redis) or
+// every instance enforces its own independent limit.
 
 interface RateLimitOptions {
   limit: number

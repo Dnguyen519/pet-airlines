@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 }
 
 interface QuotePageProps {
-  searchParams: Promise<{ from?: string; to?: string }>
+  searchParams: { from?: string; to?: string }
 }
 
 const COUNTRY_CODE_SET = new Set<string>(COUNTRY_CODES)
@@ -30,10 +30,9 @@ function normalizeCountryParam(value: string | undefined): string | undefined {
   return COUNTRY_CODE_SET.has(upper) ? upper : undefined
 }
 
-export default async function QuotePage({ searchParams }: QuotePageProps) {
-  const params = await searchParams
-  const initialFrom = normalizeCountryParam(params.from)
-  const initialTo = normalizeCountryParam(params.to)
+export default function QuotePage({ searchParams }: QuotePageProps) {
+  const initialFrom = normalizeCountryParam(searchParams.from)
+  const initialTo = normalizeCountryParam(searchParams.to)
 
   return (
     <Layout>

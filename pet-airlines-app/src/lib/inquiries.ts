@@ -2,9 +2,9 @@ import 'server-only'
 
 import { randomInt } from 'node:crypto'
 
-import { eq } from 'drizzle-orm'
+import { and, count, eq, gt } from 'drizzle-orm'
 
-import { db } from '@/lib/db/client'
+import { getDb } from '@/lib/db/client'
 import { inquiries } from '@/lib/db/schema'
 import type { InquiryInput } from '@/lib/validation/inquiry'
 
@@ -44,7 +44,7 @@ export async function createInquiry(
     const inquiryNumber = makeInquiryNumber()
 
     try {
-      const [row] = await db
+      const [row] = await getDb()
         .insert(inquiries)
         .values({
           inquiryNumber,
@@ -88,8 +88,24 @@ function isUniqueViolation(err: unknown): boolean {
 }
 
 export async function markEmailSent(id: string, which: 'customer' | 'admin'): Promise<void> {
-  await db
+  await getDb()
     .update(inquiries)
     .set(which === 'customer' ? { customerEmailSent: true } : { adminEmailSent: true })
     .where(eq(inquiries.id, id))
+}
+
+// DB-backed rate-limit check — a durable second opinion behind the fast
+// in-memory limiter in `@/lib/rate-limit`. The in-memory limiter resets on
+// every cold start and isn't shared across instances; this counts actual
+// rows for the IP hash within the window, so a caller can enforce the cap
+// even after a cold start or across multiple warm instances.
+export async function countRecentInquiriesByIp(ipHash: string, windowMs: number): Promise<number> {
+  const cutoff = new Date(Date.now() - windowMs)
+
+  const [row] = await getDb()
+    .select({ count: count() })
+    .from(inquiries)
+    .where(and(eq(inquiries.ipHash, ipHash), gt(inquiries.createdAt, cutoff)))
+
+  return row?.count ?? 0
 }
