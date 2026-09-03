@@ -1,0 +1,32 @@
+# Pet Airlines
+
+> Pet Airlines arranges door-to-door international pet transportation — full-service
+> relocation, flight-only booking, and ground transport for pets moving between
+> countries. Founded in 2014, the team handles documentation, customs clearance,
+> IATA-compliant crates, and real-time updates so families aren't separated from
+> their pets during a move. Core routes run between Canada, Korea, Vietnam, and
+> France, with custom routing available worldwide.
+
+Pet Airlines offers three tiers of service: Transport Services (door-to-door
+international transport, flight-only transport, ground transport only),
+Support Services (documentation handling, customs clearance, IATA-approved
+travel crates), and Consulting (paid advisory sessions for pet owners handling
+their own relocation). Quotes are requested through an online inquiry form and
+typically returned within 24 hours.
+
+## Docs
+
+- [Services](https://www.pet-airlines.com/services): the three service tiers —
+  transport, support, and consulting — with what's included in each.
+- [How It Works](https://www.pet-airlines.com/how-it-works): the four-step
+  process from inquiry to arrival.
+- [Pricing](https://www.pet-airlines.com/pricing): tier-by-tier price ranges
+  and an interactive cost estimator.
+- [Routes](https://www.pet-airlines.com/routes): popular pet transport routes
+  between Canada, Korea, Vietnam, and France, with typical transit times.
+- [FAQ](https://www.pet-airlines.com/faq): common questions on transport
+  safety, documentation, pricing, and the travel process.
+- [Get a Quote](https://www.pet-airlines.com/quote): the inquiry form used to
+  request a personalized transport plan and price estimate.
+- [About](https://www.pet-airlines.com/about): the company's background,
+  founded 2014.

@@ -171,6 +171,36 @@ export default function PricingPage() {
     }
   }
 
+  const parsePriceOffer = (basePrice: string) => {
+    const numbers = basePrice.replace(/[^0-9.\-\s]/g, '').trim()
+    const parts = numbers.split('-').map((p) => p.trim()).filter(Boolean)
+    if (parts.length === 2) {
+      return { '@type': 'AggregateOffer', priceCurrency: 'USD', lowPrice: parts[0], highPrice: parts[1] }
+    }
+    if (parts.length === 1) {
+      return { '@type': 'Offer', priceCurrency: 'USD', price: parts[0] }
+    }
+    return undefined
+  }
+
+  const allTiers = [...transportServices, ...supportServices, ...consultingServices]
+
+  const servicesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    itemListElement: allTiers.map((tier, index) => ({
+      '@type': 'Service',
+      position: index + 1,
+      name: tier.name,
+      description: tier.description,
+      provider: {
+        '@type': 'Organization',
+        name: 'Pet Airlines',
+      },
+      offers: parsePriceOffer(tier.basePrice),
+    })),
+  }
+
   const TabButton = ({ id, label, isActive }: { id: string; label: string; isActive: boolean }) => (
     <button
       onClick={() => setActiveTab(id as any)}
@@ -186,6 +216,10 @@ export default function PricingPage() {
 
   return (
     <Layout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
+      />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
