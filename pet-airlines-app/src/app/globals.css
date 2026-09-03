@@ -2,8 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Brand palette as custom properties — mirrors tailwind.config.js. The SVG
+   illustration set in src/components/illustrations reads these so the artwork
+   follows the theme instead of hardcoding hex values. */
+:root {
+  --pet-blue: #3B9AE1;
+  --pet-navy: #1B3A5F;
+  --pet-orange: #FFA366;
+  --pet-light: #E8F4FB;
+  --pet-sky: #87CEEB;
+  --pet-paper: #FFFFFF;
+  --pet-muted: #C9D6E2;
+}
+
 /* Custom animations */
-@keyframes float { 
+@keyframes float {
   0%, 100% { transform: translateY(0px); } 
   50% { transform: translateY(-10px); } 
 }

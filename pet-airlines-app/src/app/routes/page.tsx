@@ -4,6 +4,7 @@ import Layout from '@/components/layout/Layout'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { breadcrumbList } from '@/components/seo/schemas'
 import { POPULAR_ROUTES, countryName } from '@/lib/countries'
+import { ROUTE_ILLUSTRATIONS } from '@/lib/route-illustrations'
 
 export const metadata: Metadata = {
   title: 'Popular Pet Transport Routes',
@@ -57,12 +58,21 @@ export default function RoutesPage() {
 
           {/* Routes Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-            {POPULAR_ROUTES.map((route) => (
+            {POPULAR_ROUTES.map((route) => {
+              const illustration = ROUTE_ILLUSTRATIONS[route.slug]
+              const Illustration = illustration.Component
+
+              return (
               <Link
                 key={route.slug}
                 href={`/routes/${route.slug}`}
                 className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
               >
+                <Illustration
+                  className="w-full h-auto mb-4 rounded-xl"
+                  title={illustration.title}
+                  titleId={`route-card-${route.slug}`}
+                />
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-semibold text-pet-blue">
                     {countryName(route.from)}
@@ -77,7 +87,8 @@ export default function RoutesPage() {
                   Requirements, timeline &amp; crate guidance for this route
                 </p>
               </Link>
-            ))}
+              )
+            })}
           </div>
 
           {/* Additional Info */}

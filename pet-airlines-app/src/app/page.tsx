@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { HeroIllustration } from '@/components/illustrations'
 import Layout from '@/components/layout/Layout'
 
 export const metadata: Metadata = {
@@ -49,14 +50,10 @@ export default function HomePage() {
               </div>
             </div>
             <div className="relative">
-              <div className="bg-pet-blue/10 rounded-3xl p-8 text-center">
-                <div className="text-8xl mb-4 animate-float">✈️</div>
-                <div className="flex justify-center space-x-4 text-6xl">
-                  <span className="animate-float" style={{animationDelay: '0.5s'}}>🐕</span>
-                  <span className="animate-float" style={{animationDelay: '1s'}}>🐈</span>
-                  <span className="animate-float" style={{animationDelay: '1.5s'}}>🦜</span>
-                </div>
-              </div>
+              <HeroIllustration
+                className="w-full h-auto rounded-3xl shadow-lg"
+                title="Illustration: a dog sitting beside an airline travel crate on an airport apron, with an aircraft tail behind them"
+              />
             </div>
           </div>
         </div>

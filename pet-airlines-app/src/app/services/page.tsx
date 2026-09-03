@@ -1,5 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import {
+  ServiceCrate,
+  ServiceDocumentation,
+  ServiceDoorToDoor,
+  ServiceQuarantine,
+} from '@/components/illustrations'
 import Layout from '@/components/layout/Layout'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { breadcrumbList } from '@/components/seo/schemas'
@@ -153,6 +159,10 @@ export default function ServicesPage() {
                   </div>
                 </div>
                 <div className="md:w-1/3 bg-gradient-to-br from-green-50 to-green-100 p-8 flex flex-col justify-center">
+                  <ServiceDoorToDoor
+                    className="w-full h-auto mb-6 rounded-2xl shadow-md"
+                    title="Illustration: a transport van with its side door open beside a house doorstep, with a pet carrier waiting between them"
+                  />
                   <div className="bg-white rounded-2xl p-6 shadow-lg animate-float">
                     <h4 className="font-bold text-pet-navy mb-3">Popular Routes:</h4>
                     <ul className="space-y-2 text-sm">
@@ -259,8 +269,11 @@ export default function ServicesPage() {
             {/* B1: Paperwork & Documentation */}
             <div className="bg-yellow-50 rounded-3xl p-8 service-card border-2 border-yellow-200">
               <div className="text-center mb-6">
-                <span className="text-5xl mb-4 block">📋</span>
-                <h3 className="text-2xl font-bold text-pet-navy">Paperwork & Documentation</h3>
+                <ServiceDocumentation
+                  className="w-full h-auto mb-4 rounded-2xl"
+                  title="Illustration: a stack of travel paperwork — a certificate with a paw-print seal and a passport booklet"
+                />
+                <h3 className="text-2xl font-bold text-pet-navy">Paperwork &amp; Documentation</h3>
               </div>
               <p className="text-gray-700 mb-4">Complete documentation handling for stress-free travel</p>
               
@@ -300,7 +313,10 @@ export default function ServicesPage() {
             {/* B2: Customs Clearance */}
             <div className="bg-yellow-50 rounded-3xl p-8 service-card border-2 border-yellow-200">
               <div className="text-center mb-6">
-                <span className="text-5xl mb-4 block">🚬</span>
+                <ServiceQuarantine
+                  className="w-full h-auto mb-4 rounded-2xl"
+                  title="Illustration: a bright glass-fronted boarding kennel with a cat resting on a blanket"
+                />
                 <h3 className="text-2xl font-bold text-pet-navy">Customs Clearance Only</h3>
               </div>
               <p className="text-gray-700 mb-4">Expert handling of import procedures at destination</p>
@@ -333,8 +349,11 @@ export default function ServicesPage() {
             {/* B3: Crate Sizing & Delivery */}
             <div className="bg-yellow-50 rounded-3xl p-8 service-card border-2 border-yellow-200">
               <div className="text-center mb-6">
-                <span className="text-5xl mb-4 block">📦</span>
-                <h3 className="text-2xl font-bold text-pet-navy">Crate Sizing & Delivery</h3>
+                <ServiceCrate
+                  className="w-full h-auto mb-4 rounded-2xl"
+                  title="Illustration: a travel crate with a grille door, a water bowl and a tape measure alongside"
+                />
+                <h3 className="text-2xl font-bold text-pet-navy">Crate Sizing &amp; Delivery</h3>
               </div>
               <p className="text-gray-700 mb-4">IATA-approved travel crates delivered to your door</p>
               

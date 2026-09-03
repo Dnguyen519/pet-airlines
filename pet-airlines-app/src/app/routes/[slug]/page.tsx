@@ -7,6 +7,7 @@ import { JsonLd } from '@/components/seo/JsonLd'
 import { breadcrumbList, faqPage } from '@/components/seo/schemas'
 import { POPULAR_ROUTES, countryName } from '@/lib/countries'
 import { ROUTE_CONTENT } from '@/lib/route-content'
+import { ROUTE_ILLUSTRATIONS } from '@/lib/route-illustrations'
 
 interface RoutePageProps {
   params: { slug: string }
@@ -57,6 +58,8 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
 
   const fromName = countryName(route.from)
   const toName = countryName(route.to)
+  const illustration = ROUTE_ILLUSTRATIONS[route.slug]
+  const Illustration = illustration.Component
 
   const breadcrumbJsonLd = breadcrumbList([
     { name: 'Home', path: '/' },
@@ -86,6 +89,11 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}
           <div className="text-center mb-12">
+            <Illustration
+              className="w-full h-auto mb-8 rounded-3xl shadow-md"
+              title={illustration.title}
+              titleId={`route-header-${route.slug}`}
+            />
             <h1 className="text-4xl md:text-5xl font-bold text-pet-navy mb-4">
               Pet transport from {fromName} to {toName}
             </h1>
