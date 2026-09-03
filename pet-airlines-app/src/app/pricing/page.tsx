@@ -3,7 +3,8 @@ import Layout from '@/components/layout/Layout'
 import { PriceEstimator } from '@/components/marketing/PriceEstimator'
 import { ServicePricingTabs, type PricingTier } from '@/components/marketing/ServicePricingTabs'
 import { JsonLd } from '@/components/seo/JsonLd'
-import { ORGANIZATION_ID, breadcrumbList } from '@/components/seo/schemas'
+import { ORGANIZATION_ID, breadcrumbList, priceOffer } from '@/components/seo/schemas'
+import { SITE_URL } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Pet Relocation Pricing & Quote Estimator',
@@ -98,13 +99,17 @@ const allTiers = [...transportServices, ...supportServices, ...consultingService
 const servicesJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  itemListElement: allTiers.map((tier, index) => ({
-    '@type': 'Service',
-    position: index + 1,
-    name: tier.name,
-    description: tier.description,
-    provider: { '@id': ORGANIZATION_ID },
-  })),
+  itemListElement: allTiers.map((tier, index) => {
+    const offers = priceOffer(tier.basePrice, `${SITE_URL}/pricing`)
+    return {
+      '@type': 'Service',
+      position: index + 1,
+      name: tier.name,
+      description: tier.description,
+      provider: { '@id': ORGANIZATION_ID },
+      ...(offers ? { offers } : {}),
+    }
+  }),
 }
 
 export default function PricingPage() {
@@ -126,6 +131,9 @@ export default function PricingPage() {
           </h1>
           <p className="text-xl md:text-2xl text-pet-navy/80 max-w-3xl mx-auto">
             No hidden fees, no surprises. Every cost explained clearly.
+          </p>
+          <p className="text-sm text-pet-navy/60 mt-4">
+            All prices are in US dollars (USD).
           </p>
         </div>
       </section>
