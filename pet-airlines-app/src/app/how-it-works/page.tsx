@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { breadcrumbList } from '@/components/seo/schemas'
@@ -230,9 +231,9 @@ export default function HowItWorksPage() {
             <p className="text-lg text-gray-600 mb-8">
               Get your personalized quote and timeline in less than 24 hours.
             </p>
-            <a href="/quote" className="btn-primary text-lg px-8 py-4">
+            <Link href="/quote" className="btn-primary text-lg px-8 py-4">
               Get Free Quote
-            </a>
+            </Link>
           </div>
         </div>
       </div>

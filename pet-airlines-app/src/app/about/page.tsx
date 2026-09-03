@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout'
 import { AnimatedCounter } from '@/components/marketing/AnimatedCounter'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -178,10 +179,10 @@ export default function AboutPage() {
             <p className="text-gray-600 mb-6">
               Our team of 50+ pet lovers, logistics experts, and customer care specialists work around the clock to ensure every pet&apos;s safe journey.
             </p>
-            <a href="/quote" className="inline-flex items-center text-pet-blue font-semibold hover:underline">
+            <Link href="/quote" className="inline-flex items-center text-pet-blue font-semibold hover:underline">
               Meet more of our team
               <span className="ml-2">→</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
@@ -335,14 +336,14 @@ export default function AboutPage() {
             Let us help reunite you with your furry family member
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up" style={{animationDelay: '0.4s'}}>
-            <a href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+            <Link href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
               Start Your Journey
               <span className="ml-2">→</span>
-            </a>
-            <a href="/faq" className="bg-white text-pet-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
+            </Link>
+            <Link href="/faq" className="bg-white text-pet-navy px-8 py-4 rounded-full font-bold text-lg hover:bg-opacity-90 transform hover:scale-105 transition-all inline-flex items-center justify-center">
               Learn More
               <span className="ml-2">📚</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

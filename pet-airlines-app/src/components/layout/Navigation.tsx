@@ -15,13 +15,13 @@ export default function Navigation() {
           </div>
           <div className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Home</Link>
-            <a href="/services" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Services</a>
+            <Link href="/services" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Services</Link>
             <Link href="/routes" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Routes</Link>
-            <a href="/how-it-works" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">How It Works</a>
-            <a href="/pricing" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Pricing</a>
-            <a href="/quote" className="bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all">
+            <Link href="/how-it-works" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">How It Works</Link>
+            <Link href="/pricing" className="text-pet-navy font-semibold hover:text-pet-blue transition-colors">Pricing</Link>
+            <Link href="/quote" className="bg-pet-orange text-white px-6 py-3 rounded-full font-semibold hover:bg-opacity-90 transform hover:scale-105 transition-all">
               Get Quote 🐾
-            </a>
+            </Link>
           </div>
           <div className="flex items-center space-x-4">
             <select 

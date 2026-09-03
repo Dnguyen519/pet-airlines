@@ -12,13 +12,15 @@ export const dynamic = 'force-dynamic'
 const RATE_LIMIT = { limit: 10, windowMs: 60 * 60 * 1000 }
 const FAKE_INQUIRY_NUMBER = 'PA-0000-0000'
 
-function getClientIp(req: Request): string {
+function getClientIp(req: Request): string | undefined {
   const forwardedFor = req.headers.get('x-forwarded-for')
   if (forwardedFor) {
     const first = forwardedFor.split(',')[0]?.trim()
     if (first) return first
   }
-  return 'unknown'
+  const realIp = req.headers.get('x-real-ip')?.trim()
+  if (realIp) return realIp
+  return undefined
 }
 
 export async function POST(req: Request) {
@@ -55,15 +57,17 @@ export async function POST(req: Request) {
   }
 
   const ip = getClientIp(req)
-  const rateLimit = checkRateLimit(ip, RATE_LIMIT)
-  if (!rateLimit.allowed) {
-    return Response.json(
-      { success: false, error: 'rate_limited' },
-      { status: 429, headers: { 'Retry-After': String(rateLimit.retryAfterSec) } }
-    )
+  if (ip) {
+    const rateLimit = checkRateLimit(ip, RATE_LIMIT)
+    if (!rateLimit.allowed) {
+      return Response.json(
+        { success: false, error: 'rate_limited' },
+        { status: 429, headers: { 'Retry-After': String(rateLimit.retryAfterSec) } }
+      )
+    }
   }
 
-  const ipHash = createHash('sha256').update(ip).digest('hex').slice(0, 32)
+  const ipHash = ip ? createHash('sha256').update(ip).digest('hex').slice(0, 32) : undefined
   const userAgent = req.headers.get('user-agent') ?? undefined
 
   let created: { id: string; inquiryNumber: string }
@@ -87,6 +91,7 @@ export async function POST(req: Request) {
     toCountry: input.toCountry,
     toCity: input.toCity,
     travelDate: input.travelDate,
+    petWeightKg: input.petWeightKg,
     specialRequests: input.specialRequests,
   }
 
@@ -101,7 +106,11 @@ export async function POST(req: Request) {
     console.error(`POST /api/inquiries: customer email failed for ${created.inquiryNumber}: ${customerResult.error}`)
   } else {
     customerSent = true
-    await markEmailSent(created.id, 'customer')
+    try {
+      await markEmailSent(created.id, 'customer')
+    } catch (err) {
+      console.error(`POST /api/inquiries: markEmailSent(customer) failed for ${created.inquiryNumber}`, err)
+    }
   }
 
   let adminSent = false
@@ -120,7 +129,11 @@ export async function POST(req: Request) {
       console.error(`POST /api/inquiries: admin email failed for ${created.inquiryNumber}: ${adminResult.error}`)
     } else {
       adminSent = true
-      await markEmailSent(created.id, 'admin')
+      try {
+        await markEmailSent(created.id, 'admin')
+      } catch (err) {
+        console.error(`POST /api/inquiries: markEmailSent(admin) failed for ${created.inquiryNumber}`, err)
+      }
     }
   }
 

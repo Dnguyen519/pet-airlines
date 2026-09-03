@@ -13,6 +13,7 @@ export interface InquiryTemplateData {
   toCountry: string
   toCity: string
   travelDate?: string
+  petWeightKg?: number
   specialRequests?: string
 }
 
@@ -38,6 +39,7 @@ function detailRows(d: InquiryTemplateData, opts: { includeContact: boolean }): 
   ]
 
   if (d.petBreed) rows.push(['Breed', escapeHtml(d.petBreed)])
+  if (d.petWeightKg !== undefined) rows.push(['Weight', `${d.petWeightKg} kg`])
   rows.push(['Number of Pets', String(d.petCount)])
   rows.push(['Route', routeLine(d)])
   if (d.travelDate) rows.push(['Preferred Travel Date', escapeHtml(d.travelDate)])

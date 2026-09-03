@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { breadcrumbList } from '@/components/seo/schemas'
@@ -57,7 +58,7 @@ export default function RoutesPage() {
           {/* Routes Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {POPULAR_ROUTES.map((route) => (
-              <a
+              <Link
                 key={route.slug}
                 href={`/routes/${route.slug}`}
                 className="bg-white rounded-2xl p-6 shadow-md hover:shadow-lg transition-all"
@@ -75,7 +76,7 @@ export default function RoutesPage() {
                 <p className="text-sm text-gray-600">
                   Requirements, timeline &amp; crate guidance for this route
                 </p>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -94,9 +95,9 @@ export default function RoutesPage() {
                 </p>
               </div>
               <div className="flex items-center">
-                <a href="/quote" className="btn-primary">
+                <Link href="/quote" className="btn-primary">
                   Get Custom Quote
-                </a>
+                </Link>
               </div>
             </div>
           </div>

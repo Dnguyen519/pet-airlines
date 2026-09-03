@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
-const SITE_URL = 'https://www.pet-airlines.com'
-
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.pet-airlines.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Pet Airlines - International Pet Transportation',
     template: '%s | Pet Airlines',

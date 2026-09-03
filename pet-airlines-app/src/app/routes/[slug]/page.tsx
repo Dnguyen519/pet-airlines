@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import Layout from '@/components/layout/Layout'
 import { FaqAccordion, type FaqSection } from '@/components/marketing/FaqAccordion'
@@ -50,6 +51,10 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
   }
 
   const content = ROUTE_CONTENT[route.slug as keyof typeof ROUTE_CONTENT]
+  if (!content) {
+    notFound()
+  }
+
   const fromName = countryName(route.from)
   const toName = countryName(route.to)
 
@@ -128,12 +133,12 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
           <div className="bg-gradient-to-r from-pet-blue to-pet-sky rounded-3xl p-8 text-center text-white mb-12">
             <h2 className="text-3xl font-bold mb-4">Ready to plan your {fromName}-{toName} move?</h2>
             <p className="mb-6 text-white/90">Get a route-specific quote for your pet.</p>
-            <a
+            <Link
               href={`/quote?from=${route.from}&to=${route.to}`}
               className="inline-block bg-white text-pet-blue px-8 py-3 rounded-full font-semibold hover:bg-opacity-90 transition-all"
             >
               Get a Quote
-            </a>
+            </Link>
           </div>
 
           {/* Other routes */}
@@ -141,13 +146,13 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
             <h2 className="text-2xl font-bold text-pet-navy mb-6">Other popular routes</h2>
             <div className="grid md:grid-cols-2 gap-4">
               {otherRoutes.map((other) => (
-                <a
+                <Link
                   key={other.slug}
                   href={`/routes/${other.slug}`}
                   className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all text-pet-navy font-semibold"
                 >
                   {other.title}
-                </a>
+                </Link>
               ))}
             </div>
           </section>

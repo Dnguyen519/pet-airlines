@@ -14,19 +14,19 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold mb-4">Services</h4>
             <ul className="space-y-2 text-white/70">
-              <li><a href="/services#tier-a" className="hover:text-pet-orange transition-colors">Transport Services</a></li>
-              <li><a href="/services#tier-b" className="hover:text-pet-orange transition-colors">Support Services</a></li>
-              <li><a href="/services#tier-c" className="hover:text-pet-orange transition-colors">Consulting</a></li>
+              <li><Link href="/services#tier-a" className="hover:text-pet-orange transition-colors">Transport Services</Link></li>
+              <li><Link href="/services#tier-b" className="hover:text-pet-orange transition-colors">Support Services</Link></li>
+              <li><Link href="/services#tier-c" className="hover:text-pet-orange transition-colors">Consulting</Link></li>
               <li><Link href="/routes" className="hover:text-pet-orange transition-colors">Popular Routes</Link></li>
-              <li><a href="/pricing" className="hover:text-pet-orange transition-colors">Pricing Calculator</a></li>
+              <li><Link href="/pricing" className="hover:text-pet-orange transition-colors">Pricing Calculator</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Company</h4>
             <ul className="space-y-2 text-white/70">
-              <li><a href="/about" className="hover:text-pet-orange transition-colors">About Us</a></li>
-              <li><a href="/how-it-works" className="hover:text-pet-orange transition-colors">How It Works</a></li>
-              <li><a href="/faq" className="hover:text-pet-orange transition-colors">FAQ</a></li>
+              <li><Link href="/about" className="hover:text-pet-orange transition-colors">About Us</Link></li>
+              <li><Link href="/how-it-works" className="hover:text-pet-orange transition-colors">How It Works</Link></li>
+              <li><Link href="/faq" className="hover:text-pet-orange transition-colors">FAQ</Link></li>
               <li><a href="#" className="hover:text-pet-orange transition-colors">Testimonials</a></li>
               <li><a href="#" className="hover:text-pet-orange transition-colors">Blog</a></li>
             </ul>

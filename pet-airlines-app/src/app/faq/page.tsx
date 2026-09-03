@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import Layout from '@/components/layout/Layout'
 import { FaqAccordion, type FaqSection } from '@/components/marketing/FaqAccordion'
 import { JsonLd } from '@/components/seo/JsonLd'
@@ -145,9 +146,9 @@ export default function FAQPage() {
               Our experts are here to help with any specific concerns about your pet&apos;s journey.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
+              <Link href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
                 Get Personalized Quote
-              </a>
+              </Link>
               <a href="https://wa.me/1234567890" className="bg-green-500 text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
                 WhatsApp Us
               </a>

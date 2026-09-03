@@ -86,18 +86,11 @@ export function countryName(code: string): string {
   return COUNTRIES.find((c) => c.code === code)?.name ?? code
 }
 
-export interface PopularRoute {
-  slug: string
-  from: string
-  to: string
-  title: string
-}
-
 // The 8 corridors Pet Airlines is asked about most, mirroring the routes
 // already listed on the live /routes page (Canada, South Korea, Vietnam,
 // France) plus the top additional destinations named on that page's "we
 // serve destinations worldwide" list (United States, Australia).
-export const POPULAR_ROUTES: ReadonlyArray<PopularRoute> = [
+export const POPULAR_ROUTES = [
   { slug: 'canada-to-vietnam', from: 'CA', to: 'VN', title: 'Canada to Vietnam' },
   { slug: 'canada-to-south-korea', from: 'CA', to: 'KR', title: 'Canada to South Korea' },
   { slug: 'south-korea-to-vietnam', from: 'KR', to: 'VN', title: 'South Korea to Vietnam' },
@@ -107,3 +100,5 @@ export const POPULAR_ROUTES: ReadonlyArray<PopularRoute> = [
   { slug: 'canada-to-united-states', from: 'CA', to: 'US', title: 'Canada to United States' },
   { slug: 'canada-to-australia', from: 'CA', to: 'AU', title: 'Canada to Australia' },
 ] as const
+
+export type PopularRoute = (typeof POPULAR_ROUTES)[number]

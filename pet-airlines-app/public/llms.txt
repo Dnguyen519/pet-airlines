@@ -30,3 +30,19 @@ typically returned within 24 hours.
   request a personalized transport plan and price estimate.
 - [About](https://www.pet-airlines.com/about): the company's background,
   founded 2014.
+- [Canada to Vietnam](https://www.pet-airlines.com/routes/canada-to-vietnam):
+  requirements, timeline, and crate guidance for the Canada-Vietnam corridor.
+- [Canada to South Korea](https://www.pet-airlines.com/routes/canada-to-south-korea):
+  requirements, timeline, and crate guidance for the Canada-South Korea corridor.
+- [South Korea to Vietnam](https://www.pet-airlines.com/routes/south-korea-to-vietnam):
+  requirements, timeline, and crate guidance for the South Korea-Vietnam corridor.
+- [Canada to France](https://www.pet-airlines.com/routes/canada-to-france):
+  requirements, timeline, and crate guidance for the Canada-France corridor.
+- [South Korea to France](https://www.pet-airlines.com/routes/south-korea-to-france):
+  requirements, timeline, and crate guidance for the South Korea-France corridor.
+- [Vietnam to France](https://www.pet-airlines.com/routes/vietnam-to-france):
+  requirements, timeline, and crate guidance for the Vietnam-France corridor.
+- [Canada to United States](https://www.pet-airlines.com/routes/canada-to-united-states):
+  requirements, timeline, and crate guidance for the Canada-United States corridor.
+- [Canada to Australia](https://www.pet-airlines.com/routes/canada-to-australia):
+  requirements, timeline, and crate guidance for the Canada-Australia corridor.
