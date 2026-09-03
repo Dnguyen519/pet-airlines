@@ -1,11 +1,8 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
 
 export default function Navigation() {
-  const [selectedLanguage, setSelectedLanguage] = useState('en')
-
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,18 +21,6 @@ export default function Navigation() {
             </Link>
           </div>
           <div className="flex items-center space-x-4">
-            <select 
-              value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
-              className="text-sm border rounded-lg px-2 py-1 border-pet-blue/20"
-            >
-              <option value="en">🇺🇸 EN</option>
-              <option value="es">🇪🇸 ES</option>
-              <option value="fr">🇫🇷 FR</option>
-              <option value="vi">🇻🇳 VI</option>
-              <option value="ko">🇰🇷 KO</option>
-              <option value="zh">🇨🇳 ZH</option>
-            </select>
             <div className="md:hidden">
               <button className="text-pet-navy p-2">
                 <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
