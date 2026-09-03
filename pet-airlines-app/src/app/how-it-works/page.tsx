@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbList } from '@/components/seo/schemas'
 
 export const metadata: Metadata = {
   title: 'How Pet Relocation Works',
@@ -45,6 +47,7 @@ export default function HowItWorksPage() {
 
   return (
     <Layout>
+      <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'How It Works', path: '/how-it-works' }])} />
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}

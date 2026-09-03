@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import { AnimatedCounter } from '@/components/marketing/AnimatedCounter'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbList } from '@/components/seo/schemas'
 
 export const metadata: Metadata = {
   title: 'About Us',
@@ -19,6 +21,7 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <Layout>
+      <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'About', path: '/about' }])} />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">

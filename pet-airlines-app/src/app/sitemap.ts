@@ -1,6 +1,7 @@
 import type { MetadataRoute } from 'next'
+import { POPULAR_ROUTES } from '@/lib/countries'
 
-const SITE_URL = 'https://www.pet-airlines.com'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.pet-airlines.com'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date()
@@ -16,7 +17,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: '/quote', changeFrequency: 'monthly' as const, priority: 0.8 },
   ]
 
-  return routes.map(({ path, changeFrequency, priority }) => ({
+  const routeCorridorPages = POPULAR_ROUTES.map((route) => ({
+    path: `/routes/${route.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
+  return [...routes, ...routeCorridorPages].map(({ path, changeFrequency, priority }) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
     changeFrequency,

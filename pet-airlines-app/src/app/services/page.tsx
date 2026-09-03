@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbList } from '@/components/seo/schemas'
 
 export const metadata: Metadata = {
   title: 'Pet Transportation Services & Pricing',
@@ -18,6 +20,7 @@ export const metadata: Metadata = {
 export default function ServicesPage() {
   return (
     <Layout>
+      <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'Services', path: '/services' }])} />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">

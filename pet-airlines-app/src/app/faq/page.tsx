@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import { FaqAccordion, type FaqSection } from '@/components/marketing/FaqAccordion'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbList } from '@/components/seo/schemas'
 
 export const metadata: Metadata = {
   title: 'Pet Transportation FAQ',
@@ -125,6 +127,7 @@ export default function FAQPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq' }])} />
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Hero */}

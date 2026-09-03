@@ -1,0 +1,39 @@
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.pet-airlines.com'
+
+export interface BreadcrumbItem {
+  name: string
+  path: string
+}
+
+export function breadcrumbList(items: BreadcrumbItem[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}${item.path}`,
+    })),
+  }
+}
+
+export interface FaqQa {
+  question: string
+  answer: string
+}
+
+export function faqPage(qa: FaqQa[]): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: qa.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  }
+}

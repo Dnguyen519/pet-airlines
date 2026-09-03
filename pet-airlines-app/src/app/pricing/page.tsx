@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Layout from '@/components/layout/Layout'
 import { PriceEstimator } from '@/components/marketing/PriceEstimator'
 import { ServicePricingTabs, type PricingTier } from '@/components/marketing/ServicePricingTabs'
+import { JsonLd } from '@/components/seo/JsonLd'
+import { breadcrumbList } from '@/components/seo/schemas'
 
 export const metadata: Metadata = {
   title: 'Pet Relocation Pricing & Quote Estimator',
@@ -131,6 +133,7 @@ export default function PricingPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }}
       />
+      <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'Pricing', path: '/pricing' }])} />
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 bg-gradient-to-br from-pet-sky via-pet-light to-white overflow-hidden">
         <div className="absolute inset-0 opacity-10">
