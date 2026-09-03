@@ -42,6 +42,7 @@ export function FaqAccordion({ sections }: FaqAccordionProps) {
                   <button
                     onClick={() => toggleItem(currentIndex)}
                     aria-expanded={isOpen}
+                    aria-controls={`faq-panel-${currentIndex}`}
                     className="w-full text-left p-6 flex justify-between items-center hover:bg-gray-50 rounded-2xl transition-colors"
                   >
                     <h3 className="font-semibold text-pet-navy pr-4">{faq.q}</h3>
@@ -52,7 +53,7 @@ export function FaqAccordion({ sections }: FaqAccordionProps) {
                     </span>
                   </button>
 
-                  <div className={cn('px-6 pb-6', isOpen ? 'block' : 'hidden')}>
+                  <div id={`faq-panel-${currentIndex}`} className={cn('px-6 pb-6', isOpen ? 'block' : 'hidden')}>
                     <p className="text-gray-700 leading-relaxed">{faq.a}</p>
                   </div>
                 </div>

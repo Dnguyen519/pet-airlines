@@ -1,5 +1,8 @@
 import { SITE_URL } from '@/lib/site'
 
+/** Canonical @id for the single Organization node emitted by the root layout. */
+export const ORGANIZATION_ID = `${SITE_URL}/#organization`
+
 export interface BreadcrumbItem {
   name: string
   path: string

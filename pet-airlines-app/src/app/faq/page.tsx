@@ -124,10 +124,7 @@ export default function FAQPage() {
 
   return (
     <Layout>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd data={faqJsonLd} />
       <JsonLd data={breadcrumbList([{ name: 'Home', path: '/' }, { name: 'FAQ', path: '/faq' }])} />
       <div className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,8 +146,8 @@ export default function FAQPage() {
               <Link href="/quote" className="bg-pet-orange text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
                 Get Personalized Quote
               </Link>
-              <a href="https://wa.me/1234567890" className="bg-green-500 text-white px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
-                WhatsApp Us
+              <a href="mailto:info@pet-airlines.com" className="bg-white text-pet-blue px-8 py-4 rounded-full font-bold hover:bg-opacity-90 transition-all">
+                Email Us
               </a>
             </div>
           </div>

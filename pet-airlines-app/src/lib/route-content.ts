@@ -19,273 +19,281 @@ type RouteSlug = (typeof POPULAR_ROUTES)[number]['slug']
 export const ROUTE_CONTENT = {
   'canada-to-vietnam': {
     intro:
-      'Moving a pet from Canada to Vietnam is one of the more straightforward international relocations, since Vietnam does not require a rabies antibody titer test or a mandatory quarantine period for companion dogs and cats arriving with complete documentation. That said, the process still involves several coordinated steps on both ends: a Canadian export health certificate, an import permit from Vietnam, and careful attention to timing so nothing lapses between exams. Because Vietnam\'s import rules can shift with little public notice, we recommend confirming current requirements with the Department of Animal Health before booking travel dates, and we track this as part of every Canada-Vietnam booking we handle.',
+      'Moving a pet from Canada to Vietnam is one of the more straightforward international relocations, because Vietnam does not currently require a rabies antibody titer test or a mandatory quarantine period for companion dogs and cats that arrive with complete documentation. The process still involves several coordinated steps on both ends: a Canadian export health certificate endorsed on the departure side, an import permit issued on the Vietnamese side, and careful sequencing so that no document expires while another is still being processed. The order in which the microchip, the rabies vaccination and the health certificate happen matters more than the total elapsed time — a vaccination given before the microchip is implanted is commonly rejected, and a certificate issued too early can fall outside its validity window by the travel date. Vietnamese import rules can also change with limited public notice, so current requirements should be confirmed with the responsible authority before flights are booked rather than after.',
     requirements: [
-      'ISO-compliant microchip (11784/11785, 15-digit) implanted before or on the same day as the rabies vaccination — chipping after vaccination can invalidate it for entry purposes.',
-      'Rabies vaccination administered at least 21-30 days before travel and still within its valid duration on arrival.',
-      'Canadian export health certificate issued by a CFIA-accredited veterinarian, typically within 5-10 days of departure.',
-      'Import permit from Vietnam\'s Department of Animal Health, arranged in advance — requirements and processing time can vary, so we confirm current guidance before each booking.',
-      'Up-to-date general vaccinations (distemper, parvovirus, etc. for dogs; feline panleukopenia for cats) as recommended by your vet.',
+      'ISO-compliant microchip (11784/11785, 15-digit) implanted before or on the same day as the rabies vaccination — chipping after vaccination can invalidate that vaccination for entry purposes.',
+      'Rabies vaccination administered ahead of travel and still within its stated validity on the arrival date. A pre-travel interval after vaccination is commonly published as 21 to 30 days; confirm the current figure before booking.',
+      'Canadian export health certificate issued by a CFIA-accredited veterinarian. The issuing window is typically published as a small number of days before departure, so the vet appointment has to be timed to the flight rather than booked early.',
+      'Import permit issued by Vietnam\'s Department of Animal Health, arranged in advance. Processing times vary and are not fixed.',
+      'General vaccinations current and documented (distemper and parvovirus for dogs, feline panleukopenia for cats) as advised by the attending veterinarian.',
+      'Verify current rules: requirements and timings on this corridor are set by the Canadian Food Inspection Agency on the export side and Vietnam\'s Department of Animal Health on the import side. Confirm both against those authorities for your specific travel dates.',
     ],
     timeline:
-      'Door-to-door timelines on this corridor typically run 3-6 weeks from first vet visit to arrival, driven mostly by the CFIA export certificate window and import permit processing rather than flight time itself. Pets who are already microchipped and current on rabies vaccination can sometimes move faster.',
+      'Plan for roughly three to six weeks from the first veterinary appointment to arrival. That range is driven by the CFIA export certificate window and by import permit processing rather than by flight time, which is a single long-haul day. A pet that is already microchipped and current on rabies vaccination can sometimes move at the shorter end of that range; a pet that needs a first rabies vaccination cannot, because the post-vaccination interval has to elapse before departure. Treat any published range as planning guidance and confirm current processing times with CFIA and Vietnam\'s Department of Animal Health, since permit turnaround in particular is not guaranteed.',
     crateAndAirline:
-      'Crates must meet IATA Live Animal Regulations (LAR) sizing — your pet needs to stand fully upright, turn around, and lie down without touching the crate walls. We size and, where needed, source an IATA-compliant crate as part of planning; airline and routing choice depends on your pet\'s size, breed, and current carrier policy at time of booking.',
+      'Crates must meet IATA Live Animal Regulations sizing: the animal needs to stand fully upright, turn around, and lie down naturally without touching the sides or the roof. Sizing is taken from the pet\'s own measurements, not from breed averages, and your coordinator confirms the crate size before booking so the crate can be sourced and the pet acclimatised to it in advance. Airline and routing choice depends on the pet\'s size and breed, on snub-nosed breed restrictions where they apply, and on the live-animal policy each carrier is operating at the time of booking.',
     costFactors:
-      'Cost on this route is driven by pet size and weight, crate requirements, documentation complexity, ground transport on both ends, and seasonal heat-embargo timing (many carriers restrict live-animal cargo during peak summer heat). We provide a route-specific quote after reviewing your pet\'s details.',
+      'Cost on this corridor is driven by the pet\'s size and weight, the crate size that follows from it, documentation and permit handling, ground transport at both ends, and seasonal timing. Many carriers restrict live-animal cargo during peak summer heat, and an embargo that pushes travel into a different month can change both the routing and the price. A route-specific quote follows a review of the pet\'s details rather than a published flat rate.',
     faqs: [
       {
         question: 'Does Vietnam require a rabies titer test for pets arriving from Canada?',
         answer:
-          'Typically no — Vietnam does not currently require the rabies antibody titer (FAVN) test that some other countries require, though rules can change, so we confirm current requirements before every booking.',
+          'Not under the rules commonly published for this corridor — Vietnam does not currently require the rabies antibody titer (FAVN) test that some other destinations require. Rules change, so confirm the current position with Vietnam\'s Department of Animal Health before travel.',
       },
       {
         question: 'Will my pet be quarantined on arrival in Vietnam?',
         answer:
-          'Standard practice is no mandatory quarantine for pets arriving with complete, valid documentation, though this is always subject to current regulations at the time of travel.',
+          'Pets arriving with complete, valid documentation are not commonly subject to a mandatory quarantine period on this corridor. This is always subject to the regulations in force on the arrival date, which the Department of Animal Health sets.',
       },
       {
-        question: 'How far in advance should I start the process?',
+        question: 'How far in advance should the process start?',
         answer:
-          'We recommend starting 4-6 weeks before your target travel date to leave comfortable room for the CFIA export certificate and Vietnamese import permit.',
+          'Four to six weeks before the target travel date is a reasonable planning buffer, which leaves room for the CFIA export certificate window and for import permit processing without compressing either.',
       },
     ],
   },
   'canada-to-south-korea': {
     intro:
-      'South Korea maintains stricter entry rules than many destinations, and pets arriving from Canada typically need to satisfy the Animal and Plant Quarantine Agency\'s (APQA) requirements for countries not on its rabies-free or rabies-controlled list without additional testing. In practice this usually means a rabies antibody titer test (FAVN) is required, with a waiting period after the blood draw before travel is permitted — this is the step that most often catches owners off guard, since it must happen well before departure, not at the airport. We build every Canada-Korea plan around this titer timeline first, then work backward.',
+      'South Korea maintains stricter entry rules than many destinations. Pets arriving from countries that are not on the Animal and Plant Quarantine Agency\'s designated rabies-free or rabies-controlled list generally have to demonstrate an adequate antibody response rather than relying on a vaccination record alone, which in practice means a rabies antibody titer test (FAVN) at an approved laboratory. There is a waiting period between the blood draw and the permitted travel date, and this is the step that most often catches owners out, because it has to be completed months rather than days before departure and cannot be resolved at the airport. Planning for this corridor is best done backwards from the titer draw: fix that date first, then place the export certificate, the arrival notification and the flight around it. The specifics are set by APQA and are subject to change.',
     requirements: [
-      'ISO-compliant microchip implanted before the rabies vaccination.',
-      'Rabies vaccination, followed by a rabies neutralizing antibody titer (FAVN) test at an APQA-approved laboratory — this typically needs to be done at least several months before travel, so early planning matters.',
-      'Canadian export health certificate from a CFIA-accredited veterinarian, issued close to the travel date.',
-      'Advance notification/import quarantine inspection request to APQA before arrival, per current Korean requirements.',
-      'General vaccination records current and available for review.',
+      'ISO-compliant microchip implanted before the rabies vaccination, so that the vaccination and any subsequent test can be linked to the individual animal.',
+      'Rabies vaccination followed by a rabies neutralizing antibody titer (FAVN) test at a laboratory APQA recognises. A waiting period applies between the blood draw and the permitted travel date; confirm the current figure with APQA before fixing any dates.',
+      'Canadian export health certificate from a CFIA-accredited veterinarian, issued close to the travel date and within its published validity window.',
+      'Advance notification to APQA and an import quarantine inspection request before arrival, per the procedure in force at the time of travel.',
+      'General vaccination records current, legible and available for inspection on arrival.',
+      'Verify current rules: this corridor is governed by the Canadian Food Inspection Agency on export and by Korea\'s Animal and Plant Quarantine Agency (APQA) on import. Confirm the titer waiting period, the approved laboratory list and the notification procedure against APQA for your travel dates.',
     ],
     timeline:
-      'This is typically the longest lead-time route in our network because of the rabies titer wait — plan for roughly 4-7 months from the initial rabies vaccination and titer draw to travel-ready status, though pets with existing valid titers may move faster. We recommend contacting us as early as possible if South Korea is your destination.',
+      'This is a long lead-time corridor because of the post-titer waiting period. Plan for several months between the initial rabies vaccination and travel-ready status; the exact interval is set by APQA, is commonly published as a fixed number of days after the blood draw, and should be confirmed with APQA rather than estimated. A pet that already holds a valid, documented titer result may be ready considerably sooner. Because the sequence is fixed — microchip, then vaccination, then titer draw, then wait — the timeline cannot be compressed by starting the paperwork earlier, only by having already completed the earlier steps.',
     crateAndAirline:
-      'IATA-compliant crate sizing applies, sized to your pet\'s measurements at the time of booking. Airline and routing selection depends on current carrier live-animal policies and availability on the Canada-Korea corridor.',
+      'IATA Live Animal Regulations crate sizing applies, taken from the pet\'s measurements at the time of booking rather than from a size chart. Airline and routing selection depends on the live-animal policies carriers are operating on the Canada-Korea corridor and on availability in the travel window, both of which change seasonally.',
     costFactors:
-      'Beyond standard factors (size, crate, documentation, ground transport), this route carries added laboratory and extended-timeline coordination costs from the titer test and the longer pre-travel window. We quote this route individually once we know your pet\'s current vaccination status.',
+      'Beyond the usual factors of size, crate, documentation and ground transport, this corridor carries laboratory costs for the titer test and the coordination cost of a longer pre-travel window in which vaccinations and certificates have to be kept valid. A quote for this route follows a review of the pet\'s current vaccination and titer status, since a pet with an existing valid titer sits in a materially different position from one starting the sequence.',
     faqs: [
       {
-        question: 'Why does South Korea require a rabies titer test?',
+        question: 'Why does South Korea require a rabies titer test for pets from Canada?',
         answer:
-          'Because Canada is not on APQA\'s designated rabies-free/controlled list, pets typically need to demonstrate an adequate antibody response via a FAVN titer test rather than relying on vaccination alone.',
+          'Because Canada is not on APQA\'s designated rabies-free or rabies-controlled list, pets generally have to demonstrate an adequate antibody response through a FAVN titer test rather than relying on the vaccination record alone. APQA maintains and updates that country designation.',
       },
       {
-        question: 'How long is the titer wait before travel?',
+        question: 'How long is the wait between the titer draw and travel?',
         answer:
-          'Requirements and wait periods are set by APQA and can change — we confirm the current waiting period before finalizing your travel date, and build it into the overall timeline from day one.',
+          'A fixed waiting period applies after the blood is drawn, and it is set by APQA rather than by the airline or the origin country. Confirm the current period with APQA before finalising a travel date, and build it into the plan from the first vet visit.',
       },
       {
-        question: 'Can the titer test be skipped if my pet was already vaccinated?',
+        question: 'Can the titer test be skipped if the pet is already vaccinated?',
         answer:
-          'A prior rabies vaccination alone typically isn\'t sufficient without the titer test unless your pet already has documented, valid titer results on file that meet current Korean requirements.',
+          'A prior rabies vaccination on its own is not generally sufficient. An existing, documented and still-valid titer result that meets current Korean requirements can remove the need for a new draw, which is worth checking with APQA before restarting the sequence.',
       },
     ],
   },
   'south-korea-to-vietnam': {
     intro:
-      'The Korea-Vietnam corridor is a shorter regional route with generally lighter import requirements on the Vietnam side than routes originating outside Asia, since Vietnam typically does not require a rabies titer test or standard quarantine. The main coordination point is obtaining Korean export paperwork and a valid Vietnamese import permit, plus making sure vaccination timing lines up cleanly with both countries\' rules.',
+      'The Korea-Vietnam corridor is a shorter regional route with generally lighter import conditions than routes originating outside Asia, since Vietnam does not currently require a rabies titer test or a standard quarantine period for companion animals arriving with complete paperwork. The coordination points are on the documentation side rather than the testing side: Korean export paperwork has to be issued within its own validity window, a Vietnamese import permit has to be in hand before flights are committed, and the vaccination history has to satisfy both sets of rules at once. Because the flight itself is short, the timeline on this corridor is almost entirely a paperwork timeline, and the practical risk is a certificate issued too early rather than a missed waiting period. Both authorities can revise their requirements, so current guidance should be confirmed before booking.',
     requirements: [
       'ISO-compliant microchip implanted before the rabies vaccination.',
-      'Rabies vaccination current and within its valid window at time of travel.',
-      'Korean export health certificate from an accredited veterinarian, issued shortly before departure per Korean export rules.',
-      'Import permit from Vietnam\'s Department of Animal Health, confirmed before booking flights.',
-      'General vaccination records for dogs and cats as recommended by your vet.',
+      'Rabies vaccination current and within its stated validity on the travel date.',
+      'Korean export health certificate from an accredited veterinarian, issued shortly before departure in line with the export procedure in force.',
+      'Import permit from Vietnam\'s Department of Animal Health, confirmed as issued before flights are booked rather than after.',
+      'General vaccination records for dogs and cats as advised by the attending veterinarian, current and documented.',
+      'Verify current rules: export conditions are set by Korea\'s Animal and Plant Quarantine Agency (APQA) and import conditions by Vietnam\'s Department of Animal Health. Confirm both for the intended travel dates.',
     ],
     timeline:
-      'Typical door-to-door timelines run 2-4 weeks, largely governed by export certificate issuance windows and import permit processing rather than the relatively short flight itself.',
+      'Plan for roughly two to four weeks door to door. That range is governed by export certificate issuance windows and by import permit processing rather than by the relatively short flight, and it assumes the microchip and rabies vaccination are already in place and correctly sequenced. Permit turnaround is not fixed, so confirm the current processing time with Vietnam\'s Department of Animal Health rather than treating the range as a commitment.',
     crateAndAirline:
-      'Standard IATA Live Animal Regulations crate sizing applies. Airline and routing on this shorter regional corridor is generally more flexible than long-haul routes, subject to current carrier live-animal policy.',
+      'Standard IATA Live Animal Regulations crate sizing applies, measured from the animal rather than estimated from breed. Airline and routing options on this shorter regional corridor are generally wider than on long-haul routes, but each carrier\'s live-animal policy and its seasonal embargoes still determine what is actually bookable in a given month.',
     costFactors:
-      'Costs are driven primarily by pet size, crate needs, and ground transport/documentation handling on both ends; this is typically one of the more moderate routes in our network given the shorter distance and lighter import requirements.',
+      'Cost is driven primarily by the pet\'s size, the resulting crate size, and the handling of ground transport and documentation at both ends. The shorter sector distance and the lighter import conditions mean fewer cost variables than on long-haul corridors, though quarantine-free entry depends on the paperwork being complete rather than on the distance being short.',
     faqs: [
       {
         question: 'Is a rabies titer test needed for this route?',
         answer:
-          'Typically not for entry into Vietnam, though we always confirm current requirements before booking since rules can change without much notice.',
+          'Not under the conditions Vietnam commonly publishes for companion animal imports. Confirm the current position with Vietnam\'s Department of Animal Health before booking, since these rules can change with limited notice.',
       },
       {
         question: 'How quickly can a Korea-Vietnam move be arranged?',
         answer:
-          'This is one of our faster corridors — often 2-4 weeks once your pet\'s vaccination and microchip records are in order, though we recommend starting as early as possible.',
+          'Two to four weeks is a reasonable planning figure once the pet\'s vaccination and microchip records are in order and correctly sequenced. Starting earlier mainly buys room for permit processing, which is the least predictable step.',
       },
       {
-        question: 'Does my pet need to be quarantined in Vietnam?',
+        question: 'Does the pet need to be quarantined in Vietnam?',
         answer:
-          'Standard practice is no mandatory quarantine for pets arriving with complete, valid documentation, subject to current Vietnamese import rules at time of travel.',
+          'Pets arriving with complete, valid documentation are not commonly subject to a mandatory quarantine period, subject to the Vietnamese import rules in force on the arrival date.',
       },
     ],
   },
   'canada-to-france': {
     intro:
-      'Pets traveling from Canada into France (and the wider EU) move under the EU\'s non-commercial pet travel framework, which is well-documented but time-sensitive: the rabies vaccination must be at least 21 days old before entry, and the official EU health certificate is only valid for a limited window before travel, so timing has to be sequenced carefully rather than rushed at the last minute.',
+      'Pets travelling from Canada into France move under the European Union\'s non-commercial pet travel framework. That framework is unusually well documented compared with other destinations, which makes it predictable, but it is also strictly time-sequenced: the rabies vaccination has to be a set number of days old before entry, and the official health certificate is only valid for a limited window before travel. The consequence is that the two constraints pull in opposite directions — the vaccination has to be old enough, the certificate has to be recent enough — so the paperwork cannot simply be gathered early and held. The interval after rabies vaccination is commonly published as 21 days, and it cannot be shortened or waived for a non-EU origin. Confirm the current certificate validity window and any additional treatment requirements before fixing travel dates.',
     requirements: [
-      'ISO-compliant microchip implanted before the rabies vaccination.',
-      'Rabies vaccination administered at least 21 days before entry into the EU (this waiting period cannot be shortened).',
-      'EU health certificate completed by a CFIA-accredited veterinarian within the validity window required for non-EU entry, then endorsed per current CFIA/EU procedure.',
-      'General vaccination records current and available.',
-      'Some entry points may request confirmation of tapeworm treatment for dogs depending on current French/EU guidance — we check this per booking since it varies by country and can change.',
+      'ISO-compliant microchip implanted before the rabies vaccination; a vaccination given to an unchipped animal generally has to be repeated after chipping.',
+      'Rabies vaccination administered before entry into the EU, with a mandatory waiting period commonly published as 21 days that cannot be shortened.',
+      'EU health certificate completed by a CFIA-accredited veterinarian and endorsed per the procedure in force, presented within its validity window for non-EU entry.',
+      'General vaccination records current and available for inspection at the point of entry.',
+      'Tapeworm treatment for dogs may be requested at some entry points depending on current French and EU guidance; this varies and should be checked per booking rather than assumed.',
+      'Verify current rules: export certification is handled through the Canadian Food Inspection Agency, and entry conditions are set by French and EU authorities, with movements recorded through the EU TRACES system and national guidance published by ANSES. Confirm both sides for the intended travel dates.',
     ],
     timeline:
-      'Plan for a minimum of about 4-6 weeks, driven mainly by the mandatory 21-day post-rabies-vaccination wait plus certificate processing and endorsement time — pets already 21+ days past a valid rabies vaccination can move somewhat faster.',
+      'Plan for roughly four to six weeks at minimum. The driver is the mandatory post-vaccination waiting period, commonly published as 21 days, plus certificate completion and endorsement time on the Canadian side. A pet already past that interval on a valid rabies vaccination can move faster, since the remaining work is documentation rather than waiting. Confirm the current certificate validity window with CFIA before booking, because a certificate that expires in transit is the most common avoidable failure on this corridor.',
     crateAndAirline:
-      'IATA-compliant crate sizing applies. Small pets may qualify for in-cabin travel on some routes and airlines depending on current carrier policy and pet/crate weight limits; we advise on the best option once we know your pet\'s size and the carriers operating this route at time of booking.',
+      'IATA Live Animal Regulations crate sizing applies for hold travel. Small pets may qualify for in-cabin carriage on some carriers and routings depending on the combined pet and carrier weight limit each airline sets, which differs between carriers and can change. The practical option depends on the pet\'s measured size and on which carriers are operating the route in the intended travel window.',
     costFactors:
-      'Cost factors include pet size and weight, crate requirements, veterinary certificate/endorsement handling, and ground transport on both ends; cabin-eligible small pets are often more economical than larger pets requiring cargo transport.',
+      'Cost factors include the pet\'s size and weight, the crate that follows from it, veterinary certificate and endorsement handling, and ground transport at both ends. Cabin-eligible small pets are generally less expensive to move than pets that require hold transport, so the size threshold each carrier sets has a disproportionate effect on the total.',
     faqs: [
       {
-        question: 'Can the 21-day rabies wait before EU entry be shortened?',
+        question: 'Can the rabies waiting period before EU entry be shortened?',
         answer:
-          'No — this is a fixed EU requirement for non-commercial pet movements from outside the EU and cannot be waived or expedited.',
+          'No. The waiting period after rabies vaccination is a fixed requirement for non-commercial pet movements into the EU from outside it, commonly published as 21 days, and it cannot be waived or expedited.',
       },
       {
         question: 'Do dogs need tapeworm treatment to enter France?',
         answer:
-          'Requirements vary by country and can change, so we confirm current French/EU guidance for your specific travel dates before booking rather than assuming a blanket rule.',
+          'It varies. Some EU member states apply a tapeworm treatment requirement and others do not, and guidance changes. Confirm the current French and EU position for the specific travel dates rather than assuming a blanket rule.',
       },
       {
-        question: 'Can my pet fly in the cabin on this route?',
+        question: 'Can the pet fly in the cabin on this route?',
         answer:
-          'Small pets may be eligible on some carriers, subject to current airline policy, pet/crate weight limits, and route — we check availability once we know your pet\'s size.',
+          'Small pets may be eligible on some carriers. Eligibility depends on the airline\'s current policy, the combined pet and carrier weight limit, and the routing, so it has to be checked against the carriers actually operating the route.',
       },
     ],
   },
   'south-korea-to-france': {
     intro:
-      'This route combines South Korea\'s export requirements with the EU\'s standard non-commercial pet entry rules for France. Because Korea is not an EU-listed country, pets typically need a rabies vaccination followed by the mandatory 21-day wait before entry, along with an EU-format health certificate issued shortly before travel — we sequence the Korean export step and the EU certificate together so nothing expires before the other is ready.',
+      'This corridor combines South Korea\'s export requirements with the European Union\'s standard non-commercial entry rules for France. Because Korea is not an EU-listed country for this purpose, pets generally need a rabies vaccination followed by the mandatory pre-entry waiting period, together with an EU-format health certificate issued shortly before travel. The two sides have to be sequenced against each other rather than handled in isolation: the Korean export step and the EU certificate each carry their own validity window, and the risk on a long-haul move is that one expires while the other is still being endorsed. The waiting period is commonly published as 21 days after vaccination and is not something the origin country can waive. Confirm the current certificate windows on both sides before committing to a travel date.',
     requirements: [
       'ISO-compliant microchip implanted before the rabies vaccination.',
-      'Rabies vaccination at least 21 days before entry into the EU.',
-      'EU-format (or accepted equivalent) health certificate from an accredited Korean veterinarian, endorsed per current export procedure, valid within the required pre-travel window.',
+      'Rabies vaccination given before EU entry, with the mandatory waiting period — commonly published as 21 days — fully elapsed on the arrival date.',
+      'EU-format health certificate, or the accepted equivalent, from an accredited Korean veterinarian, endorsed per the export procedure in force and presented within its validity window.',
       'Korean export clearance documentation as required for departure.',
-      'Confirmation of any additional destination-specific treatment (such as tapeworm treatment for dogs) per current French/EU guidance at time of travel.',
+      'Confirmation of any destination-specific treatment, such as tapeworm treatment for dogs, per current French and EU guidance at the time of travel.',
+      'Verify current rules: export conditions are set by Korea\'s Animal and Plant Quarantine Agency (APQA), and entry conditions by French and EU authorities, with movements recorded through the EU TRACES system and national guidance published by ANSES.',
     ],
     timeline:
-      'Expect roughly 4-7 weeks door-to-door, driven by the 21-day post-vaccination wait plus Korean export documentation and certificate endorsement processing.',
+      'Plan for roughly four to seven weeks door to door. The waiting period after rabies vaccination sets the floor, and Korean export documentation plus certificate endorsement processing account for most of the remainder. Because both the export paperwork and the EU certificate carry their own validity windows, the practical constraint is fitting them into the same window rather than the total elapsed time. Confirm the current windows with APQA and the French authorities before fixing dates.',
     crateAndAirline:
-      'IATA Live Animal Regulations crate sizing applies for cargo travel; cabin eligibility for small pets depends on current airline policy on this route. We confirm options once we know your pet\'s size and preferred travel window.',
+      'IATA Live Animal Regulations crate sizing applies for hold travel. Cabin eligibility for small pets depends on the operating carrier\'s current policy on this corridor and on the combined pet and carrier weight limit that carrier applies. The realistic options depend on the pet\'s measured size and the travel window.',
     costFactors:
-      'This is a longer-haul route, so cost is influenced by pet size, crate needs, veterinary certificate handling on the Korean side, and ground transport at both ends; we provide a specific quote after reviewing your pet\'s documentation status.',
+      'This is a long-haul corridor, so cost reflects the pet\'s size and weight, the crate that follows from it, veterinary certificate handling on the Korean side, and ground transport at both ends. A quote follows a review of the pet\'s documentation status, since a pet whose vaccination interval has already elapsed sits in a different position from one starting the sequence.',
     faqs: [
       {
-        question: 'Does the rabies titer test required for South Korea entry also apply here?',
+        question: 'Does the rabies titer test required for entry into South Korea also apply here?',
         answer:
-          'The titer requirement applies to pets entering South Korea, not to pets departing it — for a Korea-to-France move, the relevant rule is the EU\'s 21-day post-vaccination wait rather than a titer test.',
+          'No. The titer requirement applies to pets entering South Korea, not to pets departing it. For a Korea-to-France move the governing rule is the EU\'s post-vaccination waiting period rather than a titer test.',
       },
       {
-        question: 'How early should I start planning a Korea-France move?',
+        question: 'How early should planning start for a Korea-France move?',
         answer:
-          'We recommend starting at least 6-8 weeks out to comfortably fit the rabies wait period and certificate processing without rushing.',
+          'At least six to eight weeks before the target date is a reasonable buffer. That leaves room for the waiting period and for certificate endorsement without the two validity windows falling out of alignment.',
       },
       {
-        question: 'Is quarantine required in France for pets from Korea?',
+        question: 'Is quarantine required in France for pets arriving from Korea?',
         answer:
-          'Standard EU non-commercial pet entry does not require quarantine for pets with complete, compliant documentation, subject to current rules at time of travel.',
+          'Standard EU non-commercial pet entry does not impose a quarantine period on pets with complete, compliant documentation. This is subject to the rules in force on the arrival date, which French and EU authorities set.',
       },
     ],
   },
   'vietnam-to-france': {
     intro:
-      'Moving a pet from Vietnam to France means meeting the EU\'s non-commercial entry requirements as a non-EU-listed origin, which centers on the same mandatory 21-day post-rabies-vaccination wait and EU-format health certificate used on other Asia-to-EU routes we handle, paired with Vietnamese export documentation on the departure side.',
+      'Moving a pet from Vietnam to France means meeting the European Union\'s non-commercial entry requirements from a non-listed origin. In practice that is the same framework used on other Asia-to-EU corridors: a correctly sequenced microchip and rabies vaccination, the mandatory waiting period after vaccination commonly published as 21 days, and an EU-format health certificate issued and endorsed within its own validity window. The Vietnamese side adds export clearance documentation, which has its own processing time and is the less predictable half of the plan. As with every EU entry, the sequencing constraint is what matters: the vaccination has to be old enough while the certificate has to be recent enough, so the paperwork has to be timed to the flight rather than gathered in advance and held.',
     requirements: [
       'ISO-compliant microchip implanted before the rabies vaccination.',
-      'Rabies vaccination at least 21 days before EU entry.',
+      'Rabies vaccination given before EU entry, with the mandatory waiting period — commonly published as 21 days — fully elapsed on arrival.',
       'EU-format health certificate completed and endorsed by an accredited Vietnamese veterinarian within the required pre-travel validity window.',
-      'Vietnamese export clearance/documentation as required at time of departure.',
-      'Confirmation of any additional destination-specific treatment requirements (such as tapeworm treatment for dogs) per current French/EU guidance.',
+      'Vietnamese export clearance documentation as required at the time of departure.',
+      'Confirmation of any destination-specific treatment requirement, such as tapeworm treatment for dogs, per current French and EU guidance.',
+      'Verify current rules: export conditions are set by Vietnam\'s Department of Animal Health, and entry conditions by French and EU authorities, with movements recorded through the EU TRACES system and national guidance published by ANSES.',
     ],
     timeline:
-      'Typical door-to-door timelines run 4-6 weeks, primarily governed by the 21-day rabies wait and certificate endorsement processing on the Vietnamese side.',
+      'Plan for roughly four to six weeks door to door. The waiting period after rabies vaccination sets the floor and certificate endorsement processing on the Vietnamese side accounts for most of the variability. Export documentation timing in particular is not fixed, so confirm the current processing time with Vietnam\'s Department of Animal Health rather than working to a published range.',
     crateAndAirline:
-      'IATA-compliant crate sizing applies for cargo travel. Cabin eligibility for small pets depends on current carrier policy on this long-haul route — we confirm options based on your pet\'s size and the operating airlines at time of booking.',
+      'IATA Live Animal Regulations crate sizing applies for hold travel, taken from the pet\'s own measurements. Cabin eligibility for small pets depends on the operating carrier\'s policy on this long-haul corridor and on the combined pet and carrier weight limit, both of which differ between airlines and can change between seasons.',
     costFactors:
-      'As a long-haul route, cost reflects pet size and weight, crate needs, veterinary documentation handling, and ground transport at both ends; we quote this individually once we have your pet\'s current health and vaccination status.',
+      'As a long-haul corridor, cost reflects the pet\'s size and weight, crate requirements, veterinary documentation handling, and ground transport at both ends. A quote follows a review of the pet\'s current health and vaccination status rather than a published flat rate, since the documentation position materially changes the work involved.',
     faqs: [
       {
-        question: 'Can the EU\'s 21-day rabies wait be shortened for this route?',
+        question: 'Can the EU waiting period after rabies vaccination be shortened for this route?',
         answer:
-          'No — it is a fixed requirement for non-commercial pet entry into the EU from a non-listed country and applies regardless of departure point.',
+          'No. It is a fixed requirement for non-commercial pet entry into the EU from a non-listed country and applies regardless of the departure point or the length of the flight.',
       },
       {
-        question: 'Does Vietnam require anything special before export?',
+        question: 'Does Vietnam require anything specific before export?',
         answer:
-          'Export documentation requirements are set by Vietnamese authorities and can vary, so we confirm current requirements for your travel dates before booking rather than assuming they match import rules.',
+          'Export documentation requirements are set by Vietnamese authorities and can differ from the import rules that apply to pets arriving in Vietnam. Confirm the current export requirements with the Department of Animal Health for the intended travel dates.',
       },
       {
-        question: 'Is this route pet-size dependent for cabin travel?',
+        question: 'Is cabin travel possible on this route?',
         answer:
-          'Yes — cabin eligibility depends on your pet and crate meeting the operating airline\'s current weight and size limits, which we check once we know your pet\'s details.',
+          'It depends on the pet and carrier together meeting the operating airline\'s current weight and size limits. Those limits vary by carrier and by aircraft, so eligibility has to be checked against the specific routing.',
       },
     ],
   },
   'canada-to-united-states': {
     intro:
-      'Canada-to-US pet moves are generally the simplest route in our network since both countries share extensive companion-animal trade and neither side currently requires quarantine or a rabies titer test for dogs and cats moving between them, though US federal rules for dog imports have tightened in recent years and now require an online CDC import form and proof of vaccination for many entries — we check the current CDC/APHIS requirements for every booking since they are updated periodically.',
+      'Canada-to-US pet moves sit at the simpler end of international relocation. Neither side currently imposes a quarantine period or a rabies titer requirement for dogs and cats moving between the two countries, and the sector distance is short enough that routing is rarely the constraint. What has changed in recent years is the United States\' federal treatment of dog imports: the Centers for Disease Control and Prevention now applies a documented entry process for dogs, which commonly includes an online import form and proof of rabies vaccination, with the exact requirements depending on the dog\'s vaccination history and on where it has been in the preceding months. Those rules have been revised more than once, so the current CDC and APHIS conditions should be checked for the specific travel date rather than assumed from a previous move.',
     requirements: [
-      'ISO-compliant microchip, recommended even where not strictly mandated, since it supports rabies vaccination verification.',
-      'Rabies vaccination current and documented, with proof available at the border/port of entry per current CDC requirements for dogs.',
-      'Completed CDC Dog Import Form (or current equivalent) submitted online before travel where applicable — requirements can change, so we confirm the current process for your travel date.',
+      'ISO-compliant microchip. Worth having even where it is not strictly mandated, because it is what links a rabies vaccination record to the individual animal at the border.',
+      'Rabies vaccination current and documented, with proof available at the port of entry per the CDC requirements in force for dogs.',
+      'The CDC dog import form, or its current equivalent, submitted online before travel where applicable. The form and the circumstances requiring it have changed more than once, so confirm the current process for the travel date.',
       'General health certificate from a licensed veterinarian, typically issued close to the travel date.',
-      'Cats generally face lighter federal requirements than dogs, though state-level rules can still apply depending on destination state.',
+      'Cats generally face lighter federal requirements than dogs, but state-level rules can still apply depending on the destination state and should be checked separately.',
+      'Verify current rules: export certification is handled through the Canadian Food Inspection Agency, and entry conditions are set by the US Centers for Disease Control and Prevention (CDC) together with USDA APHIS. Confirm the dog import requirements against CDC for the intended travel date.',
     ],
     timeline:
-      'This is typically our fastest route — often 1-3 weeks door-to-door — since there is no mandatory rabies wait period or titer test for entry, and processing is mainly limited by vet appointment availability and certificate issuance.',
+      'This corridor generally moves faster than the others listed here, because there is no mandatory post-vaccination waiting period and no titer test to schedule around. Plan for roughly one to three weeks door to door; the limiting factors are veterinary appointment availability and health certificate issuance rather than any regulatory wait. Confirm the current CDC form processing expectation before booking, since a requirement that applies to a particular dog can add time the general case does not.',
     crateAndAirline:
-      'Standard IATA crate sizing applies for cargo or checked travel; many small pets qualify for in-cabin travel on domestic-style routings depending on current airline policy, which we confirm at time of booking.',
+      'Standard IATA Live Animal Regulations crate sizing applies for hold or checked travel. Many small pets qualify for in-cabin carriage on the shorter routings used on this corridor, depending on the carrier\'s current policy and its combined pet and carrier weight limit. Which option is actually available depends on the pet\'s measured size and the carriers serving the specific city pair.',
     costFactors:
-      'Costs here are generally driven by pet size, ground transport distance on each end, and documentation handling rather than lengthy waiting-period logistics, making this typically one of our more economical long routes.',
+      'Cost here is driven mainly by the pet\'s size, the ground transport distance at each end, and documentation handling, rather than by extended waiting-period logistics. Because there is no testing or quarantine component, the cost structure has fewer moving parts than the long-haul corridors listed on this site, though seasonal live-animal embargoes can still affect routing and price.',
     faqs: [
       {
         question: 'Do dogs need anything beyond a rabies vaccination to enter the US from Canada?',
         answer:
-          'US requirements for dog imports have changed in recent years and can include an online CDC import form and additional documentation depending on your dog\'s vaccination history — we confirm the current process before every booking.',
+          'Often yes. US requirements for dog imports have been revised in recent years and can include an online CDC import form and supporting documentation depending on the dog\'s vaccination history and recent travel. Confirm the current process with CDC before booking.',
       },
       {
         question: 'Is quarantine required entering the US from Canada?',
         answer:
-          'No, standard practice does not require quarantine for pets with valid documentation, subject to current CDC/APHIS rules at time of travel.',
+          'Pets arriving with valid documentation are not commonly subject to a quarantine period on this corridor. This remains subject to the CDC and APHIS rules in force at the time of travel.',
       },
       {
         question: 'How fast can this move happen?',
         answer:
-          'This is typically our quickest international route — often just 1-3 weeks — since there\'s no rabies titer test or extended waiting period required.',
+          'One to three weeks is a reasonable planning figure, since there is no rabies titer test and no mandatory waiting period to elapse. Veterinary appointment availability is usually the real constraint.',
       },
     ],
   },
   'canada-to-australia': {
     intro:
-      'Australia runs one of the strictest and longest pet import processes in the world, and pets from Canada should expect an extended pre-export timeline plus mandatory post-arrival quarantine at a government-approved facility. The Australian Department of Agriculture, Fisheries and Forestry (DAFF) requires a sequence of blood tests, waiting periods, and treatments before an import permit is granted, so this route needs to be planned many months ahead rather than weeks.',
+      'Australia operates one of the strictest and longest pet import processes in the world, and a move from Canada should be planned in months rather than weeks. Canada is an approved country for this purpose — it sits in one of the country groups the Department of Agriculture, Fisheries and Forestry recognises, which is what makes a direct import possible at all. Pets resident in countries that are not approved cannot be imported to Australia directly; they generally have to spend a qualifying period in an approved country first. Being approved does not make the process short: DAFF still requires a sequence of blood tests, waiting periods and treatments before it will grant an import permit, followed by a period of post-arrival quarantine at a government facility. Every step is sequenced, so a missed interval restarts part of the chain rather than delaying it by the same number of days.',
     requirements: [
-      'ISO-compliant microchip implanted before any rabies testing or treatments begin.',
-      'Rabies vaccination followed by a rabies neutralizing antibody titer (RNATT) test, with a required waiting period after the blood draw before further steps can proceed — current DAFF timelines apply and we track these closely.',
-      'Import permit from DAFF, applied for in advance and required before travel can be booked.',
-      'Pre-export health checks, parasite treatments, and other tests as specified in the current DAFF conditions for pets from Canada\'s country group.',
-      'Mandatory post-arrival quarantine at an approved facility (typically the Mickleham Post-Entry Quarantine facility near Melbourne) for a period set by DAFF at time of entry.',
+      'ISO-compliant microchip implanted before any rabies testing or treatment begins, since every subsequent result is tied to that chip number.',
+      'Rabies vaccination followed by a rabies neutralising antibody titer (RNATT) test, with a waiting period after the blood draw before later steps may proceed. The interval is set by DAFF and should be confirmed rather than estimated.',
+      'Import permit granted by DAFF. The permit has to be in hand before travel is booked, and the application itself takes processing time.',
+      'Pre-export health checks, parasite treatments and any further tests specified in the DAFF conditions that apply to Canada\'s country group at the time of the application.',
+      'Post-arrival quarantine at a government-approved facility — currently the post-entry quarantine facility at Mickleham, near Melbourne — for a minimum period set by DAFF, with places booked in advance.',
+      'Verify current rules: export certification is handled through the Canadian Food Inspection Agency, and every import condition, interval and country-group designation is set by Australia\'s Department of Agriculture, Fisheries and Forestry (DAFF). Confirm the current conditions with DAFF before any testing begins.',
     ],
     timeline:
-      'This is the longest route we handle — realistically 6-9 months from the initial titer test to arrival, driven almost entirely by DAFF\'s pre-export waiting periods and quarantine facility booking, which fills up well in advance. We strongly recommend starting the process as early as possible if Australia is your destination.',
+      'This corridor has the longest lead time of any listed here. Plan for roughly six to nine months from the first titer test to arrival. That figure is driven almost entirely by the DAFF waiting periods and by quarantine facility availability, which is booked well ahead and can be the binding constraint rather than the testing itself. Treat the range as planning guidance and confirm current timing with DAFF, since both the required intervals and the facility booking window change.',
     crateAndAirline:
-      'DAFF specifies its own crate and container standards for approved pet transport into Australia, which are stricter than general IATA sizing in some respects; we source and prepare a compliant crate as part of planning this route.',
+      'DAFF specifies its own container standards for pets entering Australia, and in some respects these are stricter than general IATA sizing. The crate has to satisfy both the airline\'s IATA requirements and the Australian conditions, so it is specified against the permit rather than chosen from a size chart, and your coordinator confirms the crate specification before booking.',
     costFactors:
-      'Costs on this route reflect the extended testing and quarantine timeline in addition to standard size/crate/transport factors, including quarantine facility fees, which are billed by the facility separately from our transport services and vary by length of stay.',
+      'Cost on this corridor reflects the extended testing and quarantine timeline on top of the usual size, crate and transport factors. Quarantine facility fees are set and billed by the facility, separately from transport, and vary with the length of stay. Laboratory work, the permit application, and the longer period over which vaccinations and certificates have to be kept valid all add cost that shorter corridors do not carry.',
     faqs: [
       {
         question: 'Why does the Canada-Australia route take so much longer than others?',
         answer:
-          'Australia requires a sequence of rabies titer testing, mandatory waiting periods, and additional treatments before DAFF will issue an import permit, plus mandatory post-arrival quarantine — this adds months compared to routes without titer or quarantine requirements.',
+          'Australia requires rabies titer testing, mandatory waiting periods and additional treatments before DAFF will issue an import permit, followed by post-arrival quarantine. Each of those steps is sequential, which adds months compared with corridors that have neither titer nor quarantine requirements.',
       },
       {
-        question: 'Is quarantine really mandatory for every pet entering Australia?',
+        question: 'Is quarantine mandatory for every pet entering Australia?',
         answer:
-          'Yes, under current DAFF rules pets from non-approved-country groups like Canada typically undergo a mandatory quarantine period at an approved facility on arrival, the length of which is set by DAFF at time of entry.',
+          'Yes. Cats and dogs entering Australia complete a period of post-arrival quarantine at an approved government facility, with the minimum period set by DAFF. Canada is an approved country for import purposes, which is what permits a direct move; pets resident in non-approved countries cannot be imported directly and generally have to spend a qualifying period in an approved country first.',
       },
       {
-        question: 'How far ahead should I start this process?',
+        question: 'How far ahead should this process start?',
         answer:
-          'As early as possible — realistically 6-9 months before your target arrival date, since the titer test waiting period alone can take several months and quarantine facility space needs to be booked well ahead.',
+          'As early as possible, and realistically six to nine months before the target arrival date. The waiting periods alone account for much of that, and quarantine facility places have to be booked well in advance. Confirm current timing with DAFF before setting a target date.',
       },
     ],
   },

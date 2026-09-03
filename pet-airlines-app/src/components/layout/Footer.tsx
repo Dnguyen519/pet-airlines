@@ -27,34 +27,20 @@ export default function Footer() {
               <li><Link href="/about" className="hover:text-pet-orange transition-colors">About Us</Link></li>
               <li><Link href="/how-it-works" className="hover:text-pet-orange transition-colors">How It Works</Link></li>
               <li><Link href="/faq" className="hover:text-pet-orange transition-colors">FAQ</Link></li>
-              <li><a href="#" className="hover:text-pet-orange transition-colors">Testimonials</a></li>
-              <li><a href="#" className="hover:text-pet-orange transition-colors">Blog</a></li>
             </ul>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
             <ul className="space-y-2 text-white/70">
-              <li>📧 info@pet-airlines.com</li>
-              <li>📱 WhatsApp: +1 234 567 890</li>
+              <li>
+                📧 <a href="mailto:info@pet-airlines.com" className="hover:text-pet-orange transition-colors">info@pet-airlines.com</a>
+              </li>
+              <li><Link href="/quote" className="hover:text-pet-orange transition-colors">Request a quote</Link></li>
             </ul>
-            <div className="mt-4">
-              <h4 className="font-semibold mb-2">Follow Us</h4>
-              <div className="flex space-x-3">
-                <a href="#" className="text-white/70 hover:text-pet-orange transition-colors">
-                  <span className="text-2xl">📘</span>
-                </a>
-                <a href="#" className="text-white/70 hover:text-pet-orange transition-colors">
-                  <span className="text-2xl">📷</span>
-                </a>
-                <a href="#" className="text-white/70 hover:text-pet-orange transition-colors">
-                  <span className="text-2xl">🐦</span>
-                </a>
-              </div>
-            </div>
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-white/10 text-center text-white/50">
-          <p>&copy; 2024 Pet Airlines. All rights reserved. | <a href="#" className="hover:text-pet-orange transition-colors">Privacy</a> | <a href="#" className="hover:text-pet-orange transition-colors">Terms</a></p>
+          <p>&copy; {new Date().getFullYear()} Pet Airlines. All rights reserved.</p>
         </div>
       </div>
     </footer>

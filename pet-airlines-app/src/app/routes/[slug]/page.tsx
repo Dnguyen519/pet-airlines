@@ -50,7 +50,7 @@ export default function RouteCorridorPage({ params }: RoutePageProps) {
     notFound()
   }
 
-  const content = ROUTE_CONTENT[route.slug as keyof typeof ROUTE_CONTENT]
+  const content = ROUTE_CONTENT[route.slug]
   if (!content) {
     notFound()
   }
