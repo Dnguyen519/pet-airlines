@@ -1,200 +1,183 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { supabase, submitInquiry, getCountries, type Country } from '@/lib/supabase'
-import { getCitiesForCountry } from '@/data/cities'
+import { useState } from 'react'
 
-export default function InquiryForm() {
-  const [countries, setCountries] = useState<Country[]>([])
-  const [fromCities, setFromCities] = useState<string[]>([])
-  const [toCities, setToCities] = useState<string[]>([])
-  const [showPopularRoutes, setShowPopularRoutes] = useState(true)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
-  const [formData, setFormData] = useState({
-    // Pet Information (MVP essential fields)
-    pet_type: '',
-    pet_breed: '',
-    pet_weight_kg: '',
-    pet_count: 1,
-    
-    // Travel Information
-    from_country_id: '',
-    from_city: '',
-    to_country_id: '',
-    to_city: '',
-    travel_date: '',
-    
-    // Customer Information
-    full_name: '',
+import { COUNTRIES } from '@/lib/countries'
+import { InquirySchema, PET_TYPES, type InquiryInput } from '@/lib/validation/inquiry'
+
+interface InquiryFormProps {
+  initialFrom?: string
+  initialTo?: string
+}
+
+type FormState = {
+  fullName: string
+  email: string
+  phone: string
+  petType: string
+  petBreed: string
+  petWeightKg: string
+  petCount: string
+  fromCountry: string
+  fromCity: string
+  toCountry: string
+  toCity: string
+  travelDate: string
+  specialRequests: string
+  website: string
+}
+
+const POPULAR_ROUTE_CHIPS = [
+  { from: 'CA', to: 'VN', label: 'Canada → Vietnam' },
+  { from: 'CA', to: 'KR', label: 'Canada → South Korea' },
+  { from: 'KR', to: 'VN', label: 'South Korea → Vietnam' },
+  { from: 'CA', to: 'FR', label: 'Canada → France' },
+  { from: 'KR', to: 'FR', label: 'South Korea → France' },
+  { from: 'VN', to: 'FR', label: 'Vietnam → France' },
+]
+
+const PET_TYPE_LABELS: Record<(typeof PET_TYPES)[number], string> = {
+  dog: '🐕 Dog',
+  cat: '🐱 Cat',
+  bird: '🦜 Bird',
+  rabbit: '🐰 Rabbit',
+  other: 'Other',
+}
+
+function emptyForm(initialFrom?: string, initialTo?: string): FormState {
+  return {
+    fullName: '',
     email: '',
     phone: '',
-    
-    // Additional Context
-    special_requests: ''
-  })
+    petType: '',
+    petBreed: '',
+    petWeightKg: '',
+    petCount: '1',
+    fromCountry: initialFrom ?? '',
+    fromCity: '',
+    toCountry: initialTo ?? '',
+    toCity: '',
+    travelDate: '',
+    specialRequests: '',
+    website: '',
+  }
+}
 
-  useEffect(() => {
-    loadCountries()
-  }, [])
-  
-  useEffect(() => {
-    // Initialize city lists when countries are first loaded
-    if (countries.length > 0 && fromCities.length === 0 && toCities.length === 0) {
-      if (formData.from_country_id) {
-        const fromCountry = countries.find(c => c.id === formData.from_country_id)
-        if (fromCountry) {
-          setFromCities(getCitiesForCountry(fromCountry.code))
-        }
-      }
-      if (formData.to_country_id) {
-        const toCountry = countries.find(c => c.id === formData.to_country_id)
-        if (toCountry) {
-          setToCities(getCitiesForCountry(toCountry.code))
-        }
-      }
-    }
-  }, [countries]) // Only depend on countries loading
+function buildPayload(form: FormState): unknown {
+  return {
+    fullName: form.fullName.trim(),
+    email: form.email.trim(),
+    phone: form.phone.trim() || undefined,
+    petType: form.petType,
+    petBreed: form.petBreed.trim() || undefined,
+    petWeightKg: form.petWeightKg.trim() ? Number(form.petWeightKg) : undefined,
+    petCount: form.petCount.trim() ? Number(form.petCount) : undefined,
+    fromCountry: form.fromCountry,
+    fromCity: form.fromCity.trim(),
+    toCountry: form.toCountry,
+    toCity: form.toCity.trim(),
+    travelDate: form.travelDate || undefined,
+    specialRequests: form.specialRequests.trim() || undefined,
+    website: form.website,
+  }
+}
 
-  const loadCountries = async () => {
-    const countriesData = await getCountries()
-    setCountries(countriesData)
+type SubmitResult =
+  | { status: 'idle' }
+  | { status: 'submitting' }
+  | { status: 'success'; inquiryNumber: string; customerEmailed: boolean }
+  | { status: 'validation-error'; messages: string[] }
+  | { status: 'rate-limited' }
+  | { status: 'server-error' }
+
+export function InquiryForm({ initialFrom, initialTo }: InquiryFormProps) {
+  const [form, setForm] = useState<FormState>(() => emptyForm(initialFrom, initialTo))
+  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({})
+  const [result, setResult] = useState<SubmitResult>({ status: 'idle' })
+
+  const isSubmitting = result.status === 'submitting'
+
+  function update<K extends keyof FormState>(key: K, value: string) {
+    setForm((prev) => ({ ...prev, [key]: value }))
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }))
-    
-    // Update city options when country changes
-    if (name === 'from_country_id' && value) {
-      const selectedCountry = countries.find(c => c.id === value)
-      if (selectedCountry) {
-        const cities = getCitiesForCountry(selectedCountry.code)
-        setFromCities(cities)
-        // Reset city selection when country changes
-        setFormData(prev => ({ ...prev, from_city: '' }))
-      } else {
-        setFromCities([])
-      }
-    }
-    
-    if (name === 'to_country_id' && value) {
-      const selectedCountry = countries.find(c => c.id === value)
-      if (selectedCountry) {
-        const cities = getCitiesForCountry(selectedCountry.code)
-        setToCities(cities)
-        // Reset city selection when country changes
-        setFormData(prev => ({ ...prev, to_city: '' }))
-      } else {
-        setToCities([])
-      }
-    }
+  function applyRoute(from: string, to: string) {
+    setForm((prev) => ({ ...prev, fromCountry: from, toCountry: to }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitStatus('idle')
+
+    const payload = buildPayload(form)
+    const parsed = InquirySchema.safeParse(payload)
+
+    if (!parsed.success) {
+      const nextFieldErrors: Record<string, string> = {}
+      const messages: string[] = []
+      for (const issue of parsed.error.issues) {
+        const field = String(issue.path[0] ?? '')
+        if (field && !(field in nextFieldErrors)) {
+          nextFieldErrors[field] = issue.message
+        }
+        messages.push(issue.message)
+      }
+      setFieldErrors(nextFieldErrors)
+      setResult({ status: 'validation-error', messages })
+      return
+    }
+
+    setFieldErrors({})
+    setResult({ status: 'submitting' })
 
     try {
-      // Convert form data to match database schema
-      const inquiryData = {
-        full_name: formData.full_name,
-        email: formData.email,
-        phone: formData.phone,
-        pet_type: formData.pet_type as any,
-        pet_breed: formData.pet_breed,
-        pet_weight_kg: formData.pet_weight_kg ? parseFloat(formData.pet_weight_kg) : null,
-        pet_count: formData.pet_count,
-        from_country_id: formData.from_country_id || null,
-        from_city: formData.from_city,
-        to_country_id: formData.to_country_id || null,
-        to_city: formData.to_city,
-        travel_date: formData.travel_date || null,
-        special_requests: formData.special_requests,
-        preferred_language: 'en' // MVP: English only
+      const res = await fetch('/api/inquiries', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(parsed.data satisfies InquiryInput),
+      })
+
+      if (res.status === 201) {
+        const body = (await res.json()) as {
+          data: { inquiryNumber: string; emailSent: { customer: boolean; admin: boolean } }
+        }
+        setResult({
+          status: 'success',
+          inquiryNumber: body.data.inquiryNumber,
+          customerEmailed: body.data.emailSent.customer,
+        })
+        return
       }
 
-      const result = await submitInquiry(inquiryData)
-      console.log('Inquiry submitted successfully:', result)
-      
-      // Send confirmation emails
-      try {
-        const fromCountry = countries.find(c => c.id === formData.from_country_id)
-        const toCountry = countries.find(c => c.id === formData.to_country_id)
-        
-        const emailData = {
-          fullName: formData.full_name,
-          email: formData.email,
-          inquiryNumber: result.inquiry_number,
-          petType: formData.pet_type,
-          originCountry: fromCountry?.name || formData.from_city,
-          destinationCountry: toCountry?.name || formData.to_city,
-          travelDate: formData.travel_date || 'To be determined',
-          language: 'en' // MVP: English only
-        }
-        
-        const emailResponse = await fetch('/api/send-inquiry-email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailData),
-        })
-        
-        if (!emailResponse.ok) {
-          console.error('Failed to send confirmation emails')
-        } else {
-          console.log('Confirmation emails sent successfully')
-        }
-      } catch (emailError) {
-        console.error('Error sending emails:', emailError)
+      if (res.status === 400) {
+        const body = (await res.json()) as { details?: string[] }
+        setResult({ status: 'validation-error', messages: body.details ?? ['Validation failed.'] })
+        return
       }
-      
-      setSubmitStatus('success')
-      
-      // Reset form after successful submission
-      setTimeout(() => {
-        setFormData({
-          pet_type: '',
-          pet_breed: '',
-          pet_weight_kg: '',
-          pet_count: 1,
-          from_country_id: '',
-          from_city: '',
-          to_country_id: '',
-          to_city: '',
-          travel_date: '',
-          full_name: '',
-          email: '',
-          phone: '',
-          special_requests: ''
-        })
-        setSubmitStatus('idle')
-      }, 3000)
 
-    } catch (error) {
-      console.error('Error submitting inquiry:', error)
-      setSubmitStatus('error')
-    } finally {
-      setIsSubmitting(false)
+      if (res.status === 429) {
+        setResult({ status: 'rate-limited' })
+        return
+      }
+
+      setResult({ status: 'server-error' })
+    } catch {
+      setResult({ status: 'server-error' })
     }
   }
 
-  if (submitStatus === 'success') {
+  if (result.status === 'success') {
     return (
       <div className="card max-w-2xl mx-auto text-center">
         <div className="text-6xl mb-4">🎉</div>
-        <h2 className="text-3xl font-bold text-pet-navy mb-4">Thank You!</h2>
-        <p className="text-lg text-gray-700 mb-6">
-          Your inquiry has been submitted successfully. We'll respond within 24 hours with a detailed quote.
+        <h2 className="text-3xl font-bold text-pet-navy mb-4">Request received</h2>
+        <p className="text-lg text-gray-700 mb-2">
+          Your reference number is <span className="font-mono font-semibold">{result.inquiryNumber}</span>.
         </p>
         <div className="bg-pet-light rounded-2xl p-4">
           <p className="text-sm text-pet-navy font-medium">
-            Check your email for a confirmation message, and feel free to reach out if you have any questions!
+            {result.customerEmailed
+              ? `We emailed a confirmation to ${form.email}.`
+              : 'Keep this reference number — our team will reply by email.'}
           </p>
         </div>
       </div>
@@ -202,404 +185,400 @@ export default function InquiryForm() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-pet-navy mb-4">Get Your Free Quote</h1>
-        <p className="text-lg text-gray-600">Tell us about your pet's journey and receive a detailed quote within 24 hours</p>
+    <form onSubmit={handleSubmit} noValidate className="space-y-8">
+      {/* Honeypot — hidden from real users, off-screen (not display:none) so bots that ignore CSS still fill it. */}
+      <div style={{ position: 'absolute', left: '-9999px', top: 'auto', width: '1px', height: '1px', overflow: 'hidden' }} aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          autoComplete="off"
+          tabIndex={-1}
+          value={form.website}
+          onChange={(e) => update('website', e.target.value)}
+        />
       </div>
 
-      {/* Popular Routes Quick Selection */}
-      {showPopularRoutes && (
-        <div className="card mb-8">
-          <h3 className="text-lg font-semibold text-pet-navy mb-4 flex items-center justify-between">
-            <span>🚀 Popular Routes</span>
-            <button 
+      {/* Popular Routes */}
+      <div className="card">
+        <h3 className="font-semibold text-pet-navy mb-3">Popular Routes</h3>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {POPULAR_ROUTE_CHIPS.map((route) => (
+            <button
+              key={`${route.from}-${route.to}`}
               type="button"
-              onClick={() => setShowPopularRoutes(false)}
-              className="text-sm text-gray-500 hover:text-gray-700"
+              onClick={() => applyRoute(route.from, route.to)}
+              className="px-4 py-2 text-sm border-2 border-gray-200 rounded-lg hover:border-pet-orange hover:bg-pet-light transition-colors text-left"
             >
-              ×
+              {route.label}
             </button>
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {[
-              { fromCode: 'CA', fromCity: 'Toronto', toCode: 'KR', toCity: 'Seoul', label: '🇨🇦 Canada → 🇰🇷 Korea' },
-              { fromCode: 'KR', fromCity: 'Seoul', toCode: 'VN', toCity: 'Ho Chi Minh City', label: '🇰🇷 Korea → 🇻🇳 Vietnam' },
-              { fromCode: 'CA', fromCity: 'Vancouver', toCode: 'VN', toCity: 'Hanoi', label: '🇨🇦 Canada → 🇻🇳 Vietnam' },
-              { fromCode: 'CA', fromCity: 'Montreal', toCode: 'FR', toCity: 'Paris', label: '🇨🇦 Canada → 🇫🇷 France' },
-              { fromCode: 'KR', fromCity: 'Busan', toCode: 'FR', toCity: 'Paris', label: '🇰🇷 Korea → 🇫🇷 France' },
-              { fromCode: 'VN', fromCity: 'Da Nang', toCode: 'FR', toCity: 'Lyon', label: '🇻🇳 Vietnam → 🇫🇷 France' }
-            ].map((route, index) => {
-              const fromCountry = countries.find(c => c.code === route.fromCode)
-              const toCountry = countries.find(c => c.code === route.toCode)
-              
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => {
-                    if (fromCountry && toCountry) {
-                      setFormData(prev => ({
-                        ...prev,
-                        from_country_id: fromCountry.id,
-                        from_city: route.fromCity,
-                        to_country_id: toCountry.id,
-                        to_city: route.toCity
-                      }))
-                      // Update city lists
-                      setFromCities(getCitiesForCountry(route.fromCode))
-                      setToCities(getCitiesForCountry(route.toCode))
-                    }
-                  }}
-                  className="text-sm py-2 px-3 bg-pet-light rounded-xl hover:bg-pet-blue/20 transition-all text-center"
-                >
-                  {route.label}
-                </button>
-              )
-            })}
+          ))}
+        </div>
+      </div>
+
+      {/* Pet Information */}
+      <div className="card">
+        <h3 className="text-xl font-semibold text-pet-navy mb-6">Pet Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="petType" className="block text-sm font-medium text-gray-700 mb-2">
+              Pet Type <span className="text-red-500">*</span>
+            </label>
+            <select
+              id="petType"
+              name="petType"
+              value={form.petType}
+              onChange={(e) => update('petType', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.petType)}
+              aria-describedby={fieldErrors.petType ? 'petType-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            >
+              <option value="">Select pet type</option>
+              {PET_TYPES.map((t) => (
+                <option key={t} value={t}>
+                  {PET_TYPE_LABELS[t]}
+                </option>
+              ))}
+            </select>
+            {fieldErrors.petType && (
+              <p id="petType-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.petType}
+              </p>
+            )}
           </div>
+
+          <div>
+            <label htmlFor="petBreed" className="block text-sm font-medium text-gray-700 mb-2">
+              Breed
+            </label>
+            <input
+              id="petBreed"
+              name="petBreed"
+              type="text"
+              value={form.petBreed}
+              onChange={(e) => update('petBreed', e.target.value)}
+              placeholder="e.g., Golden Retriever"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="petWeightKg" className="block text-sm font-medium text-gray-700 mb-2">
+              Weight (kg)
+            </label>
+            <input
+              id="petWeightKg"
+              name="petWeightKg"
+              type="number"
+              min="0.1"
+              max="150"
+              step="0.1"
+              value={form.petWeightKg}
+              onChange={(e) => update('petWeightKg', e.target.value)}
+              placeholder="e.g., 15.5"
+              aria-invalid={Boolean(fieldErrors.petWeightKg)}
+              aria-describedby={fieldErrors.petWeightKg ? 'petWeightKg-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.petWeightKg && (
+              <p id="petWeightKg-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.petWeightKg}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="petCount" className="block text-sm font-medium text-gray-700 mb-2">
+              Number of Pets
+            </label>
+            <input
+              id="petCount"
+              name="petCount"
+              type="number"
+              min="1"
+              max="10"
+              value={form.petCount}
+              onChange={(e) => update('petCount', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.petCount)}
+              aria-describedby={fieldErrors.petCount ? 'petCount-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.petCount && (
+              <p id="petCount-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.petCount}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Travel Information */}
+      <div className="card">
+        <h3 className="text-xl font-semibold text-pet-navy mb-6">Travel Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="fromCountry" className="block text-sm font-medium text-gray-700 mb-2">
+              From Country <span className="text-red-500">*</span>
+            </label>
+            <select
+              id="fromCountry"
+              name="fromCountry"
+              value={form.fromCountry}
+              onChange={(e) => update('fromCountry', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.fromCountry)}
+              aria-describedby={fieldErrors.fromCountry ? 'fromCountry-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            >
+              <option value="">Select country</option>
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {fieldErrors.fromCountry && (
+              <p id="fromCountry-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.fromCountry}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="fromCity" className="block text-sm font-medium text-gray-700 mb-2">
+              From City <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="fromCity"
+              name="fromCity"
+              type="text"
+              value={form.fromCity}
+              onChange={(e) => update('fromCity', e.target.value)}
+              placeholder="e.g., Toronto"
+              aria-invalid={Boolean(fieldErrors.fromCity)}
+              aria-describedby={fieldErrors.fromCity ? 'fromCity-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.fromCity && (
+              <p id="fromCity-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.fromCity}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="toCountry" className="block text-sm font-medium text-gray-700 mb-2">
+              To Country <span className="text-red-500">*</span>
+            </label>
+            <select
+              id="toCountry"
+              name="toCountry"
+              value={form.toCountry}
+              onChange={(e) => update('toCountry', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.toCountry)}
+              aria-describedby={fieldErrors.toCountry ? 'toCountry-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            >
+              <option value="">Select country</option>
+              {COUNTRIES.map((c) => (
+                <option key={c.code} value={c.code}>
+                  {c.name}
+                </option>
+              ))}
+            </select>
+            {fieldErrors.toCountry && (
+              <p id="toCountry-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.toCountry}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="toCity" className="block text-sm font-medium text-gray-700 mb-2">
+              To City <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="toCity"
+              name="toCity"
+              type="text"
+              value={form.toCity}
+              onChange={(e) => update('toCity', e.target.value)}
+              placeholder="e.g., Hanoi"
+              aria-invalid={Boolean(fieldErrors.toCity)}
+              aria-describedby={fieldErrors.toCity ? 'toCity-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.toCity && (
+              <p id="toCity-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.toCity}
+              </p>
+            )}
+          </div>
+
+          <div className="md:col-span-2">
+            <label htmlFor="travelDate" className="block text-sm font-medium text-gray-700 mb-2">
+              Preferred Travel Date
+            </label>
+            <input
+              id="travelDate"
+              name="travelDate"
+              type="date"
+              value={form.travelDate}
+              onChange={(e) => update('travelDate', e.target.value)}
+              min={new Date().toISOString().split('T')[0]}
+              aria-invalid={Boolean(fieldErrors.travelDate)}
+              aria-describedby={fieldErrors.travelDate ? 'travelDate-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.travelDate && (
+              <p id="travelDate-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.travelDate}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Customer Information */}
+      <div className="card">
+        <h3 className="text-xl font-semibold text-pet-navy mb-6">Your Information</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
+              Full Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              value={form.fullName}
+              onChange={(e) => update('fullName', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.fullName)}
+              aria-describedby={fieldErrors.fullName ? 'fullName-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.fullName && (
+              <p id="fullName-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.fullName}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              Email <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={(e) => update('email', e.target.value)}
+              aria-invalid={Boolean(fieldErrors.email)}
+              aria-describedby={fieldErrors.email ? 'email-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.email && (
+              <p id="email-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.email}
+              </p>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
+              Phone Number
+            </label>
+            <input
+              id="phone"
+              name="phone"
+              type="tel"
+              value={form.phone}
+              onChange={(e) => update('phone', e.target.value)}
+              placeholder="+1 (555) 123-4567"
+              aria-invalid={Boolean(fieldErrors.phone)}
+              aria-describedby={fieldErrors.phone ? 'phone-error' : undefined}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+            {fieldErrors.phone && (
+              <p id="phone-error" className="mt-1 text-sm text-red-600">
+                {fieldErrors.phone}
+              </p>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Special Requests */}
+      <div className="card">
+        <h3 className="text-xl font-semibold text-pet-navy mb-6">Additional Information</h3>
+        <div>
+          <label htmlFor="specialRequests" className="block text-sm font-medium text-gray-700 mb-2">
+            Special Requests or Health Conditions
+          </label>
+          <textarea
+            id="specialRequests"
+            name="specialRequests"
+            value={form.specialRequests}
+            onChange={(e) => update('specialRequests', e.target.value.slice(0, 2000))}
+            rows={4}
+            maxLength={2000}
+            placeholder="Tell us about any special needs, medications, or specific requirements for your pet..."
+            aria-invalid={Boolean(fieldErrors.specialRequests)}
+            aria-describedby="specialRequests-count"
+            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+          />
+          <p id="specialRequests-count" className="mt-1 text-xs text-gray-500 text-right">
+            {form.specialRequests.length} / 2000
+          </p>
+        </div>
+      </div>
+
+      {/* Submit Button */}
+      <div className="flex justify-center">
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className={`px-8 py-3 rounded-full font-semibold text-white transition-all ${
+            isSubmitting ? 'bg-gray-400 cursor-not-allowed' : 'bg-pet-orange hover:bg-pet-orange-dark hover:scale-105 transform'
+          }`}
+        >
+          {isSubmitting ? (
+            <span className="flex items-center">
+              <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Submitting...
+            </span>
+          ) : (
+            'Get Your Free Quote'
+          )}
+        </button>
+      </div>
+
+      {result.status === 'validation-error' && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg" role="alert">
+          <p className="font-semibold mb-2">Please fix the following:</p>
+          <ul className="list-disc list-inside text-sm space-y-1">
+            {result.messages.map((message, i) => (
+              <li key={i}>{message}</li>
+            ))}
+          </ul>
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Pet Information */}
-        <div className="card">
-          <h2 className="text-2xl font-bold text-pet-navy mb-6 flex items-center">
-            <span className="text-3xl mr-3">🐾</span>
-            Pet Information
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="pet_type" className="block text-sm font-semibold text-pet-navy mb-2">
-                Pet Type <span className="text-red-500">*</span>
-              </label>
-              <select 
-                id="pet_type" 
-                name="pet_type" 
-                required 
-                value={formData.pet_type}
-                onChange={handleInputChange}
-                className="input-field"
-              >
-                <option value="">Select pet type</option>
-                <option value="dog">🐕 Dog</option>
-                <option value="cat">🐈 Cat</option>
-                <option value="bird">🦜 Bird</option>
-                <option value="rabbit">🐰 Rabbit</option>
-                <option value="other">🦎 Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="pet_breed" className="block text-sm font-semibold text-pet-navy mb-2">
-                Breed <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="text" 
-                id="pet_breed" 
-                name="pet_breed" 
-                required 
-                value={formData.pet_breed}
-                onChange={handleInputChange}
-                placeholder="e.g., Golden Retriever" 
-                className="input-field"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="pet_weight_kg" className="block text-sm font-semibold text-pet-navy mb-2">
-                Weight (kg) <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="number" 
-                id="pet_weight_kg" 
-                name="pet_weight_kg" 
-                required 
-                value={formData.pet_weight_kg}
-                onChange={handleInputChange}
-                placeholder="e.g., 15" 
-                step="0.1"
-                className="input-field"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="pet_count" className="block text-sm font-semibold text-pet-navy mb-2">
-                Number of Pets <span className="text-red-500">*</span>
-              </label>
-              <select 
-                id="pet_count" 
-                name="pet_count" 
-                required 
-                value={formData.pet_count}
-                onChange={handleInputChange}
-                className="input-field"
-              >
-                <option value={1}>1 Pet</option>
-                <option value={2}>2 Pets</option>
-                <option value={3}>3 Pets</option>
-                <option value={4}>4+ Pets</option>
-              </select>
-            </div>
-          </div>
+      {result.status === 'rate-limited' && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center" role="alert">
+          Too many requests. Please try again in a little while.
         </div>
+      )}
 
-        {/* Travel Information */}
-        <div className="card">
-          <h2 className="text-2xl font-bold text-pet-navy mb-6 flex items-center">
-            <span className="text-3xl mr-3">✈️</span>
-            Travel Information
-          </h2>
-          
-          {/* Helpful tip */}
-          <div className="bg-pet-light rounded-xl p-4 mb-6">
-            <p className="text-sm text-pet-navy">
-              💡 <strong>Tip:</strong> Select your country first, then choose from popular cities. Don't see your city? Select "Other" and specify in the special requests section.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="from_country_id" className="block text-sm font-semibold text-pet-navy mb-2">
-                From Country <span className="text-red-500">*</span>
-              </label>
-              <select 
-                id="from_country_id" 
-                name="from_country_id" 
-                required 
-                value={formData.from_country_id}
-                onChange={handleInputChange}
-                className="input-field"
-              >
-                <option value="">Select country</option>
-                {countries.map((country) => (
-                  <option key={country.id} value={country.id}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="from_city" className="block text-sm font-semibold text-pet-navy mb-2">
-                From City <span className="text-red-500">*</span>
-              </label>
-              {fromCities.length > 0 ? (
-                <select 
-                  id="from_city" 
-                  name="from_city" 
-                  required 
-                  value={formData.from_city}
-                  onChange={handleInputChange}
-                  className="input-field"
-                >
-                  <option value="">Select city</option>
-                  {fromCities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                  <option value="other">Other (specify in special requests)</option>
-                </select>
-              ) : (
-                <input 
-                  type="text" 
-                  id="from_city" 
-                  name="from_city" 
-                  required 
-                  value={formData.from_city}
-                  onChange={handleInputChange}
-                  placeholder={formData.from_country_id ? "Please select a country first" : "e.g., Toronto"} 
-                  className="input-field"
-                  disabled={!formData.from_country_id}
-                />
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="to_country_id" className="block text-sm font-semibold text-pet-navy mb-2">
-                To Country <span className="text-red-500">*</span>
-              </label>
-              <select 
-                id="to_country_id" 
-                name="to_country_id" 
-                required 
-                value={formData.to_country_id}
-                onChange={handleInputChange}
-                className="input-field"
-              >
-                <option value="">Select country</option>
-                {countries.map((country) => (
-                  <option key={country.id} value={country.id}>
-                    {country.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="to_city" className="block text-sm font-semibold text-pet-navy mb-2">
-                To City <span className="text-red-500">*</span>
-              </label>
-              {toCities.length > 0 ? (
-                <select 
-                  id="to_city" 
-                  name="to_city" 
-                  required 
-                  value={formData.to_city}
-                  onChange={handleInputChange}
-                  className="input-field"
-                >
-                  <option value="">Select city</option>
-                  {toCities.map((city) => (
-                    <option key={city} value={city}>
-                      {city}
-                    </option>
-                  ))}
-                  <option value="other">Other (specify in special requests)</option>
-                </select>
-              ) : (
-                <input 
-                  type="text" 
-                  id="to_city" 
-                  name="to_city" 
-                  required 
-                  value={formData.to_city}
-                  onChange={handleInputChange}
-                  placeholder={formData.to_country_id ? "Please select a country first" : "e.g., Seoul"} 
-                  className="input-field"
-                  disabled={!formData.to_country_id}
-                />
-              )}
-            </div>
-
-            <div>
-              <label htmlFor="travel_date" className="block text-sm font-semibold text-pet-navy mb-2">
-                Approximate Travel Date
-              </label>
-              <input 
-                type="date" 
-                id="travel_date" 
-                name="travel_date" 
-                value={formData.travel_date}
-                onChange={handleInputChange}
-                min={new Date().toISOString().split('T')[0]}
-                className="input-field"
-              />
-              <p className="text-xs text-gray-500 mt-1">Not sure yet? Leave blank and we'll discuss options</p>
-            </div>
-          </div>
+      {result.status === 'server-error' && (
+        <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg text-center" role="alert">
+          Sorry, there was an error submitting your inquiry. Please try again or contact us directly.
         </div>
-
-        {/* Customer Information */}
-        <div className="card">
-          <h2 className="text-2xl font-bold text-pet-navy mb-6 flex items-center">
-            <span className="text-3xl mr-3">📧</span>
-            Your Contact Information
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <label htmlFor="full_name" className="block text-sm font-semibold text-pet-navy mb-2">
-                Full Name <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="text" 
-                id="full_name" 
-                name="full_name" 
-                required 
-                value={formData.full_name}
-                onChange={handleInputChange}
-                placeholder="John Doe" 
-                className="input-field"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="email" className="block text-sm font-semibold text-pet-navy mb-2">
-                Email Address <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                value={formData.email}
-                onChange={handleInputChange}
-                placeholder="john@example.com" 
-                className="input-field"
-              />
-            </div>
-
-            <div className="md:col-span-2">
-              <label htmlFor="phone" className="block text-sm font-semibold text-pet-navy mb-2">
-                Phone/WhatsApp <span className="text-red-500">*</span>
-              </label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                required 
-                value={formData.phone}
-                onChange={handleInputChange}
-                placeholder="+1 234 567 8900" 
-                className="input-field"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Special Requests */}
-        <div className="card">
-          <label htmlFor="special_requests" className="block text-sm font-semibold text-pet-navy mb-2">
-            Special Requests or Concerns <span className="text-gray-500 text-xs">(optional)</span>
-          </label>
-          <textarea 
-            id="special_requests" 
-            name="special_requests" 
-            rows={4}
-            value={formData.special_requests}
-            onChange={handleInputChange}
-            placeholder="Tell us about any special needs, medical conditions, or specific requirements. If your city is not listed above, please specify it here."
-            className="input-field resize-none"
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="text-center">
-          <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className="btn-primary text-lg px-12 py-4 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isSubmitting ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-                Submitting...
-              </>
-            ) : (
-              <>
-                Submit Inquiry
-                <svg className="w-5 h-5 ml-2 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </>
-            )}
-          </button>
-
-          {submitStatus === 'error' && (
-            <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-2xl">
-              <p className="text-red-800">
-                There was an error submitting your inquiry. Please try again or contact us directly.
-              </p>
-            </div>
-          )}
-        </div>
-      </form>
-    </div>
+      )}
+    </form>
   )
 }
