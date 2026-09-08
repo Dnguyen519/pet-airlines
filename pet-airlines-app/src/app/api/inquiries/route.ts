@@ -122,12 +122,15 @@ export async function POST(req: Request) {
     specialRequests: input.specialRequests,
   }
 
+  const adminEmail = process.env.ADMIN_EMAIL
+
   let customerSent = false
   const customerTemplate = customerConfirmation(templateData)
   const customerResult = await sendEmail({
     to: input.email,
     subject: customerTemplate.subject,
     html: customerTemplate.html,
+    ...(adminEmail ? { replyTo: adminEmail } : {}),
   })
   if (!customerResult.ok) {
     console.error(`POST /api/inquiries: customer email failed for ${created.inquiryNumber}: ${customerResult.error}`)
@@ -141,7 +144,6 @@ export async function POST(req: Request) {
   }
 
   let adminSent = false
-  const adminEmail = process.env.ADMIN_EMAIL
   if (!adminEmail) {
     console.error(`POST /api/inquiries: admin email failed for ${created.inquiryNumber}: ADMIN_EMAIL not set`)
   } else {
