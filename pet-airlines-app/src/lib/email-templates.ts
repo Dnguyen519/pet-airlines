@@ -64,30 +64,58 @@ function shell(bodyHtml: string, title: string): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light">
   <title>${escapeHtml(title)}</title>
+  <style>
+    @media screen and (max-width: 600px) {
+      .par-container { width: 100% !important; }
+      .par-pad { padding-left: 16px !important; padding-right: 16px !important; }
+    }
+  </style>
 </head>
-<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-  <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
-    <h1 style="margin: 0; font-size: 28px;">Pet Airlines</h1>
-    <p style="margin: 10px 0 0 0; font-size: 16px;">Global Pet Transportation</p>
-  </div>
-  <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px;">
-    ${bodyHtml}
-  </div>
+<body style="margin:0; padding:0; background:#f2f2f2; font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f2f2f2;">
+    <tr>
+      <td align="center" style="padding: 16px 8px;">
+        <table role="presentation" class="par-container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background:#ffffff; border-radius:10px; overflow:hidden;">
+          <tr>
+            <td class="par-pad" bgcolor="#1B3A5F" style="background-color:#1B3A5F; background-image: linear-gradient(135deg, #3B9AE1 0%, #1B3A5F 100%); color:#ffffff; text-align:center; padding: 24px;">
+              <h1 style="margin: 0; font-size: 26px;">Pet Airlines</h1>
+              <p style="margin: 8px 0 0 0; font-size: 15px;">Global Pet Transportation</p>
+            </td>
+          </tr>
+          <tr>
+            <td class="par-pad" bgcolor="#E8F4FB" style="background-color:#E8F4FB; padding: 24px;">
+              ${bodyHtml}
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>`
+}
+
+function detailCard(innerHtml: string): string {
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 16px 0; background:#ffffff; border-radius:8px;">
+      <tr>
+        <td width="4" bgcolor="#3B9AE1" style="background-color:#3B9AE1; font-size:0; line-height:0;">&nbsp;</td>
+        <td style="padding: 16px 20px;">
+          ${innerHtml}
+        </td>
+      </tr>
+    </table>`
 }
 
 export function customerConfirmation(d: InquiryTemplateData): { subject: string; html: string } {
   const subject = `Pet Airlines - Inquiry Received (${d.inquiryNumber})`
 
   const body = `
-    <h2 style="color: #667eea; margin-top: 0;">Hello ${escapeHtml(d.fullName)},</h2>
+    <h2 style="color: #1B3A5F; margin-top: 0;">Hello ${escapeHtml(d.fullName)},</h2>
     <p>Thank you for your inquiry with Pet Airlines. We've received your request and a specialist will reply within one business day.</p>
-    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
-      <h3 style="margin-top: 0; color: #667eea;">Inquiry Details</h3>
-      ${detailRows(d, { includeContact: false })}
-    </div>
+    ${detailCard(`<h3 style="margin-top: 0; color: #1B3A5F;">Inquiry Details</h3>
+      ${detailRows(d, { includeContact: false })}`)}
     <p>What happens next: a Pet Airlines specialist reviews your route and pet details, then replies to this email with next steps and any questions.</p>
     <p>Best regards,<br>
     <strong>Pet Airlines Team</strong></p>
@@ -100,10 +128,8 @@ export function adminNotification(d: InquiryTemplateData): { subject: string; ht
   const subject = `New Inquiry ${d.inquiryNumber} - ${d.fromCity} to ${d.toCity}`
 
   const body = `
-    <h2 style="color: #667eea; margin-top: 0;">New Pet Airlines Inquiry</h2>
-    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
-      ${detailRows(d, { includeContact: true })}
-    </div>
+    <h2 style="color: #1B3A5F; margin-top: 0;">New Pet Airlines Inquiry</h2>
+    ${detailCard(detailRows(d, { includeContact: true }))}
     <p>Reply to customer: <a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a></p>
   `
 
