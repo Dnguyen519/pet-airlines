@@ -79,13 +79,13 @@ function shell(bodyHtml: string, title: string): string {
       <td align="center" style="padding: 16px 8px;">
         <table role="presentation" class="par-container" width="600" cellpadding="0" cellspacing="0" border="0" style="width:600px; max-width:600px; background:#ffffff; border-radius:10px; overflow:hidden;">
           <tr>
-            <td class="par-pad" bgcolor="#667eea" style="background-color:#667eea; background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color:#ffffff; text-align:center; padding: 24px;">
+            <td class="par-pad" bgcolor="#1B3A5F" style="background-color:#1B3A5F; background-image: linear-gradient(135deg, #3B9AE1 0%, #1B3A5F 100%); color:#ffffff; text-align:center; padding: 24px;">
               <h1 style="margin: 0; font-size: 26px;">Pet Airlines</h1>
               <p style="margin: 8px 0 0 0; font-size: 15px;">Global Pet Transportation</p>
             </td>
           </tr>
           <tr>
-            <td class="par-pad" bgcolor="#f9f9f9" style="background-color:#f9f9f9; padding: 24px;">
+            <td class="par-pad" bgcolor="#E8F4FB" style="background-color:#E8F4FB; padding: 24px;">
               ${bodyHtml}
             </td>
           </tr>
@@ -100,7 +100,7 @@ function shell(bodyHtml: string, title: string): string {
 function detailCard(innerHtml: string): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 16px 0; background:#ffffff; border-radius:8px;">
       <tr>
-        <td width="4" bgcolor="#667eea" style="background-color:#667eea; font-size:0; line-height:0;">&nbsp;</td>
+        <td width="4" bgcolor="#3B9AE1" style="background-color:#3B9AE1; font-size:0; line-height:0;">&nbsp;</td>
         <td style="padding: 16px 20px;">
           ${innerHtml}
         </td>
@@ -112,9 +112,9 @@ export function customerConfirmation(d: InquiryTemplateData): { subject: string;
   const subject = `Pet Airlines - Inquiry Received (${d.inquiryNumber})`
 
   const body = `
-    <h2 style="color: #667eea; margin-top: 0;">Hello ${escapeHtml(d.fullName)},</h2>
+    <h2 style="color: #1B3A5F; margin-top: 0;">Hello ${escapeHtml(d.fullName)},</h2>
     <p>Thank you for your inquiry with Pet Airlines. We've received your request and a specialist will reply within one business day.</p>
-    ${detailCard(`<h3 style="margin-top: 0; color: #667eea;">Inquiry Details</h3>
+    ${detailCard(`<h3 style="margin-top: 0; color: #1B3A5F;">Inquiry Details</h3>
       ${detailRows(d, { includeContact: false })}`)}
     <p>What happens next: a Pet Airlines specialist reviews your route and pet details, then replies to this email with next steps and any questions.</p>
     <p>Best regards,<br>
@@ -128,7 +128,7 @@ export function adminNotification(d: InquiryTemplateData): { subject: string; ht
   const subject = `New Inquiry ${d.inquiryNumber} - ${d.fromCity} to ${d.toCity}`
 
   const body = `
-    <h2 style="color: #667eea; margin-top: 0;">New Pet Airlines Inquiry</h2>
+    <h2 style="color: #1B3A5F; margin-top: 0;">New Pet Airlines Inquiry</h2>
     ${detailCard(detailRows(d, { includeContact: true }))}
     <p>Reply to customer: <a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a></p>
   `
