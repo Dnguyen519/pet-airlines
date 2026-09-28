@@ -5,6 +5,7 @@ import { randomInt } from 'node:crypto'
 import { and, count, eq, gt } from 'drizzle-orm'
 
 import { getDb } from '@/lib/db/client'
+import { isUndefinedColumnError } from '@/lib/db/errors'
 import { inquiries } from '@/lib/db/schema'
 import type { InquiryInput } from '@/lib/validation/inquiry'
 
@@ -39,6 +40,30 @@ interface CreateInquiryMeta {
   sourceDetailAuto?: string
 }
 
+// The original (pre-lead-source) column set, exactly as `main` inserts
+// today. Used both for the primary insert and — if the lead-source columns
+// turn out not to exist yet — for the one-time fallback below.
+function baseInsertValues(inquiryNumber: string, input: InquiryInput, meta: CreateInquiryMeta) {
+  return {
+    inquiryNumber,
+    fullName: input.fullName,
+    email: input.email,
+    phone: input.phone,
+    petType: input.petType,
+    petBreed: input.petBreed,
+    petWeightKg: input.petWeightKg !== undefined ? String(input.petWeightKg) : undefined,
+    petCount: input.petCount,
+    fromCountry: input.fromCountry,
+    fromCity: input.fromCity,
+    toCountry: input.toCountry,
+    toCity: input.toCity,
+    travelDate: input.travelDate,
+    specialRequests: input.specialRequests,
+    ipHash: meta.ipHash,
+    userAgent: meta.userAgent,
+  }
+}
+
 export async function createInquiry(
   input: InquiryInput,
   meta: CreateInquiryMeta = {}
@@ -52,22 +77,7 @@ export async function createInquiry(
       const [row] = await getDb()
         .insert(inquiries)
         .values({
-          inquiryNumber,
-          fullName: input.fullName,
-          email: input.email,
-          phone: input.phone,
-          petType: input.petType,
-          petBreed: input.petBreed,
-          petWeightKg: input.petWeightKg !== undefined ? String(input.petWeightKg) : undefined,
-          petCount: input.petCount,
-          fromCountry: input.fromCountry,
-          fromCity: input.fromCity,
-          toCountry: input.toCountry,
-          toCity: input.toCity,
-          travelDate: input.travelDate,
-          specialRequests: input.specialRequests,
-          ipHash: meta.ipHash,
-          userAgent: meta.userAgent,
+          ...baseInsertValues(inquiryNumber, input, meta),
           sourceSelfReported: input.sourceSelfReported,
           sourceSelfDetail: input.sourceSelfDetail,
           sourceChannel: meta.sourceChannel,
@@ -88,6 +98,25 @@ export async function createInquiry(
       if (isUniqueViolation(err)) {
         continue
       }
+
+      // Migration 0002_lead_source hasn't been applied to this database yet
+      // (see drizzle/0002_lead_source.sql) — the lead-source columns don't
+      // exist. Rather than take the ENTIRE inquiry funnel down over a
+      // migration ordering mistake, retry exactly once with the original
+      // column set (no source data), so the inquiry is still saved. Any
+      // other error still fails the request exactly as before.
+      if (isUndefinedColumnError(err)) {
+        console.warn(
+          'createInquiry: lead-source columns are missing (migration 0002_lead_source has not been applied) — falling back to the original column set without source data'
+        )
+        const [fallbackRow] = await getDb()
+          .insert(inquiries)
+          .values(baseInsertValues(inquiryNumber, input, meta))
+          .returning({ id: inquiries.id, inquiryNumber: inquiries.inquiryNumber })
+
+        return fallbackRow
+      }
+
       throw err
     }
   }
