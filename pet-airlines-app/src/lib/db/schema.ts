@@ -31,6 +31,21 @@ export const inquiries = pgTable(
     ipHash: text('ip_hash'),
     userAgent: text('user_agent'),
 
+    // Lead-source attribution — all nullable, additive (migration 0002).
+    // See src/lib/first-touch.ts (client capture) and
+    // src/lib/source-classifier.ts (server-side channel derivation).
+    sourceSelfReported: text('source_self_reported'),
+    sourceSelfDetail: text('source_self_detail'),
+    sourceChannel: text('source_channel'),
+    sourceDetailAuto: text('source_detail_auto'),
+    sourceReferrerHost: text('source_referrer_host'),
+    sourceReferrerPath: text('source_referrer_path'),
+    sourceLandingPath: text('source_landing_path'),
+    utmSource: text('utm_source'),
+    utmMedium: text('utm_medium'),
+    utmCampaign: text('utm_campaign'),
+    sourceFirstSeenAt: timestamp('source_first_seen_at', { withTimezone: true }),
+
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
   (table) => ({

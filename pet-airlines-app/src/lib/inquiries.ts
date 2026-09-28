@@ -32,6 +32,11 @@ const MAX_ATTEMPTS = 5
 interface CreateInquiryMeta {
   ipHash?: string
   userAgent?: string
+  // Server-derived (never client-supplied) lead-source channel — see
+  // src/lib/source-classifier.ts. Kept out of InquiryInput/InquirySchema so
+  // a submission can't spoof its own classification.
+  sourceChannel?: string
+  sourceDetailAuto?: string
 }
 
 export async function createInquiry(
@@ -63,6 +68,17 @@ export async function createInquiry(
           specialRequests: input.specialRequests,
           ipHash: meta.ipHash,
           userAgent: meta.userAgent,
+          sourceSelfReported: input.sourceSelfReported,
+          sourceSelfDetail: input.sourceSelfDetail,
+          sourceChannel: meta.sourceChannel,
+          sourceDetailAuto: meta.sourceDetailAuto,
+          sourceReferrerHost: input.sourceReferrerHost,
+          sourceReferrerPath: input.sourceReferrerPath,
+          sourceLandingPath: input.sourceLandingPath,
+          utmSource: input.utmSource,
+          utmMedium: input.utmMedium,
+          utmCampaign: input.utmCampaign,
+          sourceFirstSeenAt: input.sourceFirstSeenAt ? new Date(input.sourceFirstSeenAt) : undefined,
         })
         .returning({ id: inquiries.id, inquiryNumber: inquiries.inquiryNumber })
 
