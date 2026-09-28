@@ -66,6 +66,88 @@ test.describe('quote form', () => {
     await expect(page.getByLabel('From Country')).toHaveValue('CA')
     await expect(page.getByLabel('To Country')).toHaveValue('VN')
   })
+
+  test('a submission persists first-touch + self-reported lead-source fields', async ({ page }) => {
+    const qaFullName = '[QA] Sprint350 lead-source e2e'
+    const qaEmail = 'qa+s350leadsource@example.com'
+
+    // Seed a first-touch record BEFORE the app's own tracker script runs, so
+    // FirstTouchTracker sees an already-valid record and no-ops (first touch
+    // wins) — this pins down exactly what buildPayload() should read.
+    await page.addInitScript(() => {
+      window.localStorage.setItem(
+        'pa_first_touch_v1',
+        JSON.stringify({
+          referrerHost: 'chatgpt.com',
+          referrerPath: '/c/abc123',
+          landingPath: '/routes/canada-to-vietnam',
+          utmSource: 'chatgpt.com',
+          utmMedium: 'referral',
+          utmCampaign: undefined,
+          capturedAt: new Date().toISOString(),
+        })
+      )
+    })
+
+    await page.goto('/quote')
+
+    await page.getByLabel('Pet Type').selectOption('dog')
+    await page.getByLabel('From Country').selectOption('CA')
+    await page.getByLabel('From City').fill('Toronto')
+    await page.getByLabel('To Country').selectOption('VN')
+    await page.getByLabel('To City').fill('Hanoi')
+    await page.getByLabel('Full Name').fill(qaFullName)
+    await page.getByLabel('Email').fill(qaEmail)
+    await page.getByLabel('How did you hear about us?').selectOption('ai_assistant')
+    await page.getByLabel('Tell us more').fill('asked ChatGPT about moving my dog to Canada')
+
+    await page.getByRole('button', { name: 'Get Your Free Quote' }).click()
+    await expect(page.getByRole('heading', { name: 'Request received' })).toBeVisible()
+
+    const referenceText = await page.locator('span.font-mono').innerText()
+    const row = await getInquiryByNumber(referenceText)
+
+    expect(row, `no DB row found for ${referenceText}`).toBeDefined()
+    expect(row?.source_channel).toBe('ai_assistant')
+    expect(row?.source_detail_auto).toBe('chatgpt')
+    expect(row?.source_self_reported).toBe('ai_assistant')
+    expect(row?.source_self_detail).toBe('asked ChatGPT about moving my dog to Canada')
+    expect(row?.source_referrer_host).toBe('chatgpt.com')
+    expect(row?.source_landing_path).toBe('/routes/canada-to-vietnam')
+    expect(row?.utm_source).toBe('chatgpt.com')
+
+    await deleteInquiryByNumber(referenceText)
+  })
+
+  test('the "how did you hear about us" field is optional — a submission that leaves it blank still succeeds', async ({
+    page,
+  }) => {
+    const qaFullName = '[QA] Sprint350 no-source e2e'
+    const qaEmail = 'qa+s350nosource@example.com'
+
+    await page.goto('/quote')
+
+    await page.getByLabel('Pet Type').selectOption('cat')
+    await page.getByLabel('From Country').selectOption('CA')
+    await page.getByLabel('From City').fill('Toronto')
+    await page.getByLabel('To Country').selectOption('VN')
+    await page.getByLabel('To City').fill('Hanoi')
+    await page.getByLabel('Full Name').fill(qaFullName)
+    await page.getByLabel('Email').fill(qaEmail)
+    // Deliberately leave "How did you hear about us?" and "Tell us more" untouched.
+
+    await page.getByRole('button', { name: 'Get Your Free Quote' }).click()
+    await expect(page.getByRole('heading', { name: 'Request received' })).toBeVisible()
+
+    const referenceText = await page.locator('span.font-mono').innerText()
+    const row = await getInquiryByNumber(referenceText)
+
+    expect(row, `no DB row found for ${referenceText}`).toBeDefined()
+    expect(row?.source_self_reported).toBeNull()
+    expect(row?.source_self_detail).toBeNull()
+
+    await deleteInquiryByNumber(referenceText)
+  })
 })
 
 test.describe('POST /api/inquiries contract', () => {
@@ -107,5 +189,32 @@ test.describe('POST /api/inquiries contract', () => {
   test('GET returns 405', async ({ request }) => {
     const response = await request.get('/api/inquiries')
     expect(response.status()).toBe(405)
+  })
+
+  test('a garbage lead-source tracking payload still returns 201, not validation_failed', async ({ request }) => {
+    const response = await request.post('/api/inquiries', {
+      data: {
+        fullName: '[QA] Sprint350 garbage-source e2e',
+        email: 'qa+s350garbage@example.com',
+        petType: 'dog',
+        petCount: 1,
+        fromCountry: 'CA',
+        fromCity: 'Toronto',
+        toCountry: 'VN',
+        toCity: 'Hanoi',
+        sourceSelfReported: 'not-a-real-option',
+        sourceSelfDetail: 12345,
+        sourceReferrerHost: { nested: 'object' },
+        sourceReferrerPath: 'x'.repeat(10_000),
+        utmSource: ['array', 'not', 'string'],
+        sourceFirstSeenAt: 'not-a-real-date',
+      },
+    })
+
+    expect(response.status()).toBe(201)
+    const body = (await response.json()) as { success: boolean; data: { inquiryNumber: string } }
+    expect(body.success).toBe(true)
+
+    await deleteInquiryByNumber(body.data.inquiryNumber)
   })
 })

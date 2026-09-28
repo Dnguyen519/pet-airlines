@@ -52,12 +52,26 @@ export interface InquiryRow {
   full_name: string
   email: string
   status: string
+  source_self_reported: string | null
+  source_self_detail: string | null
+  source_channel: string | null
+  source_detail_auto: string | null
+  source_referrer_host: string | null
+  source_referrer_path: string | null
+  source_landing_path: string | null
+  utm_source: string | null
+  utm_medium: string | null
+  utm_campaign: string | null
+  source_first_seen_at: string | null
 }
 
 /** Reads a single inquiry row by its `PA-...` reference number. Returns `undefined` if no row matches. */
 export async function getInquiryByNumber(inquiryNumber: string): Promise<InquiryRow | undefined> {
   const rows = await getSql()<InquiryRow[]>`
-    select id, inquiry_number, full_name, email, status
+    select id, inquiry_number, full_name, email, status,
+      source_self_reported, source_self_detail, source_channel, source_detail_auto,
+      source_referrer_host, source_referrer_path, source_landing_path,
+      utm_source, utm_medium, utm_campaign, source_first_seen_at
     from inquiries
     where inquiry_number = ${inquiryNumber}
     limit 1
