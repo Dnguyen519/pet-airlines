@@ -6,7 +6,7 @@ import { and, count, eq, gt } from 'drizzle-orm'
 
 import { getDb } from '@/lib/db/client'
 import { isUndefinedColumnError, isUniqueViolationError } from '@/lib/db/errors'
-import { inquiries } from '@/lib/db/schema'
+import { inquiries, inquiriesLegacy } from '@/lib/db/schema'
 import type { InquiryInput } from '@/lib/validation/inquiry'
 
 // Crockford base32 alphabet — avoids visually ambiguous characters (0/O, 1/I/L).
@@ -104,14 +104,26 @@ export async function createInquiry(
       // migration ordering mistake, retry exactly once with the original
       // column set (no source data), so the inquiry is still saved. Any
       // other error still fails the request exactly as before.
+      //
+      // IMPORTANT: this insert targets `inquiriesLegacy`, NOT `inquiries`.
+      // Drizzle's `.insert(table).values({...})` names EVERY column of the
+      // TABLE OBJECT it targets (writing `default` for any key omitted
+      // from `.values()`), not just the keys actually passed — so
+      // inserting `baseInsertValues()` (a partial object) into the full
+      // `inquiries` object still produces an INSERT statement referencing
+      // `source_self_reported` etc. and fails with the SAME 42703 this
+      // fallback exists to recover from. `inquiriesLegacy` (see
+      // src/lib/db/schema.ts) is a second table object for the same
+      // physical table containing only the pre-0002 columns, so the
+      // generated INSERT never references a column that might not exist.
       if (isUndefinedColumnError(err)) {
         console.warn(
           'createInquiry: lead-source columns are missing (migration 0002_lead_source has not been applied) — falling back to the original column set without source data'
         )
         const [fallbackRow] = await getDb()
-          .insert(inquiries)
+          .insert(inquiriesLegacy)
           .values(baseInsertValues(inquiryNumber, input, meta))
-          .returning({ id: inquiries.id, inquiryNumber: inquiries.inquiryNumber })
+          .returning({ id: inquiriesLegacy.id, inquiryNumber: inquiriesLegacy.inquiryNumber })
 
         return fallbackRow
       }

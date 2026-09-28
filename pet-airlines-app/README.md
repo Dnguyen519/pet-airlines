@@ -66,6 +66,42 @@ clean up every row it creates. All test-created rows use the `[QA] `
 full-name prefix; `quote.spec.ts`'s `afterEach` sweeps that prefix
 defensively even if an assertion above it throws.
 
+### Second database: the missing-migration regression test
+
+`createInquiry()` (`src/lib/inquiries.ts`) has a fallback for a database
+that hasn't had `drizzle/0002_lead_source.sql` applied yet — see the
+comment above `isUndefinedColumnError` in `src/lib/db/errors.ts` and
+`inquiriesLegacy` in `src/lib/db/schema.ts`. Proving that fallback actually
+works needs a SECOND, disposable database with only migrations
+`0000_inquiries.sql` and `0001_inquiries_ip_hash_idx.sql` applied — the
+main `test:e2e` run above always uses a fully-migrated database, so it
+can't exercise this path.
+
+`scripts/test-nomig-fallback.mjs` is that regression test. It is **not**
+part of `npm run test:e2e` or any other default gate — it's a standalone
+script, skipped by default, that only runs when you deliberately point it
+at such a database:
+
+```bash
+npm run build   # spawns `next start`, same as the Playwright webServer
+
+# 1. Create a throwaway local Postgres database and apply ONLY
+#    0000_inquiries.sql and 0001_inquiries_ip_hash_idx.sql to it — NOT
+#    0002_lead_source.sql. (scripts/migrate.mjs applies every migration
+#    file it finds, so don't point npm run db:migrate at this database —
+#    apply the two SQL files by hand instead, e.g. via psql.)
+# 2. Point the regression script at it:
+E2E_NOMIG_DATABASE_URL=postgresql://user:pass@127.0.0.1:PORT/your_nomig_db \
+  node scripts/test-nomig-fallback.mjs
+```
+
+It refuses to run against anything whose host isn't `localhost` or
+`127.0.0.1` (it creates and deletes rows), spawns its own `next start` on
+port 3131 by default (override with `E2E_NOMIG_PORT`), POSTs a valid
+inquiry with tracking fields, asserts HTTP 201 and exactly one new row,
+and cleans that row up before exiting — leaving the database exactly as
+it found it.
+
 ## Deploy
 
 Push to `main` — Vercel's git integration builds and deploys automatically.
