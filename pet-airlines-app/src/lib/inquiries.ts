@@ -5,7 +5,7 @@ import { randomInt } from 'node:crypto'
 import { and, count, eq, gt } from 'drizzle-orm'
 
 import { getDb } from '@/lib/db/client'
-import { isUndefinedColumnError } from '@/lib/db/errors'
+import { isUndefinedColumnError, isUniqueViolationError } from '@/lib/db/errors'
 import { inquiries } from '@/lib/db/schema'
 import type { InquiryInput } from '@/lib/validation/inquiry'
 
@@ -27,7 +27,6 @@ function makeInquiryNumber(): string {
   return `PA-${yy}${mm}-${randomBase32Chars(4)}`
 }
 
-const UNIQUE_VIOLATION = '23505'
 const MAX_ATTEMPTS = 5
 
 interface CreateInquiryMeta {
@@ -95,7 +94,7 @@ export async function createInquiry(
       return row
     } catch (err) {
       lastError = err
-      if (isUniqueViolation(err)) {
+      if (isUniqueViolationError(err)) {
         continue
       }
 
@@ -126,10 +125,6 @@ export async function createInquiry(
   ) as Error & { cause?: unknown }
   error.cause = lastError
   throw error
-}
-
-function isUniqueViolation(err: unknown): boolean {
-  return typeof err === 'object' && err !== null && 'code' in err && (err as { code?: string }).code === UNIQUE_VIOLATION
 }
 
 export async function markEmailSent(id: string, which: 'customer' | 'admin'): Promise<void> {
