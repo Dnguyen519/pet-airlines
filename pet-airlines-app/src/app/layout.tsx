@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { JsonLd } from '@/components/seo/JsonLd'
 import { ORGANIZATION_ID } from '@/components/seo/schemas'
+import { FirstTouchTracker } from '@/components/tracking/FirstTouchTracker'
 import { SITE_URL } from '@/lib/site'
 import './globals.css'
 
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body>
         <JsonLd data={organizationJsonLd} />
         <JsonLd data={websiteJsonLd} />
+        <FirstTouchTracker />
         {children}
       </body>
     </html>
