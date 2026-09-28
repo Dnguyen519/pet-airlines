@@ -4,6 +4,7 @@ import { adminNotification, customerConfirmation } from '@/lib/email-templates'
 import { sendEmail } from '@/lib/email'
 import { countRecentInquiriesByIp, createInquiry, markEmailSent } from '@/lib/inquiries'
 import { checkRateLimit } from '@/lib/rate-limit'
+import { classifySourceChannel } from '@/lib/source-classifier'
 import { InquirySchema } from '@/lib/validation/inquiry'
 
 export const runtime = 'nodejs'
@@ -97,9 +98,19 @@ export async function POST(req: Request) {
   }
   const userAgent = req.headers.get('user-agent') ?? undefined
 
+  const classification = classifySourceChannel({
+    referrerHost: input.sourceReferrerHost,
+    utmSource: input.utmSource,
+  })
+
   let created: { id: string; inquiryNumber: string }
   try {
-    created = await createInquiry(input, { ipHash, userAgent })
+    created = await createInquiry(input, {
+      ipHash,
+      userAgent,
+      sourceChannel: classification.channel,
+      sourceDetailAuto: classification.detail,
+    })
   } catch (err) {
     console.error('POST /api/inquiries: db_error', err)
     return Response.json({ success: false, error: 'db_error' }, { status: 500 })
@@ -120,6 +131,11 @@ export async function POST(req: Request) {
     travelDate: input.travelDate,
     petWeightKg: input.petWeightKg,
     specialRequests: input.specialRequests,
+    sourceChannel: classification.channel,
+    sourceDetailAuto: classification.detail,
+    sourceSelfReported: input.sourceSelfReported,
+    sourceSelfDetail: input.sourceSelfDetail,
+    sourceLandingPath: input.sourceLandingPath,
   }
 
   const adminEmail = process.env.ADMIN_EMAIL

@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { COUNTRIES, POPULAR_ROUTES } from '@/lib/countries'
+import { readFirstTouch } from '@/lib/first-touch'
+import { SOURCE_SELF_REPORTED_LABELS, SOURCE_SELF_REPORTED_VALUES } from '@/lib/source-options'
 import { InquirySchema, PET_TYPES, type InquiryInput } from '@/lib/validation/inquiry'
 
 interface InquiryFormProps {
@@ -24,6 +26,8 @@ type FormState = {
   toCity: string
   travelDate: string
   specialRequests: string
+  sourceSelfReported: string
+  sourceSelfDetail: string
   website: string
 }
 
@@ -59,11 +63,18 @@ function emptyForm(initialFrom?: string, initialTo?: string): FormState {
     toCity: '',
     travelDate: '',
     specialRequests: '',
+    sourceSelfReported: '',
+    sourceSelfDetail: '',
     website: '',
   }
 }
 
 function buildPayload(form: FormState): unknown {
+  // Best-effort read of the client-captured first-touch record. Never lets
+  // a tracking failure block or delay the actual submission — a missing or
+  // unreadable record just means these fields come through as undefined.
+  const firstTouch = readFirstTouch()
+
   return {
     fullName: form.fullName.trim(),
     email: form.email.trim(),
@@ -78,6 +89,15 @@ function buildPayload(form: FormState): unknown {
     toCity: form.toCity.trim(),
     travelDate: form.travelDate || undefined,
     specialRequests: form.specialRequests.trim() || undefined,
+    sourceSelfReported: form.sourceSelfReported || undefined,
+    sourceSelfDetail: form.sourceSelfDetail.trim() || undefined,
+    sourceReferrerHost: firstTouch?.referrerHost,
+    sourceReferrerPath: firstTouch?.referrerPath,
+    sourceLandingPath: firstTouch?.landingPath,
+    utmSource: firstTouch?.utmSource,
+    utmMedium: firstTouch?.utmMedium,
+    utmCampaign: firstTouch?.utmCampaign,
+    sourceFirstSeenAt: firstTouch?.capturedAt,
     website: form.website,
   }
 }
@@ -544,6 +564,48 @@ export function InquiryForm({ initialFrom, initialTo }: InquiryFormProps) {
           <p id="specialRequests-count" className="mt-1 text-xs text-gray-500 text-right">
             {form.specialRequests.length} / 2000
           </p>
+        </div>
+      </div>
+
+      {/* How did you hear about us? — optional, self-reported lead source. Never required, never blocks submission. */}
+      <div className="card">
+        <h3 className="text-xl font-semibold text-pet-navy mb-6">Help Us Improve</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="sourceSelfReported" className="block text-sm font-medium text-gray-700 mb-2">
+              How did you hear about us? <span className="text-gray-400">(optional)</span>
+            </label>
+            <select
+              id="sourceSelfReported"
+              name="sourceSelfReported"
+              value={form.sourceSelfReported}
+              onChange={(e) => update('sourceSelfReported', e.target.value)}
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            >
+              <option value="">Prefer not to say</option>
+              {SOURCE_SELF_REPORTED_VALUES.map((value) => (
+                <option key={value} value={value}>
+                  {SOURCE_SELF_REPORTED_LABELS[value]}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="sourceSelfDetail" className="block text-sm font-medium text-gray-700 mb-2">
+              Tell us more <span className="text-gray-400">(optional)</span>
+            </label>
+            <input
+              id="sourceSelfDetail"
+              name="sourceSelfDetail"
+              type="text"
+              value={form.sourceSelfDetail}
+              onChange={(e) => update('sourceSelfDetail', e.target.value.slice(0, 120))}
+              maxLength={120}
+              placeholder="e.g., asked ChatGPT about moving my dog to Canada"
+              className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pet-orange focus:border-pet-orange"
+            />
+          </div>
         </div>
       </div>
 

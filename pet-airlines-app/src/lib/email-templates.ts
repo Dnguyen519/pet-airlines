@@ -1,4 +1,5 @@
 import { countryName } from '@/lib/countries'
+import { SOURCE_SELF_REPORTED_LABELS, type SourceSelfReported } from '@/lib/source-options'
 
 export interface InquiryTemplateData {
   inquiryNumber: string
@@ -15,6 +16,13 @@ export interface InquiryTemplateData {
   travelDate?: string
   petWeightKg?: number
   specialRequests?: string
+  // Lead-source tracking — used by adminNotification() only. Never surfaced
+  // to the customer.
+  sourceChannel?: string
+  sourceDetailAuto?: string
+  sourceSelfReported?: string
+  sourceSelfDetail?: string
+  sourceLandingPath?: string
 }
 
 function escapeHtml(value: string): string {
@@ -97,6 +105,42 @@ function shell(bodyHtml: string, title: string): string {
 </html>`
 }
 
+const CHANNEL_LABELS: Record<string, string> = {
+  ai_assistant: 'AI assistant',
+  search: 'Search engine',
+  social: 'Social media',
+  referral: 'Referral',
+  direct: 'Direct',
+}
+
+// Admin-only lead-source line, e.g.:
+// "Source: AI assistant (chatgpt) · said: AI assistant, 'asked ChatGPT about
+// moving my dog to Canada' · landed on /routes/vietnam-to-canada"
+// Returns undefined (render nothing) when there's no attribution signal at all.
+function sourceLine(d: InquiryTemplateData): string | undefined {
+  const parts: string[] = []
+
+  if (d.sourceChannel) {
+    const label = CHANNEL_LABELS[d.sourceChannel] ?? d.sourceChannel
+    parts.push(d.sourceDetailAuto ? `${escapeHtml(label)} (${escapeHtml(d.sourceDetailAuto)})` : escapeHtml(label))
+  }
+
+  if (d.sourceSelfReported) {
+    const selfLabel = SOURCE_SELF_REPORTED_LABELS[d.sourceSelfReported as SourceSelfReported] ?? d.sourceSelfReported
+    const said = d.sourceSelfDetail
+      ? `said: ${escapeHtml(selfLabel)}, '${escapeHtml(d.sourceSelfDetail)}'`
+      : `said: ${escapeHtml(selfLabel)}`
+    parts.push(said)
+  }
+
+  if (d.sourceLandingPath) {
+    parts.push(`landed on ${escapeHtml(d.sourceLandingPath)}`)
+  }
+
+  if (parts.length === 0) return undefined
+  return `Source: ${parts.join(' &middot; ')}`
+}
+
 function detailCard(innerHtml: string): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin: 16px 0; background:#ffffff; border-radius:8px;">
       <tr>
@@ -126,10 +170,12 @@ export function customerConfirmation(d: InquiryTemplateData): { subject: string;
 
 export function adminNotification(d: InquiryTemplateData): { subject: string; html: string } {
   const subject = `New Inquiry ${d.inquiryNumber} - ${d.fromCity} to ${d.toCity}`
+  const source = sourceLine(d)
 
   const body = `
     <h2 style="color: #1B3A5F; margin-top: 0;">New Pet Airlines Inquiry</h2>
     ${detailCard(detailRows(d, { includeContact: true }))}
+    ${source ? `<p style="font-size: 13px; color: #5b6b7c;">${source}</p>` : ''}
     <p>Reply to customer: <a href="mailto:${escapeHtml(d.email)}">${escapeHtml(d.email)}</a></p>
   `
 
